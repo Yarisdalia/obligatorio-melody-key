@@ -2,7 +2,7 @@
 
 
 // Función para verificar siExiste una propiedad de un array____________________________________________
-function existePropiedad(array, propiedad, valor)
+function existeProp(array, propiedad, valor)
 {
     for (let i = 0; i < array.length; i++)
     {
@@ -15,7 +15,7 @@ function existePropiedad(array, propiedad, valor)
 }
 
 // Función para verificar contraseña valida__________________________________________________________
-function validarContrasena(contrasena)
+function validaPass(contrasena)
 {
     if (contrasena.length < 6)
     {
@@ -62,16 +62,16 @@ function validarContrasena(contrasena)
         return false;
     }
     
-} //Fin validarContrasena
+} //Fin validaPass
 
 // ------------------- VALIDACIONES RESERVAR --------------------
 
-function cantidadValida(cantidad)
+function validaCantidad(cantidad)
 {
     return cantidad > 0;
 }
 
-function validarCuposSuficientes(cantidad, cupos)
+function validaCupos(cantidad, cupos)
 {
     if (cupos <= 0)
     {
@@ -80,7 +80,7 @@ function validarCuposSuficientes(cantidad, cupos)
     return cantidad <= cupos;
 }
 
-function puedeReservarCliente(clienteId, conciertoId, reservas)
+function puedeReservarEnLista(clienteId, conciertoId, reservas)
 {
     if (!reservas)
     {
@@ -105,7 +105,7 @@ function puedeReservarCliente(clienteId, conciertoId, reservas)
 
 // ------------------- VALIDACIONES  HISTORIAL -------------------------------------
 
-function filtrarReservasDeCliente(reservas, clienteId)
+function filtrarReservasCliente(reservas, clienteId)
 {
     let resultado = [];
     if (!reservas)
@@ -161,7 +161,7 @@ function totalAprobadas(reservasCliente)
 
 // ------------------- VALIDACIONES CONCIERTOS EN OFERTA ---------------------------
 
-function esConciertoActivo(concierto)
+function esActivo(concierto)
 {
     if (!concierto)
     {
@@ -170,13 +170,13 @@ function esConciertoActivo(concierto)
     return concierto.estado === "activo";
 }
 
-function esOfertaValida(concierto)
+function esOfertaActiva(concierto)
 {
     if (!concierto)
     {
         return false;
     }
-    if (!esConciertoActivo(concierto))
+    if (!esActivo(concierto))
     {
         return false;
     }
@@ -191,7 +191,7 @@ function esOfertaValida(concierto)
     return true;
 }
 
-function obtenerConciertosEnOferta(listaConciertos)
+function obtenerOfertas(listaConciertos)
 {
     let resultado = [];
     if (!listaConciertos)
@@ -203,7 +203,7 @@ function obtenerConciertosEnOferta(listaConciertos)
         let conciertoActual = listaConciertos[i];
         if (conciertoActual)
         {
-            if (esOfertaValida(conciertoActual))
+            if (esOfertaActiva(conciertoActual))
             {
                 resultado.push(conciertoActual);
             }
@@ -212,15 +212,15 @@ function obtenerConciertosEnOferta(listaConciertos)
     return resultado;
 }
 
-//verConciertosEnOferta
-function verConciertosEnOferta(listaConciertos)
+//verOfertasLista
+function verOfertasLista(listaConciertos)
 {
-    return obtenerConciertosEnOferta(listaConciertos);
+    return obtenerOfertas(listaConciertos);
 }
 
-function verHistorialReservas(reservas, clienteId)
+function verHistorialLista(reservas, clienteId)
 {
-    return filtrarReservasDeCliente(reservas, clienteId);
+    return filtrarReservasCliente(reservas, clienteId);
 }
 
 

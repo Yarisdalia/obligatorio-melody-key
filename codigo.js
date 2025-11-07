@@ -24,9 +24,9 @@ function reservar() {
     etiquetaMontoTotal.innerHTML = monto;
 
     if (mensajeReserva) {
-      if (!cantidadValida(cantidadElegida)) {
+      if (!validaCantidad(cantidadElegida)) {
         mensajeReserva.innerHTML = "Cantidad inválida";
-      } else if (!validarCuposSuficientes(cantidadElegida, cuposDisponibles)) {
+      } else if (!validaCupos(cantidadElegida, cuposDisponibles)) {
         mensajeReserva.innerHTML = "No hay cupos suficientes";
       } else {
         mensajeReserva.innerHTML = "";
@@ -38,9 +38,9 @@ function reservar() {
     actualizar();
   });
 
-  botonSolicitarReserva.addEventListener("click", clickSolicitar);
+  botonSolicitarReserva.addEventListener("click", solicitaReserva);
 
-  function clickSolicitar() {
+  function solicitaReserva() {
     actualizar();
   }
 

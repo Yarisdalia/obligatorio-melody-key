@@ -33,13 +33,13 @@ class Sistema {
             return mensaje;
         }
 
-        else if (existePropiedad(clientes, "usuario", usuario)) //Funcion en librería
+        else if (existeProp(clientes, "usuario", usuario)) //Funcion en librería
         {
             mensaje = "El nombre de usuario ya existe.";
             return mensaje;
         }
 
-        else if (!validarContrasena(contrasena)) //Funcion en librería
+        else if (!validaPass(contrasena)) //Funcion en librería
         {
             mensaje = "Debe ingresar una contraseña válida."
             return mensaje;
@@ -77,10 +77,10 @@ class Sistema {
         }
 
         // Determinar tipo de usuario (admin / cliente)
-        esAdmin = existePropiedad(administradores, "usuario", usuario);
+        esAdmin = existeProp(administradores, "usuario", usuario);
 
         if (!esAdmin) {
-            esCliente = existePropiedad(clientes, "usuario", usuario);
+            esCliente = existeProp(clientes, "usuario", usuario);
         }
 
         if (!esAdmin && !esCliente) {

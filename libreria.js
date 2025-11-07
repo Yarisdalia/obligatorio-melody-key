@@ -1,51 +1,51 @@
 // ------------------- FUNCIONES DE PERSISTENCIA --------------------------------------
 
-function guardarDatos()
+function guardar()
 {
     // guarda arrays en localStorage: clientes, conciertos, reservas
 }
 
-function cargarDatos()
+function cargar()
 {
     // carga arrays del localStorage o crea arrays vacíos si no existen
 }
 
 // ------------------- FUNCIONES GENERALES --------------------------------------
 
-function numeroPositivo(numero)
+function esPositivo(numero)
 {
     if (numero > 0) return true;
     else return false;
 }
 
-function generarIDConcierto()
+function genIdConcierto()
 {
     // devuelve "CON_ID_x" con x autoincremental (usa una variable global o localStorage)
 }
 
-function generarIDCliente()
+function genIdCliente()
 {
     // devuelve id numérico autoincremental
 }
 
-function buscarConciertoPorID(id)
+function buscarConcierto(id)
 {
     // busca en array conciertos y devuelve el objeto o null
 }
 
-function buscarClientePorUsername(username)
+function buscarCliente(username)
 {
     // busca (comparando lowercase) y devuelve el cliente o null
 }
 
-function formatoMoneda(numero)
+function aMoneda(numero)
 {
     // devuelve cadena: por ejemplo "1000" o con separadores, según queráis
 }
 
 // ------------------- FUNCIONES CLIENTES --------------------------------------
 
-function registrarCliente(nombre, apellido, username, password)
+function registrar(nombre, apellido, username, password)
 {
     // valida: username único (case insensitive),
     // password mínimo 5 caracteres y contiene mayúscula, minúscula y número
@@ -53,25 +53,25 @@ function registrarCliente(nombre, apellido, username, password)
     // devuelve el cliente creado o null/error
 }
 
-function iniciarSesionCliente(username, password)
+function loginCliente(username, password)
 {
     // busca usuario (case insensitive para username),
     // compara password (case sensitive),
     // devuelve cliente si OK o null si error
 }
 
-function explorarConciertosDisponibles()
+function explorar()
 {
     // devuelve array de conciertos con estado "activo" y cupos > 0
     // cada item incluye: nombre, artista, descripcion, precio, oferta, imagen
 }
 
-function verConciertosEnOferta()
+function ofertas()
 {
     // devuelve mismos conciertos pero filtrados por oferta === true y estado activo/cupos
 }
 
-function puedeReservarCliente(clienteId, conciertoId)
+function puedeReservar(clienteId, conciertoId)
 {
     // comprueba si cliente ya reservó ese concierto (cualquier estado)
     // devuelve true si puede reservar (es decir, no tiene reserva previa)
@@ -85,14 +85,14 @@ function crearReserva(clienteId, conciertoId, cantidad)
     // retorna la reserva creada (o mensaje de error si cliente ya reservó)
 }
 
-function verHistorialReservas(clienteId)
+function historial(clienteId)
 {
     // devuelve array de reservas del cliente con los campos solicitados:
     // nombre del concierto, cantidad, monto, estado
     // además calcula saldoDisponible (cliente.saldo) y totalAprobadas
 }
 
-function cancelarReserva(reservaId, clienteId)
+function cancelar(reservaId, clienteId)
 {
     // sólo permite cancelar si reserva.estado === "pendiente" y clienteId coincide
     // cambia estado a "cancelada"
@@ -100,17 +100,17 @@ function cancelarReserva(reservaId, clienteId)
 
 // ------------------- FUNCIONES ADMINISTRADORES --------------------------------------
 
-function iniciarSesionAdmin(username, password)
+function loginAdmin(username, password)
 {
     // similares a cliente, admins están precargados
 }
 
-function listarReservasPorEstado(estado)
+function listarReservas(estado)
 {
     // devuelve array de reservas cuyo estado coincida (pendiente, aprobada, cancelada)
 }
 
-function procesarReserva(reservaId)
+function procesar(reservaId)
 {
     // lógicas:
     // 1) obtener reserva, cliente, concierto
@@ -125,7 +125,7 @@ function procesarReserva(reservaId)
     // 4) actualizar listas (devuelve true/false o el nuevo estado)
 }
 
-function agregarConcierto(nombre, artista, precio, descripcion, imagen, cupos, oferta)
+function agregar(nombre, artista, precio, descripcion, imagen, cupos, oferta)
 {
     // valida campos (todos obligatorios, precio>0, cupos>0)
     // genera id con generarIDConcierto()
@@ -133,23 +133,23 @@ function agregarConcierto(nombre, artista, precio, descripcion, imagen, cupos, o
     // agrega a array conciertos
 }
 
-function modificarCupos(conciertoId, nuevosCupos)
+function setCupos(conciertoId, nuevosCupos)
 {
     // actualiza cupos. Si nuevosCupos === 0 -> estado = "pausado"
 }
 
-function activarPausarConcierto(conciertoId, accion)
+function setEstadoConcierto(conciertoId, accion)
 {
     // accion = "activar" o "pausar"
     // activar solo si cupos > 0
 }
 
-function marcarOferta(conciertoId, valorBooleano)
+function setOferta(conciertoId, valorBooleano)
 {
     // asigna concierto.oferta = valorBooleano
 }
 
-function informeGanancias()
+function ganancias()
 {
     // calcular totalRecaudado (sum de reservas.aprobadas con sus montos ya con descuento)
     // y tabla por concierto: entradasVendidas y montoGenerado
