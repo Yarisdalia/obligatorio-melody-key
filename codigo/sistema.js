@@ -166,7 +166,7 @@ explorarConciertosDisponibles()
     return conciertosDisponibles;
 }
 
-} //Fin Class Sistema <------------- TODO DENTRO DE SISTEM
+
 
 //___________________________ F04 RESERVAR ENTRADAS (YARIS) __________________________________________________
 
@@ -256,6 +256,7 @@ agregarConcierto(nombre, artista, precio, descripcion, imagen, cupos, estado, of
 
 //______________________________ F010 – INFORME DE GANANCIAS (SERGIO) ________________________________
 
+} //Fin Class Sistema <------------- TODO DENTRO DE SISTEM
 
 Sistema.prototype.precargaDatos = function()
 {
