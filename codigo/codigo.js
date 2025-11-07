@@ -1,7 +1,8 @@
 let miSistema = new Sistema();
 
 
-document.querySelector("#btnPrueba").addEventListener("click", pruebaSistema)
+let btnPrueba = document.querySelector("#btnPrueba");
+if (btnPrueba) { btnPrueba.addEventListener("click", pruebaSistema); }
 
     function pruebaSistema ()
     {
@@ -20,7 +21,8 @@ document.querySelector("#btnPrueba").addEventListener("click", pruebaSistema)
 
 
 
-document.querySelector("#btnListarDisponibles").addEventListener("click", conciertosDisponibles)
+let btnListarDisponibles = document.querySelector("#btnListarDisponibles");
+if (btnListarDisponibles) { btnListarDisponibles.addEventListener("click", conciertosDisponibles); }
 
     function conciertosDisponibles()
     {

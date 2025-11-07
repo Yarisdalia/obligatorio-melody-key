@@ -169,7 +169,7 @@ obtenerReservasPendientes()
 */
 
 
-precargaDatos()
+Sistema.prototype.precargaDatos = function()
 {
     // Conciertos: id, nombre, artista, precio, descripcion, imagen, cupos, oferta, estado
     this.conciertos.push(
@@ -184,4 +184,4 @@ precargaDatos()
         new Concierto(this.idConcierto++, "Festival Electrónico SITIO", "DJs internacionales", 2000, "Carpa SITIO en Velódromo electrónica y club", "electrositio.jpg", 10000, false, "activo"),
         new Concierto(this.idConcierto++, "Evento Especial Montevideo", "Artista Popular", 4000, "Concierto especial con cupos agotados", "evento_especial.jpg", 0, false, "pausado"));
 
-}
+};
