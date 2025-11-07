@@ -1,5 +1,4 @@
 
-
 class Sistema {
     constructor() {
         this.clientes = [];
@@ -10,50 +9,53 @@ class Sistema {
         // Contadores autoincrementales
         // --------- OJO! SI HAY "PRECARGADOS", LOS ID SE INICIALIZAN EN EL NUM. CORRESPONDIENTE ------------------
         this.idCliente = 1;
-        this.idAdministrador = 2;
-        this.idConcierto = 11;
+        this.idAdministrador = 1;
+        this.idConcierto = 1;
         this.idReserva = 1;
 
         // Propiedad para validar el usuario logueado.
-        this.usuarioActivo = null;
+        this.usuarioLogueado = null;
     }
 
 
 
-    //_____________________________ F01 - Registro de cliente (Agregar cliente al sistema)___________________________________
+ //_____________________________ F01 - REGISTRO DE CLIENTE (HECHO)___________________________________
 
-    agregarUsuario(nombre, apellido, usuario, contrasena, confirmarContrasena) {
+    agregarUsuario(nombre, apellido, usuario, contrasena, confirmarContrasena)
+    {
         let mensaje = "";
         //Definimos variables locales para no tener que usar "this." todo el tiempo
         let clientes = this.clientes;
 
         // Validamos que todos los campos son cumplimentados.
-        if (!nombre || !apellido || !usuario || !contrasena || !confirmarContrasena) {
+        if (!nombre || !apellido || !usuario || !contrasena || !confirmarContrasena)
+        {
             mensaje = "Todos los campos son obligatorios.";
             return mensaje;
         }
 
-        else if (existeProp(clientes, "usuario", usuario)) //Funcion en librería
+        else if (existePropiedad(clientes, "usuario", usuario)) //Funcion en librería
         {
             mensaje = "El nombre de usuario ya existe.";
             return mensaje;
         }
 
-        else if (!validaPass(contrasena)) //Funcion en librería
+        else if (!validarContrasena(contrasena)) //Funcion en librería
         {
             mensaje = "Debe ingresar una contraseña válida."
             return mensaje;
         }
 
-        else if (contrasena !== confirmarContrasena) {
+        else if (contrasena !== confirmarContrasena)
+        {
             mensaje = "Las contraseñas no coinciden.";
             return mensaje;
         }
 
-        else {
-            let nuevoCliente = new Cliente(this.idCliente, nombre, apellido, usuario, contrasena, 10000);
+        else
+        {
+            let nuevoCliente = new Cliente(obtenerIdCliente(), nombre, apellido, usuario, contrasena, 10000);
             clientes.push(nuevoCliente);
-            this.idCliente++;
             mensaje = "Registro exitoso.";
         }
 
@@ -62,111 +64,197 @@ class Sistema {
 
 
 
-    //_____________________________ F02 - Inicio de sesión (Admin/Cliente)__________________________________________________________
 
-    iniciarSesion(usuario, contrasena) {
-        let mensaje = "";
-        let clientes = this.clientes;
-        let administradores = this.administradores;
-        let esAdmin = false;
-        let esCliente = false;
+    //_____________________________ F02 - INICIO DE SESION (HECHO) __________________________________________________________
+// Misma página para clientes y adm. el nombre de usuario identifica el perfil de usuario.
+// O hacer un select???
 
-        // Validar campos vacios
-        if (!usuario || !contrasena) {
-            return mensaje = "Los campos no pueden estar vacíos";
-        }
+  iniciarSesion(usuario, contrasena)
+{
+    let mensaje = "";
+    let clientes = this.clientes;
+    let administradores = this.administradores;
+    let esAdmin = false;
+    let esCliente = false;
 
-        // Determinar tipo de usuario (admin / cliente)
-        esAdmin = existeProp(administradores, "usuario", usuario);
+    // Validar campos vacios
+    if (!usuario || !contrasena)
+    {
+        return mensaje = "Los campos no pueden estar vacíos";
+    }
 
-        if (!esAdmin) {
-            esCliente = existeProp(clientes, "usuario", usuario);
-        }
+    // Determinar tipo de usuario (admin / cliente)
+    esAdmin = existePropiedad(administradores, "usuario", usuario);
 
-        if (!esAdmin && !esCliente) {
-            return mensaje = "Usuario no encontrado";
-        }
+    if (!esAdmin)
+    {
+        esCliente = existePropiedad(clientes, "usuario", usuario);
+    }
 
-        // Validar contraseña
-        if (esAdmin) {
-            for (let i = 0; i < administradores.length; i++) {
-                if (administradores[i].usuario.toLowerCase() === usuario.toLowerCase()) {
-                    if (administradores[i].contrasena === contrasena) {
-                        this.usuarioActivo = administradores[i]; //Asignamos usuario activo "logueado"
-                        return mensaje = "Bienvenido";
-                    }
-                    else {
-                        return mensaje = "Contraseña incorrecta";
-                    }
+    if (!esAdmin && !esCliente)
+    {
+        return mensaje = "Usuario no encontrado";
+    }
+
+    // Validar contraseña
+    if (esAdmin)
+    {
+        for (let i = 0; i < administradores.length; i++)
+        {
+            if (administradores[i].usuario.toLowerCase() === usuario.toLowerCase())
+            {
+                if (administradores[i].contrasena === contrasena)
+                {
+                    this.usuarioLogueado = administradores[i]; //Asignamos el objeto administrador a usuarioLogueado
+                    return mensaje = "Bienvenido" + this.usuarioLogueado.nombre;
                 }
-            }
-        }
-        else {
-            for (let i = 0; i < clientes.length; i++) {
-                if (clientes[i].usuario.toLowerCase() === usuario.toLowerCase()) {
-                    if (clientes[i].contrasena === contrasena) {
-                        this.usuarioActivo = clientes[i]; //Asignamos usuario activo "logueado"
-                        return mensaje = "Bienvenido";
-                    }
-                    else {
-                        return mensaje = "Contraseña incorrecta";
-                    }
+                else
+                {
+                    return mensaje = "Contraseña incorrecta";
                 }
             }
         }
     }
-
-    //____________________________________________________________________________________________________________________________________
-
-    explorarConciertosDisponibles() {
-        let conciertos = this.conciertos;
-        let disponibles = []; // Aray de conciertos disponibles
-
-        for (let i = 0; i < conciertos.length; i++) {
-            if (conciertos[i].estado === "activo" && conciertos[i].cupos > 0) {
-                disponibles.push(conciertos[i]);
+    else
+    {
+        for (let i = 0; i < clientes.length; i++)
+        {
+            if (clientes[i].usuario.toLowerCase() === usuario.toLowerCase())
+            {
+                if (clientes[i].contrasena === contrasena)
+                {
+                    this.usuarioLogueado = clientes[i]; //Asignamos el objeto cliente a usuarioLogueado
+                    return mensaje = "Bienvenido" + this.usuarioLogueado.nombre;
+                }
+                else
+                {
+                    return mensaje = "Contraseña incorrecta";
+                }
             }
         }
-
-
-        return disponibles;
     }
+}
+
+//_____________________________ F0? - CIERRE DE SESION (HECHO) ______________________________________________
+//Debera constar de un boton en el nav? nav fijo
+
+cerrarSesion()
+{
+    this.usuarioLogueado = null; //usuarioLogueado guarda un objeto, lo vaciamos.
+    return mensaje = "Sesión cerrada";
+}
+
+
+
+//_________________________ F03 EXPLORAR CONCIERTOS DISPONIBLES (SERGIO) ____________________________________________________________________________
+// Solo muestra conciertos activos con cupos disponibles
+
+explorarConciertosDisponibles() 
+{
+    let conciertos = this.conciertos; 
+    let conciertosDisponibles = []; // Array de conciertos disponibles
+
+    for (let i = 0; i < conciertos.length; i++) 
+    {
+        if (conciertos[i].estado === "activo" && conciertos[i].cupos > 0) 
+        {
+            conciertosDisponibles.push(conciertos[i]);
+        }
+    }
+
+    
+    return conciertosDisponibles;
+}
 
 } //Fin Class Sistema <------------- TODO DENTRO DE SISTEM
 
-//____________________________________________________________________________________________________________________________________
+//___________________________ F04 RESERVAR ENTRADAS (YARIS) __________________________________________________
 
-/* 
-agregarConcierto(concierto)
+
+
+/* function reservarEntradas()
 {
-    this.conciertos.push(concierto);
-}
+    // Validar el usuario logueado!
+
+    if (miSistema.usuarioActivo === null) {
+        alert("Debes iniciar sesión para ver tus reservas.");
+        return;
+    }
+
+    
+} 
 
 agregarReserva(reserva)
 {
     this.reservas.push(reserva);
 }
-
-// Funciones para obtener arrays completas o filtraadas
-obtenerClientes()
-{
-
-}
-
-obtenerConciertosActivos()
-{
-
-}
-
-obtenerReservasPendientes()
-{
-
-}
-
-
-
-
 */
+
+
+
+//______________________________ F05 – HISTORIAL DE RESERVAS (YARIS) ______________________________________________
+
+// Validar el usuariologueado, usuarioLogueado guarda el objeto del cliente (id, nombre, contraseña... )
+// Se utiliza usuarioLogueado para traer la info de sus reservas. 
+
+/* function mostrarReservasCliente()
+{
+    if (miSistema.usuarioLogueado === null)
+    {
+        return Mensaje: "Debes iniciar sesión para ver tus reservas";
+        
+    }
+    else
+    {
+       // código para mostrar las reservas del usuario activo 
+    }
+
+} */
+
+
+
+//______________________________ F06 – CONCIERTOS EN OFERTA (YARIS) ________________________________
+
+
+
+
+
+
+
+
+//______________________________ F07 – LISTAR Y PROCESAR RESERVAS (SERGIO) ________________________________
+
+
+
+
+
+
+//______________________________ F08 – AGREGAR CONCIERTOS (SERGIO) ________________________________
+
+
+agregarConcierto(nombre, artista, precio, descripcion, imagen, cupos, estado, oferta)
+{
+    // Generamos un id único usando la función de librería
+    let idConcierto = obtenerIdConcierto();
+
+    // Convertimos el booleano oferta a texto
+    oferta = obtenerTextoOferta(oferta);
+
+    // Creamos el objeto concierto
+    let nuevoConcierto = new Concierto(idConcierto, nombre, artista, precio, descripcion, imagen, cupos, estado, oferta);
+
+    // Agregamos al array "madre"
+    this.conciertos.push(nuevoConcierto);
+}
+
+
+//______________________________ F09 – ADMINISTRAR CONCIERTOS (YARIS) ________________________________
+
+
+
+
+
+//______________________________ F010 – INFORME DE GANANCIAS (SERGIO) ________________________________
 
 
 Sistema.prototype.precargaDatos = function()
