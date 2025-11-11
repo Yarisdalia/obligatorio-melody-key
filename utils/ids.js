@@ -8,25 +8,25 @@ let proximoIdAdministrador = 1;
 let proximoIdReserva = 1;
 
 function obtenerIdConcierto() {
-    let idActual = "CON_ID_" + proximoIdConcierto;
-    proximoIdConcierto++;
-    return idActual;
+  const idActual = "CON_ID_" + proximoIdConcierto;
+  proximoIdConcierto++;
+  return idActual;
 }
 
 function obtenerIdCliente() {
-    let idCliente = "CLI_ID_" + proximoIdCliente;
-    proximoIdCliente++;
-    return idCliente;
+  const idCliente = "CLI_ID_" + proximoIdCliente;
+  proximoIdCliente++;
+  return idCliente;
 }
 
 function obtenerIdAdministrador() {
-    let idActual = "ADM_ID_" + proximoIdAdministrador;
-    proximoIdAdministrador++;
-    return idActual;
+  const idActual = "ADM_ID_" + proximoIdAdministrador;
+  proximoIdAdministrador++;
+  return idActual;
 }
 
 function obtenerIdReserva() {
-    let idActual = "RES_ID_" + proximoIdReserva;
-    proximoIdReserva++;
-    return idActual;
+  const idActual = "RES_ID_" + proximoIdReserva;
+  proximoIdReserva++;
+  return idActual;
 }

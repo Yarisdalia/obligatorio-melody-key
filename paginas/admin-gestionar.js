@@ -1,19 +1,18 @@
 // Página: Admin - Administrar Conciertos
-(function () {
-    window.pages = window.pages || {};
+window.pages = window.pages || {};
 
-    function renderAdminConciertos() {
-        const system = window.app.system;
-        const tbody = document.getElementById("tblAdminConciertos");
-        if (!tbody) return;
-        tbody.innerHTML = "";
-        for (let i = 0; i < system.conciertos.length; i++) {
-            const c = system.conciertos[i];
-            const isActivo = c.estado === "activo";
-            const rowId = `row_${c.id}`;
-            const tr = document.createElement("tr");
-            tr.id = rowId;
-            tr.innerHTML = `
+function renderAdminConciertos() {
+  const system = window.app.system;
+  const tbody = document.getElementById("tblAdminConciertos");
+  if (!tbody) return;
+  tbody.innerHTML = "";
+  for (let i = 0; i < system.conciertos.length; i++) {
+    const c = system.conciertos[i];
+    const isActivo = c.estado === "activo";
+    const rowId = `row_${c.id}`;
+    const tr = document.createElement("tr");
+    tr.id = rowId;
+    tr.innerHTML = `
                 <td>${c.id}</td>
                 <td>${c.nombre}</td>
                 <td>${c.artista}</td>
@@ -29,28 +28,29 @@
                 </td>
                 <td style="width:160px;"><button class="btn btn-sm btn-mk" data-guardar="${c.id}">Guardar</button></td>
             `;
-            tbody.appendChild(tr);
-        }
-        tbody.onclick = function (ev) {
-            const btn = ev.target.closest("button[data-guardar]");
-            if (!btn) return;
-            const id = btn.getAttribute("data-guardar");
-            const row = document.getElementById("row_" + id);
-            if (!row) return;
-            const cuposInput = row.querySelector('input[data-field="cupos"]');
-            const estadoInput = row.querySelector('input[data-field="estado"]');
-            const ofertaInput = row.querySelector('input[data-field="oferta"]');
-            const nuevosCupos = parseInt((cuposInput?.value || "0"), 10);
-            const nuevoEstado = estadoInput?.checked ? "activo" : "pausado";
-            const oferta = !!ofertaInput?.checked;
-            window.app.system.actualizarConcierto(id, { cupos: nuevosCupos, estado: nuevoEstado, oferta: oferta });
-            renderAdminConciertos();
-            if (window.pages.renderExplorar) window.pages.renderExplorar();
-            if (window.pages.renderOfertas) window.pages.renderOfertas();
-        };
-    }
+    tbody.appendChild(tr);
+  }
+  tbody.onclick = function (ev) {
+    const btn = ev.target.closest("button[data-guardar]");
+    if (!btn) return;
+    const id = btn.getAttribute("data-guardar");
+    const row = document.getElementById("row_" + id);
+    if (!row) return;
+    const cuposInput = row.querySelector('input[data-field="cupos"]');
+    const estadoInput = row.querySelector('input[data-field="estado"]');
+    const ofertaInput = row.querySelector('input[data-field="oferta"]');
+    const nuevosCupos = parseInt(cuposInput?.value || "0", 10);
+    const nuevoEstado = estadoInput?.checked ? "activo" : "pausado";
+    const oferta = !!ofertaInput?.checked;
+    window.app.system.actualizarConcierto(id, {
+      cupos: nuevosCupos,
+      estado: nuevoEstado,
+      oferta: oferta,
+    });
+    renderAdminConciertos();
+    if (window.pages.renderExplorar) window.pages.renderExplorar();
+    if (window.pages.renderOfertas) window.pages.renderOfertas();
+  };
+}
 
-    window.pages.renderAdminConciertos = renderAdminConciertos;
-})();
-
-
+window.pages.renderAdminConciertos = renderAdminConciertos;
