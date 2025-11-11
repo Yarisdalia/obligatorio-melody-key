@@ -2,34 +2,29 @@ let miSistema = new Sistema();
 miSistema.precargaDatos();
 
 
-let btnPrueba = document.querySelector("#btnPrueba");
-if (btnPrueba) { btnPrueba.addEventListener("click", prueba); }
+// ________________________ F03 : EXPLORAR CONCIERTOS DISPONIBLES _________________________________________________
+document.querySelector("#btnListarDisponibles").addEventListener("click", listarConciertosDisponibles)
 
-    function prueba ()
+    function listarConciertosDisponibles()
     {
-    console.log("Probando el sistema...");
 
-    // Prueba manual: crear cliente directamente
-    let clientePrueba = new Cliente(1, "Sergio", "Argente", "sergio", "1234", 10000);
-    console.log("Cliente creado directamente:", clientePrueba);
+        let disponibles = miSistema.explorarConciertosDisponibles();
+        let tablaConciertosDisponibles = "";
 
-    // Otra prueba del método del sistema
-    let mensaje = miSistema.agregarUsuario("Juan", "Pérez", "juanp", "abcd", "abcd");
-    console.log("Resultado del método agregarCliente:", mensaje);
+        // Recorrer nombre, artista, descripcion, precio, oferta, imagen
+    for (let i = 0; i < disponibles.length; i++)
+    {
+        let concierto = disponibles[i];
 
-    console.log("Clientes actuales:", miSistema.clientes);
+        tablaConciertosDisponibles += `<tr><td>${concierto.nombre}</td><td>${concierto.artista}</td><td>${concierto.descripcion}</td><td>${concierto.precio}</td><td>${concierto.oferta}</td><td>${concierto.imagen}</td><button type="button" class="btn btn-sm btn-primary btnSolicitarReserva" data-id="${concierto.id}">Seleccionar Concierto</button></td></tr>`;
+    }
+
+    document.querySelector("#tblConciertosDisponibles").innerHTML = tablaConciertosDisponibles;
+
     }
 
 
 
-let btnListarDisponibles = document.querySelector("#btnListarDisponibles");
-if (btnListarDisponibles) { btnListarDisponibles.addEventListener("click", listarDisponibles); }
-
-    function listarDisponibles()
-    {
-        let listaDisponibles = miSistema.explorarConciertosDisponibles();
-        console.log(listaDisponibles);
-    }
 
 // Estructura tipo ejemplo (select + registrar + tabla)
 
@@ -101,4 +96,5 @@ function mostrarTabla()
     }
     cuerpo.innerHTML = contenido;
 }
+
     
