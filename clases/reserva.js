@@ -13,4 +13,14 @@ class Reserva
     {
         return this.cantidad * this.concierto.precio;
     }
+
+    montoConDescuento()
+    {
+        let total = this.montoTotal();
+        if (this.cantidad >= 4)
+        {
+            total = Math.floor(total * 0.9);
+        }
+        return total;
+    }
 }

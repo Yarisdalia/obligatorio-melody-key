@@ -9,4 +9,18 @@ class Cliente
         this.contrasena = contrasena;
         this.saldo = saldo;
     }
+
+    tieneSaldo(monto)
+    {
+        return this.saldo >= monto;
+    }
+
+    descontarSaldo(monto)
+    {
+        this.saldo = this.saldo - monto;
+        if (this.saldo < 0)
+        {
+            this.saldo = 0;
+        }
+    }
 }
