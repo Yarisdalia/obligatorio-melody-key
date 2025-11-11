@@ -239,6 +239,58 @@ class Sistema {
 
     //______________________________ F07 – LISTAR Y PROCESAR RESERVAS (SERGIO) ________________________________
 
+    // Listar reservas:
+
+listarReservasPendientes()
+{
+    let pendientes = [];
+
+    for (let i = 0; i < this.reservas.length; i++)
+    {
+        let reserva = this.reservas[i];
+        if (reserva.estado === "pendiente")
+        {
+            pendientes.push(reserva);
+        }
+    }
+
+    return pendientes;
+}
+
+listarReservasAprobadas()
+{
+    let aprobadas = [];
+
+    for (let i = 0; i < this.reservas.length; i++)
+    {
+        let reserva = this.reservas[i];
+        if (reserva.estado === "aprobada")
+        {
+            aprobadas.push(reserva);
+        }
+    }
+
+    return aprobadas;
+}
+
+
+listarReservasCanceladas()
+{
+    let canceladas = [];
+
+    for (let i = 0; i < this.reservas.length; i++)
+    {
+        let reserva = this.reservas[i];
+        if (reserva.estado === "cancelada")
+        {
+            canceladas.push(reserva);
+        }
+    }
+
+    return canceladas;
+}
+
+    // Y este codigo?? :
 
     procesarReserva(reservaId, accion) {
         for (let i = 0; i < this.reservas.length; i++) {
