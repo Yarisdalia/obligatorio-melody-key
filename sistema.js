@@ -290,6 +290,47 @@ listarReservasCanceladas()
     return canceladas;
 }
 
+//Procesar reservas pendientes:
+
+/*     procesarReservaPendiente(idReserva, aprobar)
+{
+    for (let i = 0; i < this.reservas.length; i++)
+    {
+        let reserva = this.reservas[i];
+
+        if (reserva.id === idReserva && reserva.estado === "pendiente")
+        {
+            let cliente = reserva.cliente;
+            let concierto = reserva.concierto;
+            let monto = reserva.montoConDescuento();  // ✅ ya aplica descuento si corresponde
+
+            // validaciones
+            if (aprobar && concierto.estado === "activo" && concierto.cupos >= reserva.cantidad && cliente.saldo >= monto)
+            {
+                reserva.estado = "aprobada";
+                reserva.montoFinal = monto;    // guardamos el monto definitivo
+                cliente.saldo -= monto;
+                concierto.cupos -= reserva.cantidad;
+
+                if (concierto.cupos === 0)
+                {
+                    concierto.estado = "pausado";
+                }
+            }
+            else
+            {
+                reserva.estado = "cancelada";
+            }
+
+            break;
+        }
+    }
+} */
+
+
+
+// --------------------------------------------------------------------------------------------
+    
     // Y este codigo?? :
 
     procesarReserva(reservaId, accion) {
