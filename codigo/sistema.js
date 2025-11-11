@@ -7,13 +7,12 @@ class Sistema {
         this.reservas = [];
 
         // Contadores autoincrementales
-        // --------- OJO! SI HAY "PRECARGADOS", LOS ID SE INICIALIZAN EN EL NUM. CORRESPONDIENTE ------------------
         this.idCliente = 1;
         this.idAdministrador = 1;
         this.idConcierto = 1;
         this.idReserva = 1;
 
-        // Propiedad para validar el usuario logueado.
+        // Activamos el usuario logueado.
         this.usuarioLogueado = null;
     }
 
@@ -140,7 +139,7 @@ class Sistema {
 
 cerrarSesion()
 {
-    this.usuarioLogueado = null; //usuarioLogueado guarda un objeto, lo vaciamos.
+    this.usuarioLogueado = null; //usuarioLogueado guarda un objeto (cliente), lo vaciamos.
     return mensaje = "Sesión cerrada";
 }
 
