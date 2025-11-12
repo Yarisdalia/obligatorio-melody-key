@@ -6,7 +6,7 @@ function precargarDatos(sistema) {
 
   // Conciertos: id, nombre, artista, precio, descripcion, imagen, cupos, estado, oferta
   sistema.conciertos.push(
-    new Concierto(obtenerIdConcierto(), "Morat Live", "Morat", 6500, "Gran show del pop latino en Antel Arena", "morat.jpg", 5000, "activo", true),
+    new Concierto(obtenerIdConcierto(), "Morat Live", "Morat", 500, "Gran show del pop latino en Antel Arena", "morat.jpg", 5000, "activo", true),
     new Concierto(obtenerIdConcierto(), "La Beriso Tour", "La Beriso", 4500, "Rock argentino clásico en Teatro de Verano", "laberiso.jpg", 3000, "activo", true),
     new Concierto(obtenerIdConcierto(), "Babasonicos Regreso", "Babasonicos", 7000, "Regreso de Babasonicos a Montevideo en Antel Arena", "babasonicos.jpg", 4000, "activo", false),
     new Concierto(obtenerIdConcierto(), "Silvio Rodríguez En Vivo", "Silvio Rodríguez", 5500, "Trova cubana contemporánea en Antel Arena", "silviorodriguez.jpg", 2000, "activo", true),
@@ -24,8 +24,8 @@ function precargarDatos(sistema) {
 
   // Clientes: id, nombre, apellido, usuario, contraseña, saldo
   sistema.clientes.push(
-    new Cliente(obtenerIdCliente(), "Ana", "Perez", "anaperez", "Ana12", 20000),
-    new Cliente(obtenerIdCliente(), "Bruno", "Lopez", "brunolo", "Bruno1", 9000),
+    new Cliente(obtenerIdCliente(), "Ana", "Perez", "anaperez", "Ana12", 10000),
+    new Cliente(obtenerIdCliente(), "Bruno", "Lopez", "brunolo", "Bruno1", 10000),
     new Cliente(obtenerIdCliente(), "Carla", "Suarez", "carsu", "Carla1", 15000),
     new Cliente(obtenerIdCliente(), "Diego", "Gomez", "diegog", "Diego1", 10000),
     new Cliente(obtenerIdCliente(), "Elena", "Ramos", "elir", "Elena1", 8000),
@@ -77,6 +77,9 @@ function precargarDatos(sistema) {
       var tieneSaldo = reserva.cliente.saldo >= total;
       var hayCupos = reserva.concierto.cupos >= reserva.cantidad;
 
+      console.log(reserva.cliente.saldo, total);
+      console.log(tieneSaldo, hayCupos);
+
       if (tieneSaldo && hayCupos) {
         // Descontar saldo y cupos
         reserva.cliente.saldo = reserva.cliente.saldo - total;
@@ -97,16 +100,16 @@ function precargarDatos(sistema) {
   // 5) Reservas de ejemplo
   // =========================
 
-  registrarReserva(new Reserva(obtenerIdReserva(), u1, c1, 2, "aprobada"));
-  registrarReserva(new Reserva(obtenerIdReserva(), u2, c2, 1, "pendiente"));
-  registrarReserva(new Reserva(obtenerIdReserva(), u3, c2, 3, "cancelada"));
-  registrarReserva(new Reserva(obtenerIdReserva(), u4, c3, 1, "aprobada"));
-  registrarReserva(new Reserva(obtenerIdReserva(), u5, c4, 4, "pendiente"));
-  registrarReserva(new Reserva(obtenerIdReserva(), u6, c5, 2, "aprobada"));
-  registrarReserva(new Reserva(obtenerIdReserva(), u7, c6, 1, "pendiente"));
-  registrarReserva(new Reserva(obtenerIdReserva(), u8, c7, 2, "cancelada"));
-  registrarReserva(new Reserva(obtenerIdReserva(), u9, c8, 1, "aprobada"));
-  registrarReserva(new Reserva(obtenerIdReserva(), u10, c9, 5, "pendiente"));
+  // registrarReserva(new Reserva(obtenerIdReserva(), u1, c1, 2, "aprobada"));
+  // registrarReserva(new Reserva(obtenerIdReserva(), u2, c2, 1, "pendiente"));
+  // registrarReserva(new Reserva(obtenerIdReserva(), u3, c2, 3, "cancelada"));
+  // registrarReserva(new Reserva(obtenerIdReserva(), u4, c3, 1, "aprobada"));
+  // registrarReserva(new Reserva(obtenerIdReserva(), u5, c4, 4, "pendiente"));
+  // registrarReserva(new Reserva(obtenerIdReserva(), u6, c5, 2, "aprobada"));
+  // registrarReserva(new Reserva(obtenerIdReserva(), u7, c6, 1, "pendiente"));
+  // registrarReserva(new Reserva(obtenerIdReserva(), u8, c7, 2, "cancelada"));
+  // registrarReserva(new Reserva(obtenerIdReserva(), u9, c8, 1, "aprobada"));
+  // registrarReserva(new Reserva(obtenerIdReserva(), u10, c9, 5, "pendiente"));
 
   // =========================
   // 6) Administradores
@@ -124,4 +127,8 @@ function precargarDatos(sistema) {
   // Mostrar en consola los datos precargarDatos
   console.log("Datos precargados:");
   console.log("System:", sistema);
+  // imprimir datos del admin1
+  console.log("Admin1:", sistema.administradores[0].usuario, sistema.administradores[0].contrasena);
+  // imporimir datos del cliente 1
+  console.log("Cliente1:", sistema.clientes[0].usuario, sistema.clientes[0].contrasena);
 }

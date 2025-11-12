@@ -11,15 +11,26 @@ function renderExplorar() {
     const concierto = conciertos[i];
 
     // Definir badges
-    const ofertaBadge = concierto.oferta ? '<span class="badge text-bg-success">Sí</span>' : '<span class="badge text-bg-secondary">No</span>';
-    const estadoBadge = concierto.estado === "activo" ? '<span class="badge text-bg-success">Activo</span>' : '<span class="badge text-bg-secondary">Pausado</span>';
+    let ofertaBadge = "";
+    if (concierto.oferta) {
+      ofertaBadge = '<span class="badge text-bg-success">Sí</span>';
+    } else {
+      ofertaBadge = '<span class="badge text-bg-secondary">No</span>';
+    }
+
+    let estadoBadge = "";
+    if (concierto.estado === "activo") {
+      estadoBadge = '<span class="badge text-bg-success">Activo</span>';
+    } else {
+      estadoBadge = '<span class="badge text-bg-secondary">Pausado</span>';
+    }
 
     contenidoTabla += `<tr>
       <td>${concierto.nombre}</td>
       <td>${concierto.artista}</td>
       <td>${concierto.descripcion}</td>
       <td>${concierto.precio}</td>
-      <td>${ofertaBadge}</td>
+      <td>${ofertaBadg}</td>
       <td><img src="Img/${concierto.imagen}" alt="${concierto.artista}" width="80" class="rounded"></td>
       <td>${concierto.cupos}</td>
       <td>${estadoBadge}</td>

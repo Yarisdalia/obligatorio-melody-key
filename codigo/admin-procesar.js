@@ -57,14 +57,12 @@ function renderProcesarReservas() {
 
 function aprobarReserva() {
   const id = this.getAttribute("data-aprobar");
-  const res = sistema.procesarReserva(id, "aprobar");
-  alert(res.mensaje);
+  sistema.procesarReserva(id, "aprobar");
   renderProcesarReservas();
 }
 
 function cancelarReservaAdmin() {
   const id = this.getAttribute("data-cancelar");
-  const res = sistema.procesarReserva(id, "cancelar");
-  alert(res.mensaje);
+  sistema.procesarReserva(id, "cancelar");
   renderProcesarReservas();
 }

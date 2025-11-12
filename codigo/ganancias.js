@@ -1,11 +1,11 @@
 // Página: Informe de Ganancias
 
 function renderGanancias() {
-  const totalEl = document.querySelector("#gananciaTotal");
-  const tbl = document.querySelector("#tblGanancias");
+  const gananciaTotal = document.querySelector("#gananciaTotal");
+  const tblGanancias = document.querySelector("#tblGanancias");
 
   const datos = sistema.calcularGanancias();
-  totalEl.textContent = "$ " + datos.total;
+  gananciaTotal.textContent = "$ " + datos.total;
 
   let contenidoTabla = "";
   const keys = Object.keys(datos.detalle);
@@ -20,5 +20,5 @@ function renderGanancias() {
     </tr>`;
   }
 
-  tbl.innerHTML = contenidoTabla;
+  tblGanancias.innerHTML = contenidoTabla;
 }

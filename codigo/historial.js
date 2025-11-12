@@ -47,6 +47,7 @@ function renderHistorial() {
 
   // Actualizar saldo y total
   document.querySelector("#saldoDisponibleHistorial").textContent = cliente.saldo;
+  console.log(cliente.saldo);
   document.querySelector("#totalAprobadas").textContent = sistema.totalAprobadasCliente(cliente.id);
 }
 

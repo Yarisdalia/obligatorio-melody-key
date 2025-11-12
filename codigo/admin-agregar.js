@@ -6,8 +6,8 @@ function agregar() {
   // Obtener valores del formulario
   const nombre = document.querySelector("#txtNombreEvento").value;
   const artista = document.querySelector("#txtArtista").value;
-  const precio = parseInt(document.querySelector("#txtPrecio").value, 10);
-  const cupos = parseInt(document.querySelector("#txtCupos").value, 10);
+  const precio = Number(document.querySelector("#txtPrecio").value);
+  const cupos = Number(document.querySelector("#txtCupos").value);
   const descripcion = document.querySelector("#txtDescripcion").value;
   const fileImg = document.querySelector("#fileImagen");
   const imagen = fileImg.files.length > 0 ? fileImg.files[0].name : "";

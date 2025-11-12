@@ -4,7 +4,6 @@ function renderReservar() {
   const select = document.querySelector("#slcConciertos");
   const inputCantidad = document.querySelector("#txtCantidad");
   const txtMonto = document.querySelector("#montoTotal");
-  const txtSaldo = document.querySelector("#saldoDisponible");
   const precioUnitario = document.querySelector("#precioUnitario");
   const cuposDisponibles = document.querySelector("#cuposDisponibles");
 
@@ -31,12 +30,6 @@ function renderReservar() {
 
     precioUnitario.textContent = seleccionado.precio;
     cuposDisponibles.textContent = seleccionado.cupos;
-
-    const cantidad = parseInt(inputCantidad.value, 10) || 0;
-    const total = cantidad * seleccionado.precio;
-
-    txtMonto.textContent = total;
-    txtSaldo.textContent = sistema.usuarioLogueado.saldo;
   }
 
   select.onchange = actualizarDetalle;
