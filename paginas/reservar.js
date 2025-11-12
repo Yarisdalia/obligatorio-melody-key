@@ -1,5 +1,7 @@
 // Página: Reservar
 
+document.querySelector("#btnSolicitaReserva").addEventListener("click", reservar);
+
 function renderReservar() {
   const select = document.querySelector("#slcConciertos");
   const inputCantidad = document.querySelector("#txtCantidad");
@@ -10,7 +12,7 @@ function renderReservar() {
 
   // Rellenar select con conciertos activos
   select.innerHTML = "";
-  const activos = system.explorarConciertosDisponibles();
+  const activos = sistema.explorarConciertosDisponibles();
   for (let i = 0; i < activos.length; i++) {
     const c = activos[i];
     const opt = document.createElement("option");
@@ -20,18 +22,11 @@ function renderReservar() {
   }
 
   // Si hay un concierto preseleccionado
-  if (system.conciertoPreseleccionado) {
-    select.value = system.conciertoPreseleccionado;
-    system.conciertoPreseleccionado = null;
+  if (sistema.conciertoPreseleccionado) {
+    select.value = sistema.conciertoPreseleccionado;
+    sistema.conciertoPreseleccionado = null;
   }
 
-  function obtenerConciertoSeleccionado() {
-    const id = select.value;
-    for (let i = 0; i < system.conciertos.length; i++) {
-      if (system.conciertos[i].id === id) return system.conciertos[i];
-    }
-    return null;
-  }
   function actualizarDetalle() {
     const seleccionado = obtenerConciertoSeleccionado();
     if (!seleccionado) return;
@@ -43,26 +38,34 @@ function renderReservar() {
     const total = cantidad * seleccionado.precio;
 
     txtMonto.textContent = total;
-    txtSaldo.textContent = system.usuarioLogueado.saldo;
+    txtSaldo.textContent = sistema.usuarioLogueado.saldo;
   }
 
   select.onchange = actualizarDetalle;
   inputCantidad.oninput = actualizarDetalle;
   actualizarDetalle();
+}
 
-  // Botón solicitar reserva
-  document.querySelector("#btnSolicitaReserva").addEventListener("click", reservar);
-  function reservar() {
-    const pMsg = document.querySelector("#pMensaje");
+function obtenerConciertoSeleccionado() {
+  const select = document.querySelector("#slcConciertos");
+  const id = select.value;
+  for (let i = 0; i < sistema.conciertos.length; i++) {
+    if (sistema.conciertos[i].id === id) return sistema.conciertos[i];
+  }
+  return null;
+}
 
-    pMsg.textContent = "";
-    const concierto = obtenerConciertoSeleccionado();
-    const cantidad = parseInt(inputCantidad.value, 10) || 0;
-    const res = system.solicitarReserva(system.usuarioLogueado.id, concierto.id, cantidad);
-    pMsg.textContent = res.mensaje;
+function reservar() {
+  const pMsg = document.querySelector("#pMensaje");
+  const inputCantidad = document.querySelector("#txtCantidad");
 
-    if (res.exito) {
-      mostrarSeccion("historial");
-    }
+  pMsg.textContent = "";
+  const concierto = obtenerConciertoSeleccionado();
+  const cantidad = parseInt(inputCantidad.value, 10) || 0;
+  const res = sistema.solicitarReserva(sistema.usuarioLogueado.id, concierto.id, cantidad);
+  pMsg.textContent = res.mensaje;
+
+  if (res.exito) {
+    mostrarSeccion("historial");
   }
 }

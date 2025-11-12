@@ -62,7 +62,7 @@ Código JavaScript:
   Total líneas en paginas/:  469 líneas
   Variables globales:        1 (system)
   Funciones globales:        ~15
-  
+
 Complejidad:
   window.pages:              0 usos ❌ (eliminado)
   getElementById:            0 usos ❌ (eliminado)
@@ -116,7 +116,7 @@ FUNCIONES PÁGINAS ADMIN:
 function renderAdminConciertos() { }
 function renderProcesarReservas() { }
 function renderGanancias() { }
-function wireAdminAgregar() { }
+function agregarConcierto() { }
 
 FUNCIONES LOGIN/REGISTRO:
 function onIniciarSesion() { }
@@ -137,9 +137,9 @@ function renderizarSeccion() { }
 function renderExplorar() {
   const tbody = document.querySelector("#tblConciertos");
   tbody.innerHTML = "";
-  
+
   const conciertos = system.explorarConciertosDisponibles();
-  
+
   for (let i = 0; i < conciertos.length; i++) {
     const c = conciertos[i];
     const tr = document.createElement("tr");
@@ -152,7 +152,7 @@ function renderExplorar() {
     `;
     tbody.appendChild(tr);
   }
-  
+
   tbody.onclick = function(ev) {
     const btn = ev.target.closest("button[data-id]");
     if (!btn) return;

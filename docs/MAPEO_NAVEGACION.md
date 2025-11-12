@@ -100,7 +100,7 @@ Cada sección puede tener una función que se ejecuta al mostrarse:
 | oferta     | `renderOfertas()`           |
 | reservar   | `renderReservar()`          |
 | historial  | `renderHistorial()`         |
-| agregar    | `wireAdminAgregar()`        |
+| agregar    | `agregarConcierto()`        |
 | admin      | `renderAdminConciertos()`   |
 | procesar   | `renderProcesarReservas()`  |
 | ganancias  | `renderGanancias()`         |

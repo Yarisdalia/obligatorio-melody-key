@@ -73,7 +73,7 @@ function renderHistorial() { }   // Ver historial
 function renderAdminConciertos() { }    // Administrar
 function renderProcesarReservas() { }   // Procesar
 function renderGanancias() { }          // Ganancias
-function wireAdminAgregar() { }         // Agregar
+function agregarConcierto() { }         // Agregar
 ```
 
 ### Funciones de Login/Registro

@@ -7,7 +7,7 @@ function onRegistrar() {
   const contrasena = document.querySelector("#txtContrasena").value;
   const contrasena2 = document.querySelector("#txtContrasena2").value;
 
-  const mensaje = system.agregarUsuario(nombre, apellido, usuario, contrasena, contrasena2);
+  const mensaje = sistema.agregarUsuario(nombre, apellido, usuario, contrasena, contrasena2);
   document.querySelector("#pResultado").textContent = mensaje;
 
   if (mensaje === "Registro exitoso.") {

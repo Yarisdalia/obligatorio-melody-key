@@ -3,14 +3,14 @@ document.querySelector("#btnIniciarSesion").addEventListener("click", onIniciarS
 function onIniciarSesion() {
   const usuario = document.querySelector("#txtLoginUsuario").value.trim();
   const contrasena = document.querySelector("#txtLoginContrasena").value;
-  const mensaje = system.iniciarSesion(usuario, contrasena);
+  const mensaje = sistema.iniciarSesion(usuario, contrasena);
 
   document.querySelector("#pLoginMensaje").textContent = mensaje;
 
   if (mensaje.startsWith("Bienvenido")) {
     updateNavbar();
     // Redirigir según rol
-    if (system.usuarioLogueado instanceof Administrador) {
+    if (sistema.usuarioLogueado instanceof Administrador) {
       mostrarSeccion("admin");
     } else {
       mostrarSeccion("explorar");
