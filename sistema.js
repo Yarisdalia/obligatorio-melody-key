@@ -50,9 +50,15 @@ class Sistema {
       if (this.administradores[i].usuario.toLowerCase() === usuario.toLowerCase()) {
         if (this.administradores[i].contrasena === contrasena) {
           this.usuarioLogueado = this.administradores[i];
-          return "Bienvenido " + this.usuarioLogueado.nombre;
+          return {
+            ok: true,
+            mensaje: "Bienvenido " + this.usuarioLogueado.nombre
+          };
         } else {
-          return "Contraseña incorrecta";
+          return {
+            ok: false,
+            mensaje: "Contraseña incorrecta"
+          };
         }
       }
     }
@@ -62,14 +68,23 @@ class Sistema {
       if (this.clientes[i].usuario.toLowerCase() === usuario.toLowerCase()) {
         if (this.clientes[i].contrasena === contrasena) {
           this.usuarioLogueado = this.clientes[i];
-          return "Bienvenido " + this.usuarioLogueado.nombre;
+          return {
+            ok: true,
+            mensaje: "Bienvenido " + this.usuarioLogueado.nombre
+          };
         } else {
-          return "Contraseña incorrecta";
+          return {
+            ok: false,
+            mensaje: "Contraseña incorrecta"
+          };
         }
       }
     }
 
-    return "Usuario no encontrado";
+    return {
+      ok: false,
+      mensaje: "Usuario no encontrado"
+    };
   }
 
   //_____________________________ F0? - CIERRE DE SESION ______________________________________________
