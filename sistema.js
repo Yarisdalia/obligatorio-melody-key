@@ -5,12 +5,6 @@ class Sistema {
     this.conciertos = [];
     this.reservas = [];
 
-    // Contadores autoincrementales
-    this.idCliente = 1;
-    this.idAdministrador = 1;
-    this.idConcierto = 1;
-    this.idReserva = 1;
-
     // Activamos el usuario logueado.
     this.usuarioLogueado = null;
   }

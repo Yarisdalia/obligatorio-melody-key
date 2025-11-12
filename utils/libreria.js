@@ -43,10 +43,7 @@ function puedeReservarEnLista(clienteId, conciertoId, reservas) {
     let reservaActual = reservas[i];
     if (reservaActual) {
       if (reservaActual.cliente && reservaActual.concierto) {
-        if (
-          reservaActual.cliente.id === clienteId &&
-          reservaActual.concierto.id === conciertoId
-        ) {
+        if (reservaActual.cliente.id === clienteId && reservaActual.concierto.id === conciertoId) {
           return false;
         }
       }
@@ -88,8 +85,7 @@ function totalAprobadas(reservasCliente) {
         if (reservaActual.montoTotal) {
           montoReserva = reservaActual.montoTotal();
         } else if (reservaActual.concierto && reservaActual.cantidad) {
-          montoReserva =
-            reservaActual.concierto.precio * reservaActual.cantidad;
+          montoReserva = reservaActual.concierto.precio * reservaActual.cantidad;
         }
         // Aplicar descuento del 10% si la cantidad es 4 o más
         if (reservaActual.cantidad >= 4) {

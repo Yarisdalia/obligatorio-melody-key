@@ -40,9 +40,7 @@ function renderProcesarReservas() {
       const btnA = ev.target.closest("button[data-aprobar]");
       const btnC = ev.target.closest("button[data-cancelar]");
       if (!btnA && !btnC) return;
-      const id = (btnA || btnC).getAttribute(
-        btnA ? "data-aprobar" : "data-cancelar",
-      );
+      const id = (btnA || btnC).getAttribute(btnA ? "data-aprobar" : "data-cancelar");
       const accion = btnA ? "aprobar" : "cancelar";
       const res = system.procesarReserva(id, accion);
       if (!res.exito) {

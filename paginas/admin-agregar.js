@@ -24,26 +24,14 @@ function wireAdminAgregar() {
     const cupos = parseInt((elCupos ? elCupos.value : "").trim(), 10);
     const descripcion = elDescripcion ? elDescripcion.value.trim() : "";
     const oferta = elOferta ? !!elOferta.checked : false;
-    const imagen =
-      fileImg && fileImg.files && fileImg.files.length > 0
-        ? fileImg.files[0].name
-        : "";
+    const imagen = fileImg && fileImg.files && fileImg.files.length > 0 ? fileImg.files[0].name : "";
     if (!nombre || !artista || !descripcion || !precio || !cupos) {
       if (msg) msg.textContent = "Completa todos los campos.";
       return;
     }
     // Según la letra, al crear el concierto su estado debe ser "activo"
     const estado = "activo";
-    system.agregarConcierto(
-      nombre,
-      artista,
-      precio,
-      descripcion,
-      imagen,
-      cupos,
-      estado,
-      oferta,
-    );
+    system.agregarConcierto(nombre, artista, precio, descripcion, imagen, cupos, estado, oferta);
     if (msg) msg.textContent = "Concierto creado.";
     if (elNombre) elNombre.value = "";
     if (elArtista) elArtista.value = "";
@@ -52,8 +40,7 @@ function wireAdminAgregar() {
     if (elDescripcion) elDescripcion.value = "";
     if (fileImg) fileImg.value = "";
     if (elOferta) elOferta.checked = false;
-    if (window.pages.renderAdminConciertos)
-      window.pages.renderAdminConciertos();
+    if (window.pages.renderAdminConciertos) window.pages.renderAdminConciertos();
     if (window.pages.renderExplorar) window.pages.renderExplorar();
     if (window.pages.renderOfertas) window.pages.renderOfertas();
   };

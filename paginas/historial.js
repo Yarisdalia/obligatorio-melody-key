@@ -8,8 +8,7 @@ function renderHistorial() {
   tbody.innerHTML = "";
   const cliente = system.usuarioLogueado;
   if (!cliente || !(cliente instanceof Cliente)) {
-    tbody.innerHTML =
-      '<tr><td colspan="5">Debes iniciar sesión para ver tus reservas.</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="5">Debes iniciar sesión para ver tus reservas.</td></tr>';
     const saldoEl = document.getElementById("saldoDisponibleHistorial");
     if (saldoEl) saldoEl.textContent = "0";
     const totalAprob = document.getElementById("totalAprobadas");
@@ -51,8 +50,7 @@ function renderHistorial() {
   const saldoEl = document.getElementById("saldoDisponibleHistorial");
   if (saldoEl) saldoEl.textContent = String(cliente.saldo);
   const totalAprobEl = document.getElementById("totalAprobadas");
-  if (totalAprobEl)
-    totalAprobEl.textContent = String(system.totalAprobadasCliente(cliente.id));
+  if (totalAprobEl) totalAprobEl.textContent = String(system.totalAprobadasCliente(cliente.id));
 }
 
 window.pages.renderHistorial = renderHistorial;

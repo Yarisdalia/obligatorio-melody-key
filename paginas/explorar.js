@@ -25,13 +25,8 @@ function renderExplorar() {
   }
   for (let i = 0; i < conciertos.length; i++) {
     const c = conciertos[i];
-    const ofertaBadge = c.oferta
-      ? '<span class="badge text-bg-success">Sí</span>'
-      : '<span class="badge text-bg-secondary">No</span>';
-    const estadoBadge =
-      c.estado === "activo"
-        ? '<span class="badge text-bg-success">Activo</span>'
-        : '<span class="badge text-bg-secondary">Pausado</span>';
+    const ofertaBadge = c.oferta ? '<span class="badge text-bg-success">Sí</span>' : '<span class="badge text-bg-secondary">No</span>';
+    const estadoBadge = c.estado === "activo" ? '<span class="badge text-bg-success">Activo</span>' : '<span class="badge text-bg-secondary">Pausado</span>';
     const tr = document.createElement("tr");
     tr.innerHTML = `
                 <td>${c.nombre}</td>

@@ -117,10 +117,7 @@ function boot() {
   setTimeout(route, 0);
 }
 
-if (
-  document.readyState === "complete" ||
-  document.readyState === "interactive"
-) {
+if (document.readyState === "complete" || document.readyState === "interactive") {
   boot();
 } else {
   document.addEventListener("DOMContentLoaded", boot);

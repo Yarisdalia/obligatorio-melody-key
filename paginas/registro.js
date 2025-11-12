@@ -11,13 +11,7 @@ function onRegistrar() {
   const usuario = elUsuario ? elUsuario.value.trim() : "";
   const contrasena = elContrasena ? elContrasena.value : "";
   const contrasena2 = elContrasena2 ? elContrasena2.value : "";
-  const mensaje = system.agregarUsuario(
-    nombre,
-    apellido,
-    usuario,
-    contrasena,
-    contrasena2,
-  );
+  const mensaje = system.agregarUsuario(nombre, apellido, usuario, contrasena, contrasena2);
   const p = document.getElementById("pResultado");
   if (p) p.textContent = mensaje;
   if (mensaje.toLowerCase().includes("exitoso")) {

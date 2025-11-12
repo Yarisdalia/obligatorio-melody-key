@@ -38,15 +38,10 @@ function renderReservar() {
     if (!seleccionado) return;
     if (precioUnitario) precioUnitario.textContent = seleccionado.precio;
     if (cuposDisponibles) cuposDisponibles.textContent = seleccionado.cupos;
-    const cantidad =
-      parseInt(inputCantidad ? inputCantidad.value : "0", 10) || 0;
+    const cantidad = parseInt(inputCantidad ? inputCantidad.value : "0", 10) || 0;
     const total = cantidad * seleccionado.precio;
     if (txtMonto) txtMonto.textContent = total;
-    if (txtSaldo)
-      txtSaldo.textContent =
-        system.usuarioLogueado && system.usuarioLogueado.saldo != null
-          ? system.usuarioLogueado.saldo
-          : 0;
+    if (txtSaldo) txtSaldo.textContent = system.usuarioLogueado && system.usuarioLogueado.saldo != null ? system.usuarioLogueado.saldo : 0;
   }
   select.onchange = actualizarDetalle;
   if (inputCantidad) inputCantidad.oninput = actualizarDetalle;
@@ -57,12 +52,8 @@ function renderReservar() {
   if (btn) {
     btn.onclick = function () {
       if (pMsg) pMsg.textContent = "";
-      if (
-        !system.usuarioLogueado ||
-        !(system.usuarioLogueado instanceof Cliente)
-      ) {
-        if (pMsg)
-          pMsg.textContent = "Debes iniciar sesión como cliente para reservar.";
+      if (!system.usuarioLogueado || !(system.usuarioLogueado instanceof Cliente)) {
+        if (pMsg) pMsg.textContent = "Debes iniciar sesión como cliente para reservar.";
         return;
       }
       const concierto = obtenerConciertoSeleccionado();
@@ -70,13 +61,8 @@ function renderReservar() {
         if (pMsg) pMsg.textContent = "Debes seleccionar un concierto.";
         return;
       }
-      const cantidad =
-        parseInt(inputCantidad ? inputCantidad.value : "0", 10) || 0;
-      const res = system.solicitarReserva(
-        system.usuarioLogueado.id,
-        concierto.id,
-        cantidad,
-      );
+      const cantidad = parseInt(inputCantidad ? inputCantidad.value : "0", 10) || 0;
+      const res = system.solicitarReserva(system.usuarioLogueado.id, concierto.id, cantidad);
       if (pMsg) pMsg.textContent = res.mensaje;
       if (res.exito) {
         window.location.hash = "#historial";
