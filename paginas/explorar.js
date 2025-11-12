@@ -31,12 +31,13 @@ function renderExplorar() {
   }
 
   // Evento para seleccionar concierto
-  tbody.onclick = function (ev) {
+  tbody.addEventListener("click", seleccionarConcierto);
+  function seleccionarConcierto(ev) {
     const btn = ev.target.closest("button[data-concierto]");
     if (!btn) return;
     system.conciertoPreseleccionado = btn.getAttribute("data-concierto");
     mostrarSeccion("reservar");
-  };
+  }
 
   // Actualizar saldo
   document.querySelector("#saldoExplorar").textContent = system.usuarioLogueado.saldo;

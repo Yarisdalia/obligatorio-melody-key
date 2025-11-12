@@ -1,5 +1,4 @@
 // Página: Admin - Administrar Conciertos
-
 function renderAdminConciertos() {
   const tbody = document.querySelector("#tblAdminConciertos");
   if (!tbody) return;
@@ -28,7 +27,9 @@ function renderAdminConciertos() {
             `;
     tbody.appendChild(tr);
   }
-  tbody.onclick = function (ev) {
+  tbody.addEventListener("click", guardar);
+
+  function guardar(ev) {
     const btn = ev.target.closest("button[data-guardar]");
     if (!btn) return;
     const id = btn.getAttribute("data-guardar");
@@ -46,5 +47,5 @@ function renderAdminConciertos() {
       oferta: oferta,
     });
     renderAdminConciertos();
-  };
+  }
 }

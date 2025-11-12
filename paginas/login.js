@@ -1,5 +1,5 @@
 // Página: Login
-
+document.querySelector("#btnIniciarSesion").addEventListener("click", onIniciarSesion);
 function onIniciarSesion() {
   const usuario = document.querySelector("#txtLoginUsuario").value.trim();
   const contrasena = document.querySelector("#txtLoginContrasena").value;
@@ -17,10 +17,3 @@ function onIniciarSesion() {
     }
   }
 }
-
-// Asignar evento al botón
-const btnLogin = document.querySelector("#btnIniciarSesion");
-if (btnLogin) {
-  btnLogin.onclick = onIniciarSesion;
-}
-

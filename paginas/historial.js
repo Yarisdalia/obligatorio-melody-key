@@ -40,14 +40,14 @@ function renderHistorial() {
   }
 
   // Evento para cancelar reservas
-  tbody.onclick = function (ev) {
+  tbody.addEventListener("click", cancelarReserva);
+  function cancelarReserva(ev) {
     const btn = ev.target.closest("button[data-reserva]");
     if (!btn) return;
-    const id = btn.getAttribute("data-reserva");
+    const id = btn.getAtjtribute("data-reserva");
     const res = system.cancelarReserva(id, cliente.id);
-    alert(res.mensaje);
     renderHistorial();
-  };
+  }
 
   // Actualizar saldo y total
   document.querySelector("#saldoDisponibleHistorial").textContent = cliente.saldo;

@@ -1,4 +1,5 @@
 // Página: Registro
+document.querySelector("#btnRegistrar").addEventListener("click", onRegistrar);
 function onRegistrar() {
   const nombre = document.querySelector("#txtNombre").value.trim();
   const apellido = document.querySelector("#txtApellido").value.trim();
@@ -17,10 +18,3 @@ function onRegistrar() {
     document.querySelector("#txtContrasena2").value = "";
   }
 }
-
-// Asignar evento al botón
-const btnRegistrar = document.querySelector("#btnRegistrar");
-if (btnRegistrar) {
-  btnRegistrar.onclick = onRegistrar;
-}
-

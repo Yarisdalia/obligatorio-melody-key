@@ -1,9 +1,10 @@
 // Página: Admin - Agregar Concierto
 function wireAdminAgregar() {
-  const btn = document.querySelector("#btnAgregarConcierto");
-  const msg = document.querySelector("#msgAgregarConcierto");
+  document.querySelector("#btnAgregarConcierto").addEventListener("click", agregar);
 
-  btn.onclick = function () {
+  function agregar() {
+    const msg = document.querySelector("#msgAgregarConcierto");
+
     // Obtener valores del formulario
     const nombre = document.querySelector("#txtNombreEvento").value.trim();
     const artista = document.querySelector("#txtArtista").value.trim();
@@ -32,5 +33,5 @@ function wireAdminAgregar() {
     document.querySelector("#txtDescripcion").value = "";
     document.querySelector("#fileImagen").value = "";
     document.querySelector("#chkOferta").checked = false;
-  };
+  }
 }

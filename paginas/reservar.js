@@ -51,10 +51,10 @@ function renderReservar() {
   actualizarDetalle();
 
   // Botón solicitar reserva
-  const btn = document.querySelector("#btnSolicitaReserva");
-  const pMsg = document.querySelector("#pMensaje");
+  document.querySelector("#btnSolicitaReserva").addEventListener("click", reservar);
+  function reservar() {
+    const pMsg = document.querySelector("#pMensaje");
 
-  btn.onclick = function () {
     pMsg.textContent = "";
     const concierto = obtenerConciertoSeleccionado();
     const cantidad = parseInt(inputCantidad.value, 10) || 0;
@@ -64,5 +64,5 @@ function renderReservar() {
     if (res.exito) {
       mostrarSeccion("historial");
     }
-  };
+  }
 }

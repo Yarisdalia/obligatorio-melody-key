@@ -1,5 +1,4 @@
 // Página: Admin - Procesar Reservas
-
 function renderProcesarReservas() {
   // Limpiar tablas
   document.querySelector("#tblPendientes").innerHTML = "";
@@ -47,7 +46,8 @@ function renderProcesarReservas() {
   }
 
   // Evento para procesar reservas
-  document.querySelector("#tblPendientes").onclick = function (ev) {
+  document.querySelector("#tblPendientes").addEventListener("click", procesar);
+  function procesar(ev) {
     const btnAprobar = ev.target.closest("button[data-aprobar]");
     const btnCancelar = ev.target.closest("button[data-cancelar]");
 
@@ -62,5 +62,5 @@ function renderProcesarReservas() {
       alert(res.mensaje);
       renderProcesarReservas();
     }
-  };
+  }
 }
