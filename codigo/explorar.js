@@ -30,7 +30,7 @@ function renderExplorar() {
       <td>${concierto.artista}</td>
       <td>${concierto.descripcion}</td>
       <td>${concierto.precio}</td>
-      <td>${ofertaBadg}</td>
+      <td>${ofertaBadge}</td>
       <td><img src="Img/${concierto.imagen}" alt="${concierto.artista}" width="80" class="rounded"></td>
       <td>${concierto.cupos}</td>
       <td>${estadoBadge}</td>
