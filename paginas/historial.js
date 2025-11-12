@@ -1,7 +1,7 @@
 // Página: Historial
 
 function renderHistorial() {
-  const tbody = document.getElementById("tblHistorial");
+  const tbody = document.querySelector("#tblHistorial");
   const cliente = system.usuarioLogueado;
 
   tbody.innerHTML = "";
@@ -50,6 +50,6 @@ function renderHistorial() {
   };
 
   // Actualizar saldo y total
-  document.getElementById("saldoDisponibleHistorial").textContent = cliente.saldo;
-  document.getElementById("totalAprobadas").textContent = system.totalAprobadasCliente(cliente.id);
+  document.querySelector("#saldoDisponibleHistorial").textContent = cliente.saldo;
+  document.querySelector("#totalAprobadas").textContent = system.totalAprobadasCliente(cliente.id);
 }

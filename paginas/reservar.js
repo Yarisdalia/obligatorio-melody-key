@@ -1,12 +1,12 @@
 // Página: Reservar
 
 function renderReservar() {
-  const select = document.getElementById("slcConciertos");
-  const inputCantidad = document.getElementById("txtCantidad");
-  const txtMonto = document.getElementById("montoTotal");
-  const txtSaldo = document.getElementById("saldoDisponible");
-  const precioUnitario = document.getElementById("precioUnitario");
-  const cuposDisponibles = document.getElementById("cuposDisponibles");
+  const select = document.querySelector("#slcConciertos");
+  const inputCantidad = document.querySelector("#txtCantidad");
+  const txtMonto = document.querySelector("#montoTotal");
+  const txtSaldo = document.querySelector("#saldoDisponible");
+  const precioUnitario = document.querySelector("#precioUnitario");
+  const cuposDisponibles = document.querySelector("#cuposDisponibles");
 
   // Rellenar select con conciertos activos
   select.innerHTML = "";
@@ -51,8 +51,8 @@ function renderReservar() {
   actualizarDetalle();
 
   // Botón solicitar reserva
-  const btn = document.getElementById("btnSolicitaReserva");
-  const pMsg = document.getElementById("pMensaje");
+  const btn = document.querySelector("#btnSolicitaReserva");
+  const pMsg = document.querySelector("#pMensaje");
 
   btn.onclick = function () {
     pMsg.textContent = "";
@@ -62,7 +62,7 @@ function renderReservar() {
     pMsg.textContent = res.mensaje;
 
     if (res.exito) {
-      window.location.hash = "#historial";
+      mostrarSeccion("historial");
     }
   };
 }

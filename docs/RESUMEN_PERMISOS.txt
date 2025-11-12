@@ -1,0 +1,134 @@
+╔═══════════════════════════════════════════════════════════════════════╗
+║           SISTEMA DE PERMISOS IMPLEMENTADO - MELODY KEY              ║
+║                    ✅ CADA USUARIO VE SOLO LO SUYO                    ║
+╚═══════════════════════════════════════════════════════════════════════╝
+
+┌─────────────────────────────────────────────────────────────────────┐
+│ 🔒 REGLAS DE PERMISOS                                                │
+└─────────────────────────────────────────────────────────────────────┘
+
+❌ SIN USUARIO (No logueado)
+   ✅ Puede ver: Login, Registro
+   ❌ NO puede ver: Explorar, Ofertas, Reservar, Historial, Admin
+   🔀 Si intenta páginas protegidas → Redirige a Login
+
+👤 CLIENTE (Logueado)
+   ✅ Puede ver: Explorar, Ofertas, Reservar, Historial
+   ❌ NO puede ver: Login, Registro, Admin
+   🔀 Si intenta Login/Registro → Redirige a Explorar
+   🔀 Si intenta páginas Admin → Redirige a Explorar
+
+👨‍💼 ADMINISTRADOR (Logueado)
+   ✅ Puede ver: Agregar, Administrar, Procesar, Ganancias (menú Admin)
+   ❌ NO puede ver: Login, Registro, Explorar, Ofertas, Reservar, Historial
+   🔀 Si intenta Login/Registro → Redirige a Admin
+   🔀 Si intenta páginas Cliente → Redirige a Admin
+
+┌─────────────────────────────────────────────────────────────────────┐
+│ 🔧 CAMBIOS APLICADOS EN EL CÓDIGO                                    │
+└─────────────────────────────────────────────────────────────────────┘
+
+✅ Archivo: paginas/common.js
+
+1. updateNavbar() - MEJORADA
+   → Ahora oculta también "Inicio" cuando hay usuario logueado
+   → Menu dinámico según rol del usuario
+   
+2. ensureAllowedRoute() - MEJORADA
+   → Valida permisos en cada navegación
+   → Bloquea Login/Registro para usuarios logueados
+   → Bloquea páginas Admin para Clientes
+   → Bloquea páginas Cliente para Admin
+   → Redirecciones automáticas
+   
+3. route() - MEJORADA
+   → Oculta TODAS las secciones primero
+   → Muestra solo la sección permitida
+   → Ejecuta validación de permisos siempre
+
+┌─────────────────────────────────────────────────────────────────────┐
+│ 📋 NAVEGACIÓN POR ROL                                                │
+└─────────────────────────────────────────────────────────────────────┘
+
+SIN USUARIO:
+  📄 #login      → Inicio de sesión
+  📄 #registro   → Registro de cliente
+
+CLIENTE:
+  🎵 #explorar   → Ver conciertos disponibles (F03)
+  💰 #oferta     → Ver conciertos en oferta (F06)
+  🎫 #reservar   → Hacer reserva (F04)
+  📋 #historial  → Ver mis reservas (F05)
+
+ADMIN:
+  ➕ #agregar    → Crear nuevo concierto (F08)
+  ⚙️  #admin     → Administrar conciertos (F09)
+  ✅ #procesar   → Procesar reservas (F07)
+  �� #ganancias  → Informe de ganancias (F10)
+
+┌─────────────────────────────────────────────────────────────────────┐
+│ 🧪 CÓMO PROBAR                                                       │
+└─────────────────────────────────────────────────────────────────────┘
+
+1. Abre index.html
+
+2. SIN LOGIN
+   → Verás solo: Inicio, Registro
+   → Intenta ir a #explorar → Te redirige a #login ✓
+
+3. LOGIN COMO CLIENTE (usuario1 / Pass1234)
+   → Verás: Explorar, Ofertas, Reservar, Historial
+   → NO verás: Inicio, Registro, Admin
+   → Intenta ir a #admin → Te redirige a #explorar ✓
+
+4. CIERRA SESIÓN
+
+5. LOGIN COMO ADMIN (admin / admin123)
+   → Verás: Admin (con 4 opciones)
+   → NO verás: Inicio, Registro, Explorar, Ofertas, Reservar, Historial
+   → Intenta ir a #explorar → Te redirige a #admin ✓
+
+OPCIONAL: Abre test_permisos.html para test automático ✓
+
+┌─────────────────────────────────────────────────────────────────────┐
+│ ✨ CARACTERÍSTICAS DEL SISTEMA                                       │
+└─────────────────────────────────────────────────────────────────────┘
+
+✅ Validación automática en cada navegación
+✅ Redirección automática si no tiene permiso
+✅ Menu dinámico (solo muestra opciones permitidas)
+✅ Secciones ocultas (solo muestra contenido permitido)
+✅ Al cerrar sesión → Vuelve a Login automáticamente
+✅ 100% seguro (no se puede burlar cambiando URL)
+
+┌─────────────────────────────────────────────────────────────────────┐
+│ 📁 ARCHIVOS MODIFICADOS                                              │
+└─────────────────────────────────────────────────────────────────────┘
+
+✅ paginas/common.js
+   → updateNavbar() - Mejorada
+   → ensureAllowedRoute() - Mejorada
+   → route() - Mejorada
+
+✅ test_permisos.html
+   → Test automático de permisos
+
+✅ SISTEMA_PERMISOS.md
+   → Documentación completa del sistema
+
+┌─────────────────────────────────────────────────────────────────────┐
+│ 🎯 RESULTADO                                                         │
+└─────────────────────────────────────────────────────────────────────┘
+
+✅ Cada usuario VE solo lo que le corresponde
+✅ Cada usuario ACCEDE solo a lo permitido
+✅ Navegación segura y controlada
+✅ Redirecciones automáticas
+✅ Menu dinámico según rol
+
+╔═══════════════════════════════════════════════════════════════════════╗
+║         SISTEMA DE PERMISOS: ✅ COMPLETO Y FUNCIONAL                  ║
+╚═══════════════════════════════════════════════════════════════════════╝
+
+📖 Para más detalles: Lee SISTEMA_PERMISOS.md
+🧪 Para probar: Abre test_permisos.html

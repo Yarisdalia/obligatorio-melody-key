@@ -1,24 +1,24 @@
 // Página: Login
 
 function onIniciarSesion() {
-  const usuario = document.getElementById("txtLoginUsuario").value.trim();
-  const contrasena = document.getElementById("txtLoginContrasena").value;
+  const usuario = document.querySelector("#txtLoginUsuario").value.trim();
+  const contrasena = document.querySelector("#txtLoginContrasena").value;
   const mensaje = system.iniciarSesion(usuario, contrasena);
 
-  document.getElementById("pLoginMensaje").textContent = mensaje;
+  document.querySelector("#pLoginMensaje").textContent = mensaje;
 
   if (mensaje.startsWith("Bienvenido")) {
     updateNavbar();
     // Redirigir según rol
     if (system.usuarioLogueado instanceof Administrador) {
-      window.location.hash = "#admin";
+      mostrarSeccion("admin");
     } else {
-      window.location.hash = "#explorar";
+      mostrarSeccion("explorar");
     }
   }
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-  const btn = document.getElementById("btnIniciarSesion");
+  const btn = document.querySelector("#btnIniciarSesion");
   btn.onclick = onIniciarSesion;
 });

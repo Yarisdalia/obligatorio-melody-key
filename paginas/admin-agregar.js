@@ -1,18 +1,18 @@
 // Página: Admin - Agregar Concierto
 function wireAdminAgregar() {
-  const btn = document.getElementById("btnAgregarConcierto");
-  const msg = document.getElementById("msgAgregarConcierto");
+  const btn = document.querySelector("#btnAgregarConcierto");
+  const msg = document.querySelector("#msgAgregarConcierto");
 
   btn.onclick = function () {
     // Obtener valores del formulario
-    const nombre = document.getElementById("txtNombreEvento").value.trim();
-    const artista = document.getElementById("txtArtista").value.trim();
-    const precio = parseInt(document.getElementById("txtPrecio").value.trim(), 10);
-    const cupos = parseInt(document.getElementById("txtCupos").value.trim(), 10);
-    const descripcion = document.getElementById("txtDescripcion").value.trim();
-    const fileImg = document.getElementById("fileImagen");
+    const nombre = document.querySelector("#txtNombreEvento").value.trim();
+    const artista = document.querySelector("#txtArtista").value.trim();
+    const precio = parseInt(document.querySelector("#txtPrecio").value.trim(), 10);
+    const cupos = parseInt(document.querySelector("#txtCupos").value.trim(), 10);
+    const descripcion = document.querySelector("#txtDescripcion").value.trim();
+    const fileImg = document.querySelector("#fileImagen");
     const imagen = fileImg.files.length > 0 ? fileImg.files[0].name : "";
-    const oferta = document.getElementById("chkOferta").checked;
+    const oferta = document.querySelector("#chkOferta").checked;
 
     // Validar campos obligatorios
     if (!nombre || !artista || !descripcion || !precio || !cupos) {
@@ -25,17 +25,12 @@ function wireAdminAgregar() {
     msg.textContent = "Concierto agregado.";
 
     // Limpiar formulario
-    document.getElementById("txtNombreEvento").value = "";
-    document.getElementById("txtArtista").value = "";
-    document.getElementById("txtPrecio").value = "";
-    document.getElementById("txtCupos").value = "";
-    document.getElementById("txtDescripcion").value = "";
-    document.getElementById("fileImagen").value = "";
-    document.getElementById("chkOferta").checked = false;
-
-    // Actualizar otras vistas
-    if (window.pages.renderAdminConciertos) window.pages.renderAdminConciertos();
-    if (window.pages.renderExplorar) window.pages.renderExplorar();
-    if (window.pages.renderOfertas) window.pages.renderOfertas();
+    document.querySelector("#txtNombreEvento").value = "";
+    document.querySelector("#txtArtista").value = "";
+    document.querySelector("#txtPrecio").value = "";
+    document.querySelector("#txtCupos").value = "";
+    document.querySelector("#txtDescripcion").value = "";
+    document.querySelector("#fileImagen").value = "";
+    document.querySelector("#chkOferta").checked = false;
   };
 }

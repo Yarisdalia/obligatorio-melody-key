@@ -1,7 +1,7 @@
 // Página: Admin - Administrar Conciertos
 
 function renderAdminConciertos() {
-  const tbody = document.getElementById("tblAdminConciertos");
+  const tbody = document.querySelector("#tblAdminConciertos");
   if (!tbody) return;
   tbody.innerHTML = "";
   for (let i = 0; i < system.conciertos.length; i++) {
@@ -32,7 +32,7 @@ function renderAdminConciertos() {
     const btn = ev.target.closest("button[data-guardar]");
     if (!btn) return;
     const id = btn.getAttribute("data-guardar");
-    const row = document.getElementById("row_" + id);
+    const row = document.querySelector("#row_" + id);
     if (!row) return;
     const cuposInput = row.querySelector('input[data-field="cupos"]');
     const estadoInput = row.querySelector('input[data-field="estado"]');
@@ -46,7 +46,5 @@ function renderAdminConciertos() {
       oferta: oferta,
     });
     renderAdminConciertos();
-    if (window.pages.renderExplorar) window.pages.renderExplorar();
-    if (window.pages.renderOfertas) window.pages.renderOfertas();
   };
 }

@@ -29,6 +29,6 @@ function renderOfertas() {
     const btn = ev.target.closest("button[data-sel]");
     if (!btn) return;
     system.conciertoPreseleccionado = btn.getAttribute("data-sel");
-    window.location.hash = "#reservar";
+    mostrarSeccion("reservar");
   };
 }

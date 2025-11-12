@@ -2,9 +2,9 @@
 
 function renderProcesarReservas() {
   // Limpiar tablas
-  document.getElementById("tblPendientes").innerHTML = "";
-  document.getElementById("tblAprobadas").innerHTML = "";
-  document.getElementById("tblCanceladas").innerHTML = "";
+  document.querySelector("#tblPendientes").innerHTML = "";
+  document.querySelector("#tblAprobadas").innerHTML = "";
+  document.querySelector("#tblCanceladas").innerHTML = "";
 
   // Recorrer todas las reservas
   for (let i = 0; i < system.reservas.length; i++) {
@@ -24,7 +24,7 @@ function renderProcesarReservas() {
                       </div>
                     </td>
                 `;
-      document.getElementById("tblPendientes").appendChild(tr);
+      document.querySelector("#tblPendientes").appendChild(tr);
     } else if (reserva.estado === "aprobada") {
       // Agregar a tabla de aprobadas
       const tr = document.createElement("tr");
@@ -33,7 +33,7 @@ function renderProcesarReservas() {
                     <td>${reserva.concierto.nombre}</td>
                     <td>${reserva.cantidad}</td>
                 `;
-      document.getElementById("tblAprobadas").appendChild(tr);
+      document.querySelector("#tblAprobadas").appendChild(tr);
     } else if (reserva.estado === "cancelada") {
       // Agregar a tabla de canceladas
       const tr = document.createElement("tr");
@@ -42,12 +42,12 @@ function renderProcesarReservas() {
                     <td>${reserva.concierto.nombre}</td>
                     <td>${reserva.cantidad}</td>
                 `;
-      document.getElementById("tblCanceladas").appendChild(tr);
+      document.querySelector("#tblCanceladas").appendChild(tr);
     }
   }
 
   // Evento para procesar reservas
-  document.getElementById("tblPendientes").onclick = function (ev) {
+  document.querySelector("#tblPendientes").onclick = function (ev) {
     const btnAprobar = ev.target.closest("button[data-aprobar]");
     const btnCancelar = ev.target.closest("button[data-cancelar]");
 
@@ -56,9 +56,6 @@ function renderProcesarReservas() {
       const res = system.procesarReserva(id, "aprobar");
       alert(res.mensaje);
       renderProcesarReservas();
-      if (window.pages.renderHistorial) window.pages.renderHistorial();
-      if (window.pages.renderExplorar) window.pages.renderExplorar();
-      if (window.pages.renderOfertas) window.pages.renderOfertas();
     } else if (btnCancelar) {
       const id = btnCancelar.getAttribute("data-cancelar");
       const res = system.procesarReserva(id, "cancelar");

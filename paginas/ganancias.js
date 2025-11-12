@@ -1,8 +1,8 @@
 // Página: Informe de Ganancias
 
 function renderGanancias() {
-  const totalEl = document.getElementById("gananciaTotal");
-  const tbl = document.getElementById("tblGanancias");
+  const totalEl = document.querySelector("#gananciaTotal");
+  const tbl = document.querySelector("#tblGanancias");
 
   const datos = system.calcularGanancias();
   totalEl.textContent = "$ " + datos.total;

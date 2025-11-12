@@ -1,7 +1,7 @@
 // Página: Explorar
 
 function renderExplorar() {
-  const tbody = document.getElementById("tblConciertos");
+  const tbody = document.querySelector("#tblConciertos");
 
   tbody.innerHTML = "";
 
@@ -35,9 +35,9 @@ function renderExplorar() {
     const btn = ev.target.closest("button[data-concierto]");
     if (!btn) return;
     system.conciertoPreseleccionado = btn.getAttribute("data-concierto");
-    window.location.hash = "#reservar";
+    mostrarSeccion("reservar");
   };
 
   // Actualizar saldo
-  document.getElementById("saldoExplorar").textContent = system.usuarioLogueado.saldo;
+  document.querySelector("#saldoExplorar").textContent = system.usuarioLogueado.saldo;
 }
