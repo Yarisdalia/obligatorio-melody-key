@@ -1,58 +1,69 @@
 // Página: Admin - Procesar Reservas
-window.pages = window.pages || {};
 
 function renderProcesarReservas() {
-  const system = window.app.system;
-  const tPend = document.getElementById("tblPendientes");
-  const tApr = document.getElementById("tblAprobadas");
-  const tCan = document.getElementById("tblCanceladas");
-  if (tPend) tPend.innerHTML = "";
-  if (tApr) tApr.innerHTML = "";
-  if (tCan) tCan.innerHTML = "";
+  // Limpiar tablas
+  document.getElementById("tblPendientes").innerHTML = "";
+  document.getElementById("tblAprobadas").innerHTML = "";
+  document.getElementById("tblCanceladas").innerHTML = "";
+
+  // Recorrer todas las reservas
   for (let i = 0; i < system.reservas.length; i++) {
-    const r = system.reservas[i];
-    if (r.estado === "pendiente" && tPend) {
+    const reserva = system.reservas[i];
+
+    if (reserva.estado === "pendiente") {
+      // Agregar a tabla de pendientes con botones
       const tr = document.createElement("tr");
       tr.innerHTML = `
-                    <td>${r.cliente.usuario}</td>
-                    <td>${r.concierto.artista}</td>
-                    <td>${r.cantidad}</td>
+                    <td>${reserva.cliente.usuario}</td>
+                    <td>${reserva.concierto.artista}</td>
+                    <td>${reserva.cantidad}</td>
                     <td>
                       <div class="btn-group">
-                        <button class="btn btn-sm btn-approve" data-aprobar="${r.id}">Aprobar</button>
-                        <button class="btn btn-sm btn-cancel" data-cancelar="${r.id}">Cancelar</button>
+                        <button class="btn btn-sm btn-approve" data-aprobar="${reserva.id}">Aprobar</button>
+                        <button class="btn btn-sm btn-cancel" data-cancelar="${reserva.id}">Cancelar</button>
                       </div>
                     </td>
                 `;
-      tPend.appendChild(tr);
-    } else if (r.estado === "aprobada" && tApr) {
+      document.getElementById("tblPendientes").appendChild(tr);
+    } else if (reserva.estado === "aprobada") {
+      // Agregar a tabla de aprobadas
       const tr = document.createElement("tr");
-      tr.innerHTML = `<td>${r.cliente.usuario}</td><td>${r.concierto.nombre}</td><td>${r.cantidad}</td>`;
-      tApr.appendChild(tr);
-    } else if (r.estado === "cancelada" && tCan) {
+      tr.innerHTML = `
+                    <td>${reserva.cliente.usuario}</td>
+                    <td>${reserva.concierto.nombre}</td>
+                    <td>${reserva.cantidad}</td>
+                `;
+      document.getElementById("tblAprobadas").appendChild(tr);
+    } else if (reserva.estado === "cancelada") {
+      // Agregar a tabla de canceladas
       const tr = document.createElement("tr");
-      tr.innerHTML = `<td>${r.cliente.usuario}</td><td>${r.concierto.nombre}</td><td>${r.cantidad}</td>`;
-      tCan.appendChild(tr);
+      tr.innerHTML = `
+                    <td>${reserva.cliente.usuario}</td>
+                    <td>${reserva.concierto.nombre}</td>
+                    <td>${reserva.cantidad}</td>
+                `;
+      document.getElementById("tblCanceladas").appendChild(tr);
     }
   }
-  if (tPend) {
-    tPend.onclick = function (ev) {
-      const btnA = ev.target.closest("button[data-aprobar]");
-      const btnC = ev.target.closest("button[data-cancelar]");
-      if (!btnA && !btnC) return;
-      const id = (btnA || btnC).getAttribute(btnA ? "data-aprobar" : "data-cancelar");
-      const accion = btnA ? "aprobar" : "cancelar";
-      const res = system.procesarReserva(id, accion);
-      if (!res.exito) {
-        alert(res.mensaje);
-      }
+
+  // Evento para procesar reservas
+  document.getElementById("tblPendientes").onclick = function (ev) {
+    const btnAprobar = ev.target.closest("button[data-aprobar]");
+    const btnCancelar = ev.target.closest("button[data-cancelar]");
+
+    if (btnAprobar) {
+      const id = btnAprobar.getAttribute("data-aprobar");
+      const res = system.procesarReserva(id, "aprobar");
+      alert(res.mensaje);
       renderProcesarReservas();
       if (window.pages.renderHistorial) window.pages.renderHistorial();
       if (window.pages.renderExplorar) window.pages.renderExplorar();
       if (window.pages.renderOfertas) window.pages.renderOfertas();
-      if (window.pages.renderGanancias) window.pages.renderGanancias();
-    };
-  }
+    } else if (btnCancelar) {
+      const id = btnCancelar.getAttribute("data-cancelar");
+      const res = system.procesarReserva(id, "cancelar");
+      alert(res.mensaje);
+      renderProcesarReservas();
+    }
+  };
 }
-
-window.pages.renderProcesarReservas = renderProcesarReservas;

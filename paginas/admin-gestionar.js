@@ -1,8 +1,6 @@
 // Página: Admin - Administrar Conciertos
-window.pages = window.pages || {};
 
 function renderAdminConciertos() {
-  const system = window.app.system;
   const tbody = document.getElementById("tblAdminConciertos");
   if (!tbody) return;
   tbody.innerHTML = "";
@@ -42,7 +40,7 @@ function renderAdminConciertos() {
     const nuevosCupos = parseInt(cuposInput?.value || "0", 10);
     const nuevoEstado = estadoInput?.checked ? "activo" : "pausado";
     const oferta = !!ofertaInput?.checked;
-    window.app.system.actualizarConcierto(id, {
+    system.actualizarConcierto(id, {
       cupos: nuevosCupos,
       estado: nuevoEstado,
       oferta: oferta,
@@ -52,5 +50,3 @@ function renderAdminConciertos() {
     if (window.pages.renderOfertas) window.pages.renderOfertas();
   };
 }
-
-window.pages.renderAdminConciertos = renderAdminConciertos;

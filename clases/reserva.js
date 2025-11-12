@@ -1,9 +1,9 @@
 class Reserva {
   constructor(id, cliente, concierto, cantidad, estado) {
-    this.id = id; // id auto incremental
-    this.cliente = cliente; // objeto Cliente
-    this.concierto = concierto; // objeto Concierto
-    this.cantidad = cantidad; // cantidad de cupos
+    this.id = id;
+    this.cliente = cliente; // Objeto Cliente
+    this.concierto = concierto; // Objeto Concierto
+    this.cantidad = cantidad;
     this.estado = estado; // pendiente, aprobada, cancelada
   }
 
@@ -13,8 +13,9 @@ class Reserva {
 
   montoConDescuento() {
     let total = this.montoTotal();
+    // Aplicar 10% de descuento si cantidad >= 4
     if (this.cantidad >= 4) {
-      total = total * 0.9; // aplicar descuento del 10%
+      total = total * 0.9;
     }
     return total;
   }

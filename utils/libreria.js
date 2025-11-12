@@ -28,24 +28,13 @@ function validaCantidad(cantidad) {
   return cantidad > 0;
 }
 
-function validaCupos(cantidad, cupos) {
-  if (cupos <= 0) {
-    return false;
-  }
-  return cantidad <= cupos;
-}
-
 function puedeReservarEnLista(clienteId, conciertoId, reservas) {
-  if (!reservas) {
-    return true;
-  }
   for (let i = 0; i < reservas.length; i++) {
     let reservaActual = reservas[i];
-    if (reservaActual) {
-      if (reservaActual.cliente && reservaActual.concierto) {
-        if (reservaActual.cliente.id === clienteId && reservaActual.concierto.id === conciertoId) {
-          return false;
-        }
+    if (reservaActual.cliente.id === clienteId && reservaActual.concierto.id === conciertoId) {
+      // Solo bloquear si tiene reserva pendiente o aprobada
+      if (reservaActual.estado === "pendiente" || reservaActual.estado === "aprobada") {
+        return false;
       }
     }
   }
@@ -56,17 +45,9 @@ function puedeReservarEnLista(clienteId, conciertoId, reservas) {
 
 function filtrarReservasCliente(reservas, clienteId) {
   let resultado = [];
-  if (!reservas) {
-    return resultado;
-  }
   for (let i = 0; i < reservas.length; i++) {
-    let reservaActual = reservas[i];
-    if (reservaActual) {
-      if (reservaActual.cliente) {
-        if (reservaActual.cliente.id === clienteId) {
-          resultado.push(reservaActual);
-        }
-      }
+    if (reservas[i].cliente.id === clienteId) {
+      resultado.push(reservas[i]);
     }
   }
   return resultado;
@@ -74,25 +55,10 @@ function filtrarReservasCliente(reservas, clienteId) {
 
 function totalAprobadas(reservasCliente) {
   let total = 0;
-  if (!reservasCliente) {
-    return 0;
-  }
   for (let i = 0; i < reservasCliente.length; i++) {
-    let reservaActual = reservasCliente[i];
-    if (reservaActual) {
-      if (reservaActual.estado === "aprobada") {
-        let montoReserva = 0;
-        if (reservaActual.montoTotal) {
-          montoReserva = reservaActual.montoTotal();
-        } else if (reservaActual.concierto && reservaActual.cantidad) {
-          montoReserva = reservaActual.concierto.precio * reservaActual.cantidad;
-        }
-        // Aplicar descuento del 10% si la cantidad es 4 o más
-        if (reservaActual.cantidad >= 4) {
-          montoReserva = Math.floor(montoReserva * 0.9);
-        }
-        total = total + montoReserva;
-      }
+    let reserva = reservasCliente[i];
+    if (reserva.estado === "aprobada") {
+      total = total + reserva.montoConDescuento();
     }
   }
   return total;
@@ -100,25 +66,9 @@ function totalAprobadas(reservasCliente) {
 
 // ------------------- VALIDACIONES CONCIERTOS EN OFERTA ---------------------------
 
-function esActivo(concierto) {
-  if (!concierto) {
-    return false;
-  }
-  return concierto.estado === "activo";
-}
-
 function esOfertaActiva(concierto) {
-  if (!concierto) {
-    return false;
+  if (concierto.estado === "activo" && concierto.oferta === true && concierto.cupos > 0) {
+    return true;
   }
-  if (!esActivo(concierto)) {
-    return false;
-  }
-  if (!(concierto.oferta === true)) {
-    return false;
-  }
-  if (!(concierto.cupos > 0)) {
-    return false;
-  }
-  return true;
+  return false;
 }

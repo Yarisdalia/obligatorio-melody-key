@@ -4,123 +4,99 @@ class Sistema {
     this.administradores = [];
     this.conciertos = [];
     this.reservas = [];
-
-    // Activamos el usuario logueado.
     this.usuarioLogueado = null;
+    this.conciertoPreseleccionado = null;
   }
 
-  //_____________________________ F01 - REGISTRO DE CLIENTE (HECHO)___________________________________
+  //_____________________________ F01 - REGISTRO DE CLIENTE ___________________________________
 
   agregarUsuario(nombre, apellido, usuario, contrasena, confirmarContrasena) {
-    let mensaje = "";
-    //Definimos variables locales para no tener que usar "this." todo el tiempo
-    let clientes = this.clientes;
-
-    // Validamos que todos los campos son cumplimentados.
+    // Validar que todos los campos están completos
     if (!nombre || !apellido || !usuario || !contrasena || !confirmarContrasena) {
-      mensaje = "Todos los campos son obligatorios.";
-      return mensaje;
-    } else if (existeProp(clientes, "usuario", usuario)) {
-      //Funcion en librería
-      mensaje = "El nombre de usuario ya existe.";
-      return mensaje;
-    } else if (!validarContrasena(contrasena)) {
-      //Funcion en librería
-      mensaje = "Debe ingresar una contraseña válida.";
-      return mensaje;
-    } else if (contrasena !== confirmarContrasena) {
-      mensaje = "Las contraseñas no coinciden.";
-      return mensaje;
-    } else {
-      let nuevoCliente = new Cliente(obtenerIdCliente(), nombre, apellido, usuario, contrasena, 10000);
-      clientes.push(nuevoCliente);
-      mensaje = "Registro exitoso.";
+      return "Todos los campos son obligatorios.";
     }
 
-    return mensaje;
-  }
-
-  //_____________________________ F02 - INICIO DE SESION (HECHO) __________________________________________________________
-  // Misma página para clientes y adm. el nombre de usuario identifica el perfil de usuario.
-  // O hacer un select???
-
-  iniciarSesion(usuario, contrasena) {
-    let mensaje = "";
-    let clientes = this.clientes;
-    let administradores = this.administradores;
-    let esAdmin = false;
-    let esCliente = false;
-
-    // Validar campos vacios
-    if (!usuario || !contrasena) {
-      return (mensaje = "Los campos no pueden estar vacíos");
-    }
-
-    // Determinar tipo de usuario (admin / cliente)
-    esAdmin = existeProp(administradores, "usuario", usuario);
-
-    if (!esAdmin) {
-      esCliente = existeProp(clientes, "usuario", usuario);
-    }
-
-    if (!esAdmin && !esCliente) {
-      return (mensaje = "Usuario no encontrado");
+    // Validar que el usuario no existe
+    if (existeProp(this.clientes, "usuario", usuario)) {
+      return "El nombre de usuario ya existe.";
     }
 
     // Validar contraseña
-    if (esAdmin) {
-      for (let i = 0; i < administradores.length; i++) {
-        if (administradores[i].usuario.toLowerCase() === usuario.toLowerCase()) {
-          if (administradores[i].contrasena === contrasena) {
-            this.usuarioLogueado = administradores[i]; //Asignamos el objeto administrador a usuarioLogueado
-            return (mensaje = "Bienvenido " + this.usuarioLogueado.nombre);
-          } else {
-            return (mensaje = "Contraseña incorrecta");
-          }
-        }
-      }
-    } else {
-      for (let i = 0; i < clientes.length; i++) {
-        if (clientes[i].usuario.toLowerCase() === usuario.toLowerCase()) {
-          if (clientes[i].contrasena === contrasena) {
-            this.usuarioLogueado = clientes[i]; //Asignamos el objeto cliente a usuarioLogueado
-            return (mensaje = "Bienvenido " + this.usuarioLogueado.nombre);
-          } else {
-            return (mensaje = "Contraseña incorrecta");
-          }
+    if (!validarContrasena(contrasena)) {
+      return "Debe ingresar una contraseña válida.";
+    }
+
+    // Validar que las contraseñas coinciden
+    if (contrasena !== confirmarContrasena) {
+      return "Las contraseñas no coinciden.";
+    }
+
+    // Crear nuevo cliente con saldo inicial de 10000
+    let nuevoCliente = new Cliente(obtenerIdCliente(), nombre, apellido, usuario, contrasena, 10000);
+    this.clientes.push(nuevoCliente);
+    return "Registro exitoso.";
+  }
+
+  //_____________________________ F02 - INICIO DE SESION __________________________________________________________
+
+  iniciarSesion(usuario, contrasena) {
+    // Validar campos vacíos
+    if (!usuario || !contrasena) {
+      return "Los campos no pueden estar vacíos";
+    }
+
+    // Buscar en administradores
+    for (let i = 0; i < this.administradores.length; i++) {
+      if (this.administradores[i].usuario.toLowerCase() === usuario.toLowerCase()) {
+        if (this.administradores[i].contrasena === contrasena) {
+          this.usuarioLogueado = this.administradores[i];
+          return "Bienvenido " + this.usuarioLogueado.nombre;
+        } else {
+          return "Contraseña incorrecta";
         }
       }
     }
+
+    // Buscar en clientes
+    for (let i = 0; i < this.clientes.length; i++) {
+      if (this.clientes[i].usuario.toLowerCase() === usuario.toLowerCase()) {
+        if (this.clientes[i].contrasena === contrasena) {
+          this.usuarioLogueado = this.clientes[i];
+          return "Bienvenido " + this.usuarioLogueado.nombre;
+        } else {
+          return "Contraseña incorrecta";
+        }
+      }
+    }
+
+    return "Usuario no encontrado";
   }
 
-  //_____________________________ F0? - CIERRE DE SESION (HECHO) ______________________________________________
-  //Debera constar de un boton en el nav? nav fijo
+  //_____________________________ F0? - CIERRE DE SESION ______________________________________________
 
   cerrarSesion() {
-    this.usuarioLogueado = null; //usuarioLogueado guarda un objeto (cliente), lo vaciamos.
-    let mensaje = "Sesión cerrada";
-    return mensaje;
+    this.usuarioLogueado = null;
+    return "Sesión cerrada";
   }
 
-  //_________________________ F03 EXPLORAR CONCIERTOS DISPONIBLES (SERGIO) ____________________________________________________________________________
-  // Solo muestra conciertos activos con cupos disponibles
+  //_________________________ F03 - EXPLORAR CONCIERTOS DISPONIBLES ____________________________________________________________________________
 
   explorarConciertosDisponibles() {
-    let conciertos = this.conciertos;
-    let conciertosDisponibles = []; // Array de conciertos disponibles
+    let conciertosDisponibles = [];
 
-    for (let i = 0; i < conciertos.length; i++) {
-      if (conciertos[i].estado === "activo" && conciertos[i].cupos > 0) {
-        conciertosDisponibles.push(conciertos[i]);
+    for (let i = 0; i < this.conciertos.length; i++) {
+      if (this.conciertos[i].estado === "activo" && this.conciertos[i].cupos > 0) {
+        conciertosDisponibles.push(this.conciertos[i]);
       }
     }
 
     return conciertosDisponibles;
   }
 
-  //___________________________ F04 RESERVAR ENTRADAS (YARIS) __________________________________________________
+  //___________________________ F04 - RESERVAR ENTRADAS __________________________________________________
 
   solicitarReserva(clienteId, conciertoId, cantidad) {
+    // Buscar cliente
     let cliente = null;
     for (let i = 0; i < this.clientes.length; i++) {
       if (this.clientes[i].id === clienteId) {
@@ -128,9 +104,8 @@ class Sistema {
         break;
       }
     }
-    if (!cliente) {
-      return { exito: false, mensaje: "Cliente inválido." };
-    }
+
+    // Buscar concierto
     let concierto = null;
     for (let i = 0; i < this.conciertos.length; i++) {
       if (this.conciertos[i].id === conciertoId) {
@@ -138,31 +113,25 @@ class Sistema {
         break;
       }
     }
-    if (!concierto) {
-      return { exito: false, mensaje: "Concierto inválido." };
-    }
+
+    // Validar cantidad
     if (!validaCantidad(cantidad)) {
       return { exito: false, mensaje: "Cantidad inválida." };
     }
+
+    // Validar que no tenga reserva previa (pendiente o aprobada)
     if (!puedeReservarEnLista(clienteId, conciertoId, this.reservas)) {
-      return {
-        exito: false,
-        mensaje: "Ya existe una reserva para este concierto.",
-      };
+      return { exito: false, mensaje: "Ya tiene una reserva de este concierto." };
     }
-    let nueva = new Reserva(obtenerIdReserva(), cliente, concierto, cantidad, "pendiente");
-    this.reservas.push(nueva);
-    return {
-      exito: true,
-      mensaje: "Reserva creada y pendiente de aprobación.",
-      reserva: nueva,
-    };
+
+    // Crear reserva pendiente
+    let nuevaReserva = new Reserva(obtenerIdReserva(), cliente, concierto, cantidad, "pendiente");
+    this.reservas.push(nuevaReserva);
+
+    return { exito: true, mensaje: "Reserva pendiente de confirmación." };
   }
 
-  //______________________________ F05 – HISTORIAL DE RESERVAS (YARIS) ______________________________________________
-
-  // Validar el usuariologueado, usuarioLogueado guarda el objeto del cliente (id, nombre, contraseña... )
-  // Se utiliza usuarioLogueado para traer la info de sus reservas.
+  //______________________________ F05 – HISTORIAL DE RESERVAS ______________________________________________
 
   listarReservasCliente(clienteId) {
     return filtrarReservasCliente(this.reservas, clienteId);
@@ -170,16 +139,13 @@ class Sistema {
 
   cancelarReserva(reservaId, clienteId) {
     for (let i = 0; i < this.reservas.length; i++) {
-      let r = this.reservas[i];
-      if (r.id === reservaId && r.cliente && r.cliente.id === clienteId) {
-        if (r.estado === "pendiente") {
-          r.estado = "cancelada";
+      let reserva = this.reservas[i];
+      if (reserva.id === reservaId && reserva.cliente.id === clienteId) {
+        if (reserva.estado === "pendiente") {
+          reserva.estado = "cancelada";
           return { exito: true, mensaje: "Reserva cancelada." };
         } else {
-          return {
-            exito: false,
-            mensaje: "Solo se pueden cancelar reservas pendientes.",
-          };
+          return { exito: false, mensaje: "La reserva fué aprobada, no es posible cancelar." };
         }
       }
     }
@@ -191,223 +157,177 @@ class Sistema {
     return totalAprobadas(reservasCliente);
   }
 
-  //______________________________ F06 – CONCIERTOS EN OFERTA (YARIS) ________________________________
+  //______________________________ F06 – CONCIERTOS EN OFERTA ________________________________
 
   obtenerOfertas() {
     let resultado = [];
-    if (!this.conciertos) {
-      return resultado;
-    }
     for (let i = 0; i < this.conciertos.length; i++) {
-      let conciertoActual = this.conciertos[i];
-      if (conciertoActual) {
-        if (esOfertaActiva(conciertoActual)) {
-          resultado.push(conciertoActual);
-        }
+      if (esOfertaActiva(this.conciertos[i])) {
+        resultado.push(this.conciertos[i]);
       }
     }
     return resultado;
   }
 
-  //______________________________ F07 – LISTAR Y PROCESAR RESERVAS (SERGIO) ________________________________
+  //______________________________ F07 – LISTAR Y PROCESAR RESERVAS ________________________________
 
-  // Listar reservas:
-
+  // Listar reservas por estado
   listarReservasPendientes() {
     let pendientes = [];
-
     for (let i = 0; i < this.reservas.length; i++) {
-      let reserva = this.reservas[i];
-      if (reserva.estado === "pendiente") {
-        pendientes.push(reserva);
+      if (this.reservas[i].estado === "pendiente") {
+        pendientes.push(this.reservas[i]);
       }
     }
-
     return pendientes;
   }
 
   listarReservasAprobadas() {
     let aprobadas = [];
-
     for (let i = 0; i < this.reservas.length; i++) {
-      let reserva = this.reservas[i];
-      if (reserva.estado === "aprobada") {
-        aprobadas.push(reserva);
+      if (this.reservas[i].estado === "aprobada") {
+        aprobadas.push(this.reservas[i]);
       }
     }
-
     return aprobadas;
   }
 
   listarReservasCanceladas() {
     let canceladas = [];
-
     for (let i = 0; i < this.reservas.length; i++) {
-      let reserva = this.reservas[i];
-      if (reserva.estado === "cancelada") {
-        canceladas.push(reserva);
+      if (this.reservas[i].estado === "cancelada") {
+        canceladas.push(this.reservas[i]);
       }
     }
-
     return canceladas;
   }
 
-  //Procesar reservas pendientes:
-
-  /*     procesarReservaPendiente(idReserva, aprobar)
-{
-    for (let i = 0; i < this.reservas.length; i++)
-    {
-        let reserva = this.reservas[i];
-
-        if (reserva.id === idReserva && reserva.estado === "pendiente")
-        {
-            let cliente = reserva.cliente;
-            let concierto = reserva.concierto;
-            let monto = reserva.montoConDescuento();  // ✅ ya aplica descuento si corresponde
-
-            // validaciones
-            if (aprobar && concierto.estado === "activo" && concierto.cupos >= reserva.cantidad && cliente.saldo >= monto)
-            {
-                reserva.estado = "aprobada";
-                reserva.montoFinal = monto;    // guardamos el monto definitivo
-                cliente.saldo -= monto;
-                concierto.cupos -= reserva.cantidad;
-
-                if (concierto.cupos === 0)
-                {
-                    concierto.estado = "pausado";
-                }
-            }
-            else
-            {
-                reserva.estado = "cancelada";
-            }
-
-            break;
-        }
-    }
-} */
-
-  // --------------------------------------------------------------------------------------------
-
-  // Y este codigo?? :
-
+  // Procesar reservas pendientes
   procesarReserva(reservaId, accion) {
     for (let i = 0; i < this.reservas.length; i++) {
-      let r = this.reservas[i];
-      if (r.id === reservaId) {
-        if (r.estado !== "pendiente") {
+      let reserva = this.reservas[i];
+
+      if (reserva.id === reservaId) {
+        if (reserva.estado !== "pendiente") {
           return { exito: false, mensaje: "La reserva ya fue procesada." };
         }
+
         if (accion === "aprobar") {
-          // Verificaciones de aprobación
-          if (!r.concierto.estaActivo()) {
-            r.estado = "cancelada";
-            return {
-              exito: false,
-              mensaje: "El concierto no está activo. Reserva cancelada.",
-            };
+          // Validar concierto activo
+          if (reserva.concierto.estado !== "activo") {
+            reserva.estado = "cancelada";
+            return { exito: false, mensaje: "El concierto no está activo. Reserva cancelada." };
           }
-          if (!r.concierto.tieneCupos(r.cantidad)) {
-            r.estado = "cancelada";
-            return {
-              exito: false,
-              mensaje: "No hay cupos suficientes. Reserva cancelada.",
-            };
+
+          // Validar cupos suficientes
+          if (reserva.concierto.cupos < reserva.cantidad) {
+            reserva.estado = "cancelada";
+            return { exito: false, mensaje: "No hay cupos suficientes. Reserva cancelada." };
           }
-          // Total con descuento si corresponde
-          let total = r.montoConDescuento();
-          if (!r.cliente.siSeQuedasConSaldo(total)) {
-            r.estado = "cancelada";
-            return {
-              exito: false,
-              mensaje: "Saldo insuficiente. Reserva cancelada.",
-            };
+
+          // Calcular monto con descuento (10% si cantidad >= 4)
+          let monto = reserva.montoConDescuento();
+
+          // Validar saldo suficiente
+          if (reserva.cliente.saldo < monto) {
+            reserva.estado = "cancelada";
+            return { exito: false, mensaje: "Saldo insuficiente. Reserva cancelada." };
           }
-          r.cliente.descontarSaldo(total);
-          r.concierto.descargarCupos(r.cantidad);
-          r.estado = "aprobada";
+
+          // Aprobar reserva
+          reserva.cliente.saldo = reserva.cliente.saldo - monto;
+          reserva.concierto.cupos = reserva.concierto.cupos - reserva.cantidad;
+          reserva.estado = "aprobada";
+
+          // Si cupos llegan a 0, pausar concierto
+          if (reserva.concierto.cupos === 0) {
+            reserva.concierto.estado = "pausado";
+          }
+
           return { exito: true, mensaje: "Reserva aprobada." };
         } else if (accion === "cancelar") {
-          r.estado = "cancelada";
+          reserva.estado = "cancelada";
           return { exito: true, mensaje: "Reserva cancelada." };
-        } else {
-          return { exito: false, mensaje: "Acción inválida." };
         }
       }
     }
     return { exito: false, mensaje: "Reserva no encontrada." };
   }
 
-  //______________________________ F08 – AGREGAR CONCIERTOS (SERGIO) ________________________________
+  //______________________________ F08 – AGREGAR CONCIERTOS ________________________________
 
   agregarConcierto(nombre, artista, precio, descripcion, imagen, cupos, estado, oferta) {
-    // Generamos un id único usando la función de librería
-    let idConcierto = obtenerIdConcierto();
-
-    // Creamos el objeto concierto
-    let nuevoConcierto = new Concierto(idConcierto, nombre, artista, precio, descripcion, imagen, cupos, estado, oferta);
-
-    // Agregamos al array "madre"
+    let nuevoConcierto = new Concierto(obtenerIdConcierto(), nombre, artista, precio, descripcion, imagen, cupos, estado, oferta);
     this.conciertos.push(nuevoConcierto);
   }
 
-  //______________________________ F09 – ADMINISTRAR CONCIERTOS (YARIS) ________________________________
+  //______________________________ F09 – ADMINISTRAR CONCIERTOS ________________________________
 
   actualizarConcierto(idConcierto, cambios) {
     for (let i = 0; i < this.conciertos.length; i++) {
-      let c = this.conciertos[i];
-      if (c.id === idConcierto) {
-        if (typeof cambios.cupos !== "undefined") {
-          let nuevosCupos = cambios.cupos;
-          if (nuevosCupos < 0) {
-            nuevosCupos = 0;
-          }
-          c.cupos = nuevosCupos;
-          if (c.cupos === 0) {
-            c.estado = "pausado";
+      let concierto = this.conciertos[i];
+
+      if (concierto.id === idConcierto) {
+        // Actualizar cupos
+        if (cambios.cupos !== undefined) {
+          concierto.cupos = cambios.cupos;
+          // Si cupos llegan a 0, pausar automáticamente
+          if (concierto.cupos === 0) {
+            concierto.estado = "pausado";
           }
         }
-        if (typeof cambios.estado !== "undefined") {
-          let nuevoEstado = cambios.estado;
-          if (nuevoEstado === "activo" && c.cupos === 0) {
-            c.estado = "pausado";
+
+        // Actualizar estado
+        if (cambios.estado !== undefined) {
+          // No permitir activar si no hay cupos
+          if (cambios.estado === "activo" && concierto.cupos === 0) {
+            concierto.estado = "pausado";
           } else {
-            c.estado = nuevoEstado;
+            concierto.estado = cambios.estado;
           }
         }
-        if (typeof cambios.oferta !== "undefined") {
-          c.oferta = !!cambios.oferta;
+
+        // Actualizar oferta
+        if (cambios.oferta !== undefined) {
+          concierto.oferta = cambios.oferta;
         }
+
         return { exito: true, mensaje: "Concierto actualizado." };
       }
     }
     return { exito: false, mensaje: "Concierto no encontrado." };
   }
 
-  //______________________________ F010 – INFORME DE GANANCIAS (SERGIO) ________________________________
+  //______________________________ F10 – INFORME DE GANANCIAS ________________________________
 
   calcularGanancias() {
     let total = 0;
     let detalle = {};
+
     for (let i = 0; i < this.reservas.length; i++) {
-      let r = this.reservas[i];
-      if (r && r.estado === "aprobada") {
-        let monto = r.montoConDescuento();
+      let reserva = this.reservas[i];
+
+      if (reserva.estado === "aprobada") {
+        let monto = reserva.montoConDescuento();
         total = total + monto;
-        let clave = r.concierto.id;
-        if (!detalle[clave]) {
-          detalle[clave] = {
-            nombre: r.concierto.nombre,
+
+        let conciertoId = reserva.concierto.id;
+
+        // Si no existe el concierto en el detalle, crearlo
+        if (!detalle[conciertoId]) {
+          detalle[conciertoId] = {
+            nombre: reserva.concierto.nombre,
             cantidad: 0,
             monto: 0,
           };
         }
-        detalle[clave].cantidad = detalle[clave].cantidad + r.cantidad;
-        detalle[clave].monto = detalle[clave].monto + monto;
+
+        // Sumar cantidad y monto
+        detalle[conciertoId].cantidad = detalle[conciertoId].cantidad + reserva.cantidad;
+        detalle[conciertoId].monto = detalle[conciertoId].monto + monto;
       }
     }
+
     return { total: total, detalle: detalle };
   }
 }
