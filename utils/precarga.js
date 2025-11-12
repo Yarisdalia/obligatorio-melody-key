@@ -76,10 +76,6 @@ function precargarDatos(sistema) {
 
       const tieneSaldo = reserva.cliente.saldo >= total;
       const hayCupos = reserva.concierto.cupos >= reserva.cantidad;
-
-      console.log(reserva.cliente.saldo, total);
-      console.log(tieneSaldo, hayCupos);
-
       if (tieneSaldo && hayCupos) {
         // Descontar saldo y cupos
         reserva.cliente.saldo = reserva.cliente.saldo - total;

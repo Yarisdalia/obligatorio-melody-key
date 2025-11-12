@@ -1,7 +1,7 @@
 function actualizarNavbar() {
-  const user = sistema.usuarioLogueado;
-  const isAdmin = esAdmin(user);
-  const isCliente = esCliente(user);
+  const usuarioLogueado = sistema.usuarioLogueado;
+  const isAdmin = esAdmin(usuarioLogueado);
+  const isCliente = esCliente(usuarioLogueado);
 
   const navInicio = document.querySelector("#navInicio");
   const navRegistro = document.querySelector("#navRegistro");
@@ -14,7 +14,7 @@ function actualizarNavbar() {
   const btnLogout = document.querySelector("#btnCerrarSesion");
 
   // --- IF usuario no logueado ---
-  if (!user) {
+  if (!usuarioLogueado) {
     navInicio.style.display = "block";
     navRegistro.style.display = "block";
     navExplorar.style.display = "none";
@@ -22,12 +22,12 @@ function actualizarNavbar() {
     navReservar.style.display = "none";
     navHistorial.style.display = "none";
     navAdmin.style.display = "none";
-    navUsuario.textContent = "";
+    navUsuario.innerHTML = "";
     btnLogout.style.display = "none";
   }
 
   // --- IF cliente logueado ---
-  if (user && isCliente) {
+  if (usuarioLogueado && isCliente) {
     navInicio.style.display = "none";
     navRegistro.style.display = "none";
     navExplorar.style.display = "block";
@@ -35,12 +35,12 @@ function actualizarNavbar() {
     navReservar.style.display = "block";
     navHistorial.style.display = "block";
     navAdmin.style.display = "none";
-    navUsuario.textContent = "Hola, " + user.nombre;
+    navUsuario.innerHTML = "Hola, " + usuarioLogueado.nombre;
     btnLogout.style.display = "block";
   }
 
   // --- IF admin logueado ---
-  if (user && isAdmin) {
+  if (usuarioLogueado && isAdmin) {
     navInicio.style.display = "none";
     navRegistro.style.display = "none";
     navExplorar.style.display = "none";
@@ -48,7 +48,7 @@ function actualizarNavbar() {
     navReservar.style.display = "none";
     navHistorial.style.display = "none";
     navAdmin.style.display = "block";
-    navUsuario.textContent = "Hola, " + user.nombre;
+    navUsuario.innerHTML = "Hola, " + usuarioLogueado.nombre;
     btnLogout.style.display = "block";
   }
 }

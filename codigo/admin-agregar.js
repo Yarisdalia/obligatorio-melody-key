@@ -1,7 +1,7 @@
 // Página: Admin - Agregar Concierto
 document.querySelector("#btnAgregarConcierto").addEventListener("click", agregar);
 function agregar() {
-  const msg = document.querySelector("#msgAgregarConcierto");
+  const mensaje = document.querySelector("#msgAgregarConcierto");
 
   // Obtener valores del formulario
   const nombre = document.querySelector("#txtNombreEvento").value;
@@ -10,18 +10,22 @@ function agregar() {
   const cupos = Number(document.querySelector("#txtCupos").value);
   const descripcion = document.querySelector("#txtDescripcion").value;
   const fileImg = document.querySelector("#fileImagen");
-  const imagen = fileImg.files.length > 0 ? fileImg.files[0].name : "";
   const oferta = document.querySelector("#chkOferta").checked;
+
+  let imagen = ""
+  if(fileImg.files.length > 0) {
+    imagen =  fileImg.files[0].name;
+  }
 
   // Validar campos obligatorios
   if (!nombre || !artista || !descripcion || !precio || !cupos) {
-    msg.textContent = "Los campos no pueden estar vacíos.";
+    mensaje.innerHTML = "Los campos no pueden estar vacíos.";
     return;
   }
 
   // Crear concierto con estado "activo"
   sistema.agregarConcierto(nombre, artista, precio, descripcion, imagen, cupos, "activo", oferta);
-  msg.textContent = "Concierto agregado.";
+  mensaje.innerHTML = "Concierto agregado.";
 
   // Limpiar formulario
   document.querySelector("#txtNombreEvento").value = "";

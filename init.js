@@ -7,6 +7,3 @@ function iniciarTodoElSistema() {
 }
 
 iniciarTodoElSistema();
-
-// CAMBIO DE PRUEBA 
-// MAS CAMBIOS

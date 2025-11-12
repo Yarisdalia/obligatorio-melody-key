@@ -47,8 +47,6 @@ function mostrarTablaExplorar() {
     boton.addEventListener("click", seleccionarConciertoExplorar);
   }
 
-  // Actualizar saldo
-  document.querySelector("#saldoExplorar").textContent = sistema.usuarioLogueado.saldo;
 }
 
 function seleccionarConciertoExplorar() {

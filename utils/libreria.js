@@ -3,7 +3,7 @@
 // ------------------- TIPO DE USUARIO --------------------
 
 function esAdmin(user) {
-  return user && user instanceof Administrador;
+  return user && user instanceof Administrador; // instanceof -> instancia de
 }
 
 function esCliente(user) {
@@ -123,3 +123,11 @@ function esOfertaActiva(concierto) {
   }
   return false;
 }
+
+
+// -------------------  VERIFICAR SI ESTA UN STRING DENTRO DE UN ARREGLO ------
+
+ function estaEnElArrayElString(arr, string){
+    const index = arr.indexOf(string)
+    return index >= 0
+ }
