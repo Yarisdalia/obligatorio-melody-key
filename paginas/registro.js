@@ -18,7 +18,9 @@ function onRegistrar() {
   }
 }
 
-document.addEventListener("DOMContentLoaded", function () {
-  const btn = document.querySelector("#btnRegistrar");
-  btn.onclick = onRegistrar;
-});
+// Asignar evento al botón
+const btnRegistrar = document.querySelector("#btnRegistrar");
+if (btnRegistrar) {
+  btnRegistrar.onclick = onRegistrar;
+}
+

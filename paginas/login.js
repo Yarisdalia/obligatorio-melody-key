@@ -18,7 +18,9 @@ function onIniciarSesion() {
   }
 }
 
-document.addEventListener("DOMContentLoaded", function () {
-  const btn = document.querySelector("#btnIniciarSesion");
-  btn.onclick = onIniciarSesion;
-});
+// Asignar evento al botón
+const btnLogin = document.querySelector("#btnIniciarSesion");
+if (btnLogin) {
+  btnLogin.onclick = onIniciarSesion;
+}
+

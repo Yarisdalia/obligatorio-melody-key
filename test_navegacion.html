@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Navegación</title>
+    <style>
+        body { font-family: Arial; padding: 20px; }
+        .seccion { padding: 20px; border: 2px solid #ccc; margin: 10px 0; }
+        .boton { display: inline-block; padding: 10px 20px; background: #007bff; color: white; margin: 5px; cursor: pointer; text-decoration: none; }
+        .boton:hover { background: #0056b3; }
+    </style>
+</head>
+<body>
+    <h1>Test de Navegación</h1>
+    
+    <div>
+        <a href="#" class="boton" id="btnLogin">Login</a>
+        <a href="#" class="boton" id="btnRegistro">Registro</a>
+        <a href="#" class="boton" id="btnExplorar">Explorar</a>
+    </div>
+    
+    <section id="login" class="seccion">
+        <h2>Login</h2>
+        <p>Esta es la sección de login</p>
+    </section>
+    
+    <section id="registro" class="seccion">
+        <h2>Registro</h2>
+        <p>Esta es la sección de registro</p>
+    </section>
+    
+    <section id="explorar" class="seccion">
+        <h2>Explorar</h2>
+        <p>Esta es la sección de explorar</p>
+    </section>
+    
+    <script src="clases/cliente.js"></script>
+    <script src="clases/administrador.js"></script>
+    <script src="clases/concierto.js"></script>
+    <script src="clases/reserva.js"></script>
+    <script src="utils/validaciones-contrasena.js"></script>
+    <script src="utils/tipo-de-usuario.js"></script>
+    <script src="utils/ids.js"></script>
+    <script src="utils/libreria.js"></script>
+    <script src="utils/precarga.js"></script>
+    <script src="utils/navegacion.js"></script>
+    <script src="sistema.js"></script>
+    <script src="paginas/common.js"></script>
+    
+    <script>
+        console.log("Test de navegación cargado");
+        console.log("Botones encontrados:", document.querySelectorAll(".boton").length);
+        console.log("Secciones encontradas:", document.querySelectorAll(".seccion").length);
+    </script>
+</body>
+</html>

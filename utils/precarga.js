@@ -120,4 +120,8 @@ function precargarDatos(system) {
     new Administrador(obtenerIdAdministrador(), "Diego", "admin4", "Admin4D"),
     new Administrador(obtenerIdAdministrador(), "Elena", "admin5", "Admin5E"),
   );
+
+  // Mostrar en consola los datos precargarDatos
+  console.log("Datos precargados:");
+  console.log("System:", system);
 }

@@ -1,0 +1,118 @@
+═══════════════════════════════════════════════════════════════
+   🔍 INSTRUCCIONES PARA DEBUG DE NAVEGACIÓN
+═══════════════════════════════════════════════════════════════
+
+PASO 1: Abre index.html en el navegador
+────────────────────────────────────────────────────────────────
+
+PASO 2: Abre la Consola del Navegador
+────────────────────────────────────────────────────────────────
+   Chrome/Edge: F12 o Ctrl+Shift+J (Cmd+Option+J en Mac)
+   Firefox: F12 o Ctrl+Shift+K (Cmd+Option+K en Mac)
+   
+   Busca la pestaña "Console" o "Consola"
+
+PASO 3: Verifica los mensajes iniciales
+────────────────────────────────────────────────────────────────
+Deberías ver algo como:
+
+   === INICIANDO NAVEGACIÓN ===
+   Botones encontrados: 10
+     Botón 0 : btnLogin
+     Botón 1 : btnRegistro
+     Botón 2 : btnExplorar
+     ...
+   
+   Mostrando login por defecto...
+   mostrarSeccion llamado con: login
+   Ocultando secciones: 10
+     Oculté: registro
+     Oculté: explorar
+     Oculté: oferta
+     ...
+     Oculté: login
+     Sección encontrada: login
+     Mostré: login
+   === NAVEGACIÓN INICIADA ===
+
+PASO 4: Haz click en "Registro"
+────────────────────────────────────────────────────────────────
+En la consola deberías ver:
+
+   >>> Click en botón: btnRegistro
+       ID Sección: registro
+   mostrarSeccion llamado con: registro
+   Ocultando secciones: 10
+     Oculté: login
+     Oculté: registro
+     ...
+     Sección encontrada: registro
+     Mostré: registro
+
+¿QUÉ BUSCAR?
+────────────────────────────────────────────────────────────────
+
+✅ SI VES ESTO - TODO BIEN:
+   - "Botones encontrados: 10" (o más)
+   - Al hacer click: "Click en botón: btnXXX"
+   - "Ocultando secciones: 10"
+   - "Mostré: NOMBRE_SECCION"
+   
+   → Si ves esto pero NO cambia la pantalla, es un problema de CSS
+
+❌ SI VES ESTO - HAY PROBLEMA:
+   - "Botones encontrados: 0"
+     → Los botones no tienen clase .boton
+   
+   - "Ocultando secciones: 0"
+     → Las secciones no tienen clase .seccion
+   
+   - "Sección encontrada: NO ENCONTRADA"
+     → La sección con ese ID no existe
+   
+   - No aparece nada al hacer click
+     → Los eventos no se están asignando
+
+PASO 5: Prueba manual en la consola
+────────────────────────────────────────────────────────────────
+Escribe en la consola:
+
+   mostrarSeccion("registro")
+   
+Debería mostrar el formulario de registro.
+
+Luego:
+
+   mostrarSeccion("login")
+   
+Debería volver a login.
+
+PASO 6: Verifica las clases en el DOM
+────────────────────────────────────────────────────────────────
+Escribe en la consola:
+
+   document.querySelector("#login").classList
+   
+Deberías ver un DOMTokenList con las clases.
+Si tiene "d-none", está oculto.
+Si NO tiene "d-none", está visible.
+
+PASO 7: Inspecciona un elemento
+────────────────────────────────────────────────────────────────
+1. Click derecho en la página → "Inspeccionar"
+2. Busca <section id="login" class="seccion">
+3. Verifica:
+   - ¿Tiene class="seccion d-none"? → Está oculto
+   - ¿Tiene class="seccion"? → Está visible
+
+PASO 8: Reporta los resultados
+────────────────────────────────────────────────────────────────
+Mándame:
+
+1. ¿Cuántos botones encontró? (del mensaje "Botones encontrados: X")
+2. ¿Cuántas secciones encontró? (del mensaje "Ocultando secciones: X")
+3. Al hacer click en Registro, ¿qué dice la consola?
+4. ¿Se ve el cambio en la pantalla o no?
+5. ¿Hay algún error en rojo en la consola?
+
+═══════════════════════════════════════════════════════════════

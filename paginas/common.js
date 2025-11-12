@@ -30,16 +30,16 @@ function updateNavbar() {
 
 function iniciarTodoElSistema() {
   precargarDatos(system);
-
   // Botón cerrar sesión
   const btnLogout = document.querySelector("#btnCerrarSesion");
   btnLogout.onclick = function () {
     system.cerrarSesion();
     updateNavbar();
-    mostrarSeccion("login"); // Usar función de navegación.js
+    mostrarSeccion("login");
   };
-
   updateNavbar();
+  // Iniciar navegación
+  iniciarNavegacion();
 }
 
 iniciarTodoElSistema();
