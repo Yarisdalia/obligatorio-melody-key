@@ -2,23 +2,18 @@
 
 function ocultarSecciones() {
   let secciones = document.querySelectorAll(".seccion");
-  console.log("Ocultando secciones:", secciones.length);
   for (let i = 0; i < secciones.length; i++) {
     secciones[i].classList.add("d-none");
-    console.log("  Oculté:", secciones[i].id);
   }
 }
 
 function mostrarSeccion(idSeccion) {
-  console.log("mostrarSeccion llamado con:", idSeccion);
-
   // Validar permisos antes de mostrar
   if (!tienePermiso(idSeccion)) {
-    console.log("  Sin permiso para:", idSeccion);
     // Redirigir según el tipo de usuario
-    if (!system.usuarioLogueado) {
+    if (!sistema.usuarioLogueado) {
       idSeccion = "login";
-    } else if (esAdmin(system.usuarioLogueado)) {
+    } else if (esAdmin(sistema.usuarioLogueado)) {
       idSeccion = "admin";
     } else {
       idSeccion = "explorar";
@@ -28,10 +23,8 @@ function mostrarSeccion(idSeccion) {
 
   ocultarSecciones();
   let seccion = document.querySelector("#" + idSeccion);
-  console.log("  Sección encontrada:", seccion ? seccion.id : "NO ENCONTRADA");
   if (seccion) {
     seccion.classList.remove("d-none");
-    console.log("  Mostré:", seccion.id);
   }
 
   // Limpiar hash de la URL si existe
@@ -44,7 +37,7 @@ function mostrarSeccion(idSeccion) {
 }
 
 function tienePermiso(idSeccion) {
-  const user = system.usuarioLogueado;
+  const user = sistema.usuarioLogueado;
   const adminPages = ["agregar", "admin", "procesar", "ganancias"];
   const clientPages = ["explorar", "oferta", "reservar", "historial"];
   const publicPages = ["login", "registro"];
@@ -82,8 +75,6 @@ function renderizarSeccion(idSeccion) {
     renderHistorial();
   } else if (idSeccion === "oferta") {
     renderOfertas();
-  } else if (idSeccion === "agregar") {
-    wireAdminAgregar();
   } else if (idSeccion === "admin") {
     renderAdminConciertos();
   } else if (idSeccion === "procesar") {
@@ -95,15 +86,12 @@ function renderizarSeccion(idSeccion) {
 
 function iniciarNavegacion() {
   let botones = document.querySelectorAll(".boton");
-  console.log("Botones encontrados:", botones.length);
 
   for (let i = 0; i < botones.length; i++) {
-    console.log("  Botón", i, ":", botones[i].id);
     botones[i].addEventListener("click", function (e) {
       e.preventDefault();
       let idBtn = this.getAttribute("id");
       let idSeccion = idBtn.charAt(3).toLowerCase() + idBtn.substring(4);
-      console.log("    ID Sección:", idSeccion);
       mostrarSeccion(idSeccion);
     });
   }

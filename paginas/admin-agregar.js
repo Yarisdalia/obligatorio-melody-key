@@ -1,6 +1,5 @@
 // Página: Admin - Agregar Concierto
 document.querySelector("#btnAgregarConcierto").addEventListener("click", agregar);
-
 function agregar() {
   const msg = document.querySelector("#msgAgregarConcierto");
 

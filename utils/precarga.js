@@ -1,11 +1,11 @@
 // Precarga de datos para el sistema (conciertos, clientes, reservas y administradores)
-function precargarDatos(system) {
+function precargarDatos(sistema) {
   // =========================
   // 1) Conciertos
   // =========================
 
   // Conciertos: id, nombre, artista, precio, descripcion, imagen, cupos, estado, oferta
-  system.conciertos.push(
+  sistema.conciertos.push(
     new Concierto(obtenerIdConcierto(), "Morat Live", "Morat", 6500, "Gran show del pop latino en Antel Arena", "morat.jpg", 5000, "activo", true),
     new Concierto(obtenerIdConcierto(), "La Beriso Tour", "La Beriso", 4500, "Rock argentino clásico en Teatro de Verano", "laberiso.jpg", 3000, "activo", true),
     new Concierto(obtenerIdConcierto(), "Babasonicos Regreso", "Babasonicos", 7000, "Regreso de Babasonicos a Montevideo en Antel Arena", "babasonicos.jpg", 4000, "activo", false),
@@ -23,7 +23,7 @@ function precargarDatos(system) {
   // =========================
 
   // Clientes: id, nombre, apellido, usuario, contraseña, saldo
-  system.clientes.push(
+  sistema.clientes.push(
     new Cliente(obtenerIdCliente(), "Ana", "Perez", "anaperez", "Ana12", 20000),
     new Cliente(obtenerIdCliente(), "Bruno", "Lopez", "brunolo", "Bruno1", 9000),
     new Cliente(obtenerIdCliente(), "Carla", "Suarez", "carsu", "Carla1", 15000),
@@ -41,34 +41,34 @@ function precargarDatos(system) {
   // =========================
 
   // Conciertos
-  var c1 = system.conciertos[0];
-  var c2 = system.conciertos[1];
-  var c3 = system.conciertos[2];
-  var c4 = system.conciertos[3];
-  var c5 = system.conciertos[4];
-  var c6 = system.conciertos[5];
-  var c7 = system.conciertos[6];
-  var c8 = system.conciertos[7];
-  var c9 = system.conciertos[8];
+  var c1 = sistema.conciertos[0];
+  var c2 = sistema.conciertos[1];
+  var c3 = sistema.conciertos[2];
+  var c4 = sistema.conciertos[3];
+  var c5 = sistema.conciertos[4];
+  var c6 = sistema.conciertos[5];
+  var c7 = sistema.conciertos[6];
+  var c8 = sistema.conciertos[7];
+  var c9 = sistema.conciertos[8];
 
   // Clientes
-  var u1 = system.clientes[0];
-  var u2 = system.clientes[1];
-  var u3 = system.clientes[2];
-  var u4 = system.clientes[3];
-  var u5 = system.clientes[4];
-  var u6 = system.clientes[5];
-  var u7 = system.clientes[6];
-  var u8 = system.clientes[7];
-  var u9 = system.clientes[8];
-  var u10 = system.clientes[9];
+  var u1 = sistema.clientes[0];
+  var u2 = sistema.clientes[1];
+  var u3 = sistema.clientes[2];
+  var u4 = sistema.clientes[3];
+  var u5 = sistema.clientes[4];
+  var u6 = sistema.clientes[5];
+  var u7 = sistema.clientes[6];
+  var u8 = sistema.clientes[7];
+  var u9 = sistema.clientes[8];
+  var u10 = sistema.clientes[9];
 
   // =========================
   // 4) Helper para registrar reserva
   // =========================
 
   function registrarReserva(reserva) {
-    system.reservas.push(reserva);
+    sistema.reservas.push(reserva);
 
     // Solo procesamos las aprobadas
     if (reserva.estado === "aprobada") {
@@ -113,7 +113,7 @@ function precargarDatos(system) {
   // =========================
 
   // Administradores: id, nombre, usuario, contraseña
-  system.administradores.push(
+  sistema.administradores.push(
     new Administrador(obtenerIdAdministrador(), "Alice", "admin1", "Admin1A"),
     new Administrador(obtenerIdAdministrador(), "Bruno", "admin2", "Admin2B"),
     new Administrador(obtenerIdAdministrador(), "Carla", "admin3", "Admin3C"),
@@ -123,5 +123,5 @@ function precargarDatos(system) {
 
   // Mostrar en consola los datos precargarDatos
   console.log("Datos precargados:");
-  console.log("System:", system);
+  console.log("System:", sistema);
 }

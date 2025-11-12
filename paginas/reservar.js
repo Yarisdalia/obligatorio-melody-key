@@ -1,7 +1,5 @@
 // Página: Reservar
-
 document.querySelector("#btnSolicitaReserva").addEventListener("click", reservar);
-
 function renderReservar() {
   const select = document.querySelector("#slcConciertos");
   const inputCantidad = document.querySelector("#txtCantidad");

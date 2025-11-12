@@ -1,8 +1,6 @@
 // Variable global del sistema
-var system = new Sistema();
-
 function updateNavbar() {
-  const user = system.usuarioLogueado;
+  const user = sistema.usuarioLogueado;
   const isAdmin = esAdmin(user);
   const isCliente = esCliente(user);
 
@@ -27,19 +25,3 @@ function updateNavbar() {
     btnLogout.style.display = "none";
   }
 }
-
-function iniciarTodoElSistema() {
-  precargarDatos(system);
-  // Botón cerrar sesión
-  const btnLogout = document.querySelector("#btnCerrarSesion");
-  btnLogout.onclick = function () {
-    system.cerrarSesion();
-    updateNavbar();
-    mostrarSeccion("login");
-  };
-  updateNavbar();
-  // Iniciar navegación
-  iniciarNavegacion();
-}
-
-iniciarTodoElSistema();
