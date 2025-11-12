@@ -1,9 +1,9 @@
 // Página: Registro
 document.querySelector("#btnRegistrar").addEventListener("click", onRegistrar);
 function onRegistrar() {
-  const nombre = document.querySelector("#txtNombre").value.trim();
-  const apellido = document.querySelector("#txtApellido").value.trim();
-  const usuario = document.querySelector("#txtUsuario").value.trim();
+  const nombre = document.querySelector("#txtNombre").value;
+  const apellido = document.querySelector("#txtApellido").value;
+  const usuario = document.querySelector("#txtUsuario").value;
   const contrasena = document.querySelector("#txtContrasena").value;
   const contrasena2 = document.querySelector("#txtContrasena2").value;
 

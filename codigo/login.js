@@ -1,7 +1,7 @@
 // Página: Login
 document.querySelector("#btnIniciarSesion").addEventListener("click", onIniciarSesion);
 function onIniciarSesion() {
-  const usuario = document.querySelector("#txtLoginUsuario").value.trim();
+  const usuario = document.querySelector("#txtLoginUsuario").value;
   const contrasena = document.querySelector("#txtLoginContrasena").value;
   const mensaje = sistema.iniciarSesion(usuario, contrasena);
 

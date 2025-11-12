@@ -59,7 +59,7 @@ function reservar() {
 
   pMsg.textContent = "";
   const concierto = obtenerConciertoSeleccionado();
-  const cantidad = parseInt(inputCantidad.value, 10) || 0;
+  const cantidad = Number(inputCantidad.value);
   const res = sistema.solicitarReserva(sistema.usuarioLogueado.id, concierto.id, cantidad);
   pMsg.textContent = res.mensaje;
 
