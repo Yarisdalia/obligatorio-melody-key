@@ -68,19 +68,19 @@ function tienePermiso(idSeccion) {
 function renderizarSeccion(idSeccion) {
   // Ejecutar funciones de render según la sección
   if (idSeccion === "explorar") {
-    renderExplorar();
+    mostrarTablaExplorar();
   } else if (idSeccion === "reservar") {
     renderReservar();
   } else if (idSeccion === "historial") {
-    renderHistorial();
+    mostrarTablaHistorial();
   } else if (idSeccion === "oferta") {
     renderOfertas();
   } else if (idSeccion === "admin") {
-    renderAdminConciertos();
+    mostrarTablaAdministrarConciertos();
   } else if (idSeccion === "procesar") {
-    renderProcesarReservas();
+    mostarTablaDeGestionarReservas();
   } else if (idSeccion === "ganancias") {
-    renderGanancias();
+    mostraTablaGanancias();
   }
 }
 

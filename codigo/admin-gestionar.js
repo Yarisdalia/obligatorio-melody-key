@@ -1,6 +1,6 @@
 // Página: Admin - Administrar Conciertos
 
-function renderAdminConciertos() {
+function mostrarTablaAdministrarConciertos() {
   const tbody = document.querySelector("#tblAdminConciertos");
   let contenidoTabla = "";
 
@@ -44,8 +44,14 @@ function guardarConcierto() {
   const estadoInput = row.querySelector('input[data-field="estado"]');
   const ofertaInput = row.querySelector('input[data-field="oferta"]');
 
-  const nuevosCupos = parseInt(cuposInput.value, 10);
-  const nuevoEstado = estadoInput.checked ? "activo" : "pausado";
+  const nuevosCupos = Number(cuposInput.value);
+  let nuevoEstado = null;
+  if(estadoInput.checked){
+    nuevoEstado = "activo"
+  }else{
+    nuevoEstado = "pausado"
+  }
+
   const oferta = ofertaInput.checked;
 
   sistema.actualizarConcierto(id, {
@@ -54,5 +60,5 @@ function guardarConcierto() {
     oferta: oferta,
   });
 
-  renderAdminConciertos();
+  mostrarTablaAdministrarConciertos();
 }

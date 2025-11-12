@@ -1,6 +1,6 @@
 // Página: Historial
 
-function renderHistorial() {
+function mostrarTablaHistorial() {
   const tbody = document.querySelector("#tblHistorial");
   const cliente = sistema.usuarioLogueado;
   let contenidoTabla = "";
@@ -55,5 +55,5 @@ function cancelarReserva() {
   const id = this.getAttribute("data-reserva");
   const cliente = sistema.usuarioLogueado;
   const res = sistema.cancelarReserva(id, cliente.id);
-  renderHistorial();
+  mostrarTablaHistorial();
 }

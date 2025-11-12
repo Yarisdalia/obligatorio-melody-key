@@ -41,27 +41,27 @@ function precargarDatos(sistema) {
   // =========================
 
   // Conciertos
-  var c1 = sistema.conciertos[0];
-  var c2 = sistema.conciertos[1];
-  var c3 = sistema.conciertos[2];
-  var c4 = sistema.conciertos[3];
-  var c5 = sistema.conciertos[4];
-  var c6 = sistema.conciertos[5];
-  var c7 = sistema.conciertos[6];
-  var c8 = sistema.conciertos[7];
-  var c9 = sistema.conciertos[8];
+  const c1 = sistema.conciertos[0];
+  const c2 = sistema.conciertos[1];
+  const c3 = sistema.conciertos[2];
+  const c4 = sistema.conciertos[3];
+  const c5 = sistema.conciertos[4];
+  const c6 = sistema.conciertos[5];
+  const c7 = sistema.conciertos[6];
+  const c8 = sistema.conciertos[7];
+  const c9 = sistema.conciertos[8];
 
   // Clientes
-  var u1 = sistema.clientes[0];
-  var u2 = sistema.clientes[1];
-  var u3 = sistema.clientes[2];
-  var u4 = sistema.clientes[3];
-  var u5 = sistema.clientes[4];
-  var u6 = sistema.clientes[5];
-  var u7 = sistema.clientes[6];
-  var u8 = sistema.clientes[7];
-  var u9 = sistema.clientes[8];
-  var u10 = sistema.clientes[9];
+  const u1 = sistema.clientes[0];
+  const u2 = sistema.clientes[1];
+  const u3 = sistema.clientes[2];
+  const u4 = sistema.clientes[3];
+  const u5 = sistema.clientes[4];
+  const u6 = sistema.clientes[5];
+  const u7 = sistema.clientes[6];
+  const u8 = sistema.clientes[7];
+  const u9 = sistema.clientes[8];
+  const u10 = sistema.clientes[9];
 
   // =========================
   // 4) Helper para registrar reserva
@@ -72,10 +72,10 @@ function precargarDatos(sistema) {
 
     // Solo procesamos las aprobadas
     if (reserva.estado === "aprobada") {
-      var total = reserva.montoTotal();
+      const total = reserva.montoTotal();
 
-      var tieneSaldo = reserva.cliente.saldo >= total;
-      var hayCupos = reserva.concierto.cupos >= reserva.cantidad;
+      const tieneSaldo = reserva.cliente.saldo >= total;
+      const hayCupos = reserva.concierto.cupos >= reserva.cantidad;
 
       console.log(reserva.cliente.saldo, total);
       console.log(tieneSaldo, hayCupos);
@@ -100,16 +100,16 @@ function precargarDatos(sistema) {
   // 5) Reservas de ejemplo
   // =========================
 
-  // registrarReserva(new Reserva(obtenerIdReserva(), u1, c1, 2, "aprobada"));
-  // registrarReserva(new Reserva(obtenerIdReserva(), u2, c2, 1, "pendiente"));
-  // registrarReserva(new Reserva(obtenerIdReserva(), u3, c2, 3, "cancelada"));
-  // registrarReserva(new Reserva(obtenerIdReserva(), u4, c3, 1, "aprobada"));
-  // registrarReserva(new Reserva(obtenerIdReserva(), u5, c4, 4, "pendiente"));
-  // registrarReserva(new Reserva(obtenerIdReserva(), u6, c5, 2, "aprobada"));
-  // registrarReserva(new Reserva(obtenerIdReserva(), u7, c6, 1, "pendiente"));
-  // registrarReserva(new Reserva(obtenerIdReserva(), u8, c7, 2, "cancelada"));
-  // registrarReserva(new Reserva(obtenerIdReserva(), u9, c8, 1, "aprobada"));
-  // registrarReserva(new Reserva(obtenerIdReserva(), u10, c9, 5, "pendiente"));
+  registrarReserva(new Reserva(obtenerIdReserva(), u1, c1, 2, "aprobada"));
+  registrarReserva(new Reserva(obtenerIdReserva(), u2, c2, 1, "pendiente"));
+  registrarReserva(new Reserva(obtenerIdReserva(), u3, c2, 3, "cancelada"));
+  registrarReserva(new Reserva(obtenerIdReserva(), u4, c3, 1, "aprobada"));
+  registrarReserva(new Reserva(obtenerIdReserva(), u5, c4, 4, "pendiente"));
+  registrarReserva(new Reserva(obtenerIdReserva(), u6, c5, 2, "aprobada"));
+  registrarReserva(new Reserva(obtenerIdReserva(), u7, c6, 1, "pendiente"));
+  registrarReserva(new Reserva(obtenerIdReserva(), u8, c7, 2, "cancelada"));
+  registrarReserva(new Reserva(obtenerIdReserva(), u9, c8, 1, "aprobada"));
+  registrarReserva(new Reserva(obtenerIdReserva(), u10, c9, 5, "pendiente"));
 
   // =========================
   // 6) Administradores

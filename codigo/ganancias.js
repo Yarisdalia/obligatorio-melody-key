@@ -1,6 +1,6 @@
 // Página: Informe de Ganancias
 
-function renderGanancias() {
+function mostraTablaGanancias() {
   const gananciaTotal = document.querySelector("#gananciaTotal");
   const tblGanancias = document.querySelector("#tblGanancias");
 

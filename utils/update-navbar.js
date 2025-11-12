@@ -1,4 +1,4 @@
-function updateNavbar() {
+function actualizarNavbar() {
   const user = sistema.usuarioLogueado;
   const isAdmin = esAdmin(user);
   const isCliente = esCliente(user);

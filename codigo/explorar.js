@@ -1,6 +1,6 @@
 // Página: Explorar
 
-function renderExplorar() {
+function mostrarTablaExplorar() {
   const tbody = document.querySelector("#tblConciertos");
   let contenidoTabla = "";
 

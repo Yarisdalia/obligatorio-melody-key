@@ -1,6 +1,6 @@
 document.querySelector("#btnCerrarSesion").addEventListener("click", cerrarSession);
 function cerrarSession() {
   sistema.cerrarSesion();
-  updateNavbar();
+  actualizarNavbar();
   mostrarSeccion("login");
 }

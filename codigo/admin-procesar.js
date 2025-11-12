@@ -1,6 +1,6 @@
 // Página: Admin - Procesar Reservas
 
-function renderProcesarReservas() {
+function mostarTablaDeGestionarReservas() {
   let contenidoPendientes = "";
   let contenidoAprobadas = "";
   let contenidoCanceladas = "";
@@ -58,11 +58,11 @@ function renderProcesarReservas() {
 function aprobarReserva() {
   const id = this.getAttribute("data-aprobar");
   sistema.procesarReserva(id, "aprobar");
-  renderProcesarReservas();
+  mostarTablaDeGestionarReservas();
 }
 
 function cancelarReservaAdmin() {
   const id = this.getAttribute("data-cancelar");
   sistema.procesarReserva(id, "cancelar");
-  renderProcesarReservas();
+  mostarTablaDeGestionarReservas();
 }
