@@ -1,4 +1,4 @@
-// Sistema de navegación simple con eventos y clases CSS
+// Sistema de navegación con eventos y clases CSS
 
 function ocultarSecciones() {
   let secciones = document.querySelectorAll(".seccion");

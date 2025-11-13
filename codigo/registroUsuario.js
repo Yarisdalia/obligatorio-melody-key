@@ -1,6 +1,7 @@
 // Página: Registro
-document.querySelector("#btnRegistrar").addEventListener("click", onRegistrar);
-function onRegistrar() {
+document.querySelector("#btnRegistrar").addEventListener("click", Registrar);
+
+function Registrar() {
   const nombre = document.querySelector("#txtNombre").value;
   const apellido = document.querySelector("#txtApellido").value;
   const usuario = document.querySelector("#txtUsuario").value;
@@ -8,8 +9,9 @@ function onRegistrar() {
   const contrasena2 = document.querySelector("#txtContrasena2").value;
 
   const mensaje = sistema.agregarUsuario(nombre, apellido, usuario, contrasena, contrasena2);
-  document.querySelector("#pResultado").textContent = mensaje;
+  document.querySelector("#pResultado").innerHTML = mensaje;
 
+  //Limpiamos los inputs
   if (mensaje === "Registro exitoso.") {
     document.querySelector("#txtNombre").value = "";
     document.querySelector("#txtApellido").value = "";

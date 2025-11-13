@@ -2,12 +2,29 @@
 
 // ------------------- TIPO DE USUARIO --------------------
 
-function esAdmin(user) {
-  return user && user instanceof Administrador; // instanceof -> instancia de
+
+function esAdmin(usuarioLogueado) {
+  // Si no hay usuario logueado, devolvemos false directamente
+  if (!usuarioLogueado || !usuarioLogueado.id) {
+    return false;
+  }
+
+  // Si el ID comienza con "A", entonces es administrador
+  if (usuarioLogueado.id.charAt(0) === "A"){
+    return true;
+  }
 }
 
-function esCliente(user) {
-  return user && user instanceof Cliente;
+function esCliente(usuarioLogueado) {
+  // Si no hay usuario logueado, devolvemos false directamente
+  if (!usuarioLogueado || !usuarioLogueado.id) {
+    return false;
+  }
+
+  // Si el ID comienza con "C", entonces es cliente
+  if (usuarioLogueado.id.charAt(0) === "C"){
+    return true;
+  }
 }
 
 // ------------------- VALIDAR CONTRASEÑA --------------------
@@ -94,6 +111,8 @@ function puedeReservarEnLista(clienteId, conciertoId, reservas) {
 
 // ------------------- VALIDACIONES  HISTORIAL -------------------------------------
 
+// Devuelve las reservas del cliente buscado
+// Sirve para traer un historial de reservas de un Id Cliente
 function filtrarReservasCliente(reservas, clienteId) {
   let resultado = [];
   for (let i = 0; i < reservas.length; i++) {

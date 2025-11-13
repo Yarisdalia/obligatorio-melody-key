@@ -1,4 +1,4 @@
-// Página: Historial
+// Página: Historial reservas (cliente)
 
 function mostrarTablaHistorial() {
   const tbody = document.querySelector("#tblHistorial");

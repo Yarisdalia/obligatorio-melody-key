@@ -6,7 +6,7 @@ function reservar() {
 
   pMsg.textContent = "";
   const conciertoId = sistema.conciertoPreseleccionado;
-  const cantidad = Number(inputCantidad.value);
+  const cantidad = Number(inputCantidad.value); //Convertimos a numero
   const res = sistema.solicitarReserva(sistema.usuarioLogueado.id, conciertoId, cantidad);
   pMsg.textContent = res.mensaje;
 
