@@ -70,7 +70,7 @@ function cargarTablasSeccion(idSeccion) {
   } else if (idSeccion === "historial") {
     mostrarTablaHistorial();
   } else if (idSeccion === "oferta") {
-    renderOfertas();
+    mostrarOfertas();
   } else if (idSeccion === "admin") {
     mostrarTablaAdministrarConciertos();
   } else if (idSeccion === "procesar") {
