@@ -1,4 +1,4 @@
-// Sistema de navegación con eventos y clases CSS
+// Sistema de navegación: Eventos, clases...
 
 function ocultarSecciones() {
   let secciones = document.querySelectorAll(".seccion");
@@ -7,18 +7,20 @@ function ocultarSecciones() {
   }
 }
 
+// Mostrar según tipo de usuario
 function mostrarSeccion(idSeccion) {
   // Validar permisos antes de mostrar
   if (!tienePermiso(idSeccion)) {
-    // Redirigir según el tipo de usuario
+    // Si el usuario no esta logueado...
     if (!sistema.usuarioLogueado) {
       idSeccion = "login";
+      //Si el usuario es administrador
     } else if (esAdmin(sistema.usuarioLogueado)) {
       idSeccion = "admin";
+      //Si no es administrador.. es cliente.
     } else {
       idSeccion = "explorar";
     }
-    console.log("  Redirigido a:", idSeccion);
   }
 
   ocultarSecciones();
@@ -27,7 +29,7 @@ function mostrarSeccion(idSeccion) {
     seccion.style.display = "block";
   }
 
-  // Ejecutar función de render si existe
+  // cargar tablas de la seccion
   cargarTablasSeccion(idSeccion);
 }
 
@@ -38,7 +40,7 @@ function tienePermiso(idSeccion) {
   const publicPages = ["login", "registro"];
 
 
-  // Sin estar logeado: solo login y registro
+  // No logeado: login y registro
   if (!usuarioLogueado) {
     return estaEnElArrayElString(publicPages, idSeccion);
   }
@@ -60,6 +62,7 @@ function tienePermiso(idSeccion) {
   return false;
 }
 
+//Cargar tablas automáticamente al abrir sección
 function cargarTablasSeccion(idSeccion) {
   // Ejecutar funciones de render según la sección
   if (idSeccion === "explorar") {
@@ -77,6 +80,8 @@ function cargarTablasSeccion(idSeccion) {
   }
 }
 
+//Se ejecuta al empezar...
+//Lee los botones, preparandolos para irAVista cuando se haga click
 function iniciarNavegacion() {
   let botones = document.querySelectorAll(".boton");
 
@@ -88,6 +93,6 @@ function iniciarNavegacion() {
       mostrarSeccion(idSeccion);
     }
   }
-  // Mostrar login por defecto
+  // Forzamos mostrar login por defecto, es la primera página visible
   mostrarSeccion("login");
 }
