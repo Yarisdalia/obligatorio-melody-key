@@ -1,6 +1,6 @@
 // Página: Ofertas
 
-function renderOfertas() {
+function mostrarOfertas() {
   const tbody = document.querySelector("#oferta tbody");
   let contenidoTabla = "";
 
