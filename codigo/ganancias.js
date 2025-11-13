@@ -10,6 +10,8 @@ function mostraTablaGanancias() {
   let contenidoTabla = "";
   const keys = Object.keys(datos.detalle);
 
+  console.log(datos)
+
   for (let i = 0; i < keys.length; i++) {
     const k = keys[i];
     const d = datos.detalle[k];

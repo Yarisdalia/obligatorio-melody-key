@@ -64,8 +64,6 @@ function cargarTablasSeccion(idSeccion) {
   // Ejecutar funciones de render según la sección
   if (idSeccion === "explorar") {
     mostrarTablaExplorar();
-  } else if (idSeccion === "reservar") {
-    renderReservar();
   } else if (idSeccion === "historial") {
     mostrarTablaHistorial();
   } else if (idSeccion === "oferta") {
