@@ -50,15 +50,9 @@ class Sistema {
       if (this.administradores[i].usuario.toLowerCase() === usuario.toLowerCase()) {
         if (this.administradores[i].contrasena === contrasena) {
           this.usuarioLogueado = this.administradores[i];
-          return {
-            ok: true,
-            mensaje: "Bienvenido " + this.usuarioLogueado.nombre
-          };
+          return mensaje = "Bienvenido " + this.usuarioLogueado.nombre;
         } else {
-          return {
-            ok: false,
-            mensaje: "Contraseña incorrecta"
-          };
+          return mensaje = "Contraseña incorrecta";
         }
       }
     }
@@ -68,23 +62,15 @@ class Sistema {
       if (this.clientes[i].usuario.toLowerCase() === usuario.toLowerCase()) {
         if (this.clientes[i].contrasena === contrasena) {
           this.usuarioLogueado = this.clientes[i];
-          return {
-            ok: true,
-            mensaje: "Bienvenido " + this.usuarioLogueado.nombre
-          };
+          return mensaje= "Bienvenido " + this.usuarioLogueado.nombre;
         } else {
-          return {
-            ok: false,
-            mensaje: "Contraseña incorrecta"
-          };
+          return mensaje = "Contraseña incorrecta";
         }
       }
     }
 
-    return {
-      ok: false,
-      mensaje: "Usuario no encontrado"
-    };
+    return mensaje = "Usuario no encontrado";
+    
   }
 
   //_____________________________ F0? - CIERRE DE SESION ______________________________________________
@@ -148,10 +134,12 @@ class Sistema {
 
   //______________________________ F05 – HISTORIAL DE RESERVAS ______________________________________________
 
+  // Devuelve las reservas del clienteId
   listarReservasCliente(clienteId) {
     return filtrarReservasCliente(this.reservas, clienteId);
   }
 
+  // Funcion para cancelar reservas pendientes
   cancelarReserva(reservaId, clienteId) {
     for (let i = 0; i < this.reservas.length; i++) {
       let reserva = this.reservas[i];
@@ -167,6 +155,7 @@ class Sistema {
     return { exito: false, mensaje: "Reserva no encontrada." };
   }
 
+  // Devuelve el total de reservas aprobadas de un clienteId
   totalAprobadasCliente(clienteId) {
     let reservasCliente = this.listarReservasCliente(clienteId);
     return totalAprobadas(reservasCliente);

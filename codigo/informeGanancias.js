@@ -1,4 +1,4 @@
-// Página: Informe de Ganancias
+// Página: Informe de Ganancias (Admin)
 
 function mostraTablaGanancias() {
   const gananciaTotal = document.querySelector("#gananciaTotal");

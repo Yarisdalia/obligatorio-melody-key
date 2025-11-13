@@ -24,7 +24,7 @@ function mostrarOfertas() {
 
   tbody.innerHTML = contenidoTabla;
 
-  // Agregar eventos a los botones
+  // Agregamos eventos a los botones de solicitar reserva
   let botonesSolicitar = document.querySelectorAll(".btnSolicitarOferta");
   for (let i = 0; i < botonesSolicitar.length; i++) {
     const boton = botonesSolicitar[i];
@@ -32,6 +32,7 @@ function mostrarOfertas() {
   }
 }
 
+//Guardamos la info del concierto preseleccionado para la pagina reservar
 function seleccionarConciertoOferta() {
   sistema.conciertoPreseleccionado = this.getAttribute("data-sel");
   mostrarSeccion("reservar");

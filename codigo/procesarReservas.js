@@ -1,4 +1,4 @@
-// Página: Admin - Procesar Reservas
+// Página: Procesar Reservas (Admin)
 
 function mostarTablaDeGestionarReservas() {
   let contenidoPendientes = "";

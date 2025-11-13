@@ -42,6 +42,7 @@ function mostrarTablaExplorar() {
 
   // Agregar eventos a los botones
   let botonesSeleccionar = document.querySelectorAll(".btnSeleccionarExplorar");
+  //Guardamos en botonesSeleccionar la seccion
   for (let i = 0; i < botonesSeleccionar.length; i++) {
     const boton = botonesSeleccionar[i];
     boton.addEventListener("click", seleccionarConciertoExplorar);
@@ -49,7 +50,10 @@ function mostrarTablaExplorar() {
 
 }
 
+//Identificamos el concierto seleccionado para mostrarlo en la pagina reservar
 function seleccionarConciertoExplorar() {
   sistema.conciertoPreseleccionado = this.getAttribute("data-concierto");
+  //Guarda a través del data - concierto, el concierto seleccionado
   mostrarSeccion("reservar");
+  //Lo mostramos en la pagina reservar.
 }
