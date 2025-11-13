@@ -9,13 +9,7 @@ function agregar() {
   const precio = Number(document.querySelector("#txtPrecio").value);
   const cupos = Number(document.querySelector("#txtCupos").value);
   const descripcion = document.querySelector("#txtDescripcion").value;
-  const fileImg = document.querySelector("#fileImagen");
   const oferta = document.querySelector("#chkOferta").checked;
-
-  let imagen = ""
-  if(fileImg.files.length > 0) {
-    imagen =  fileImg.files[0].name;
-  }
 
   // Validar campos obligatorios
   if (!nombre || !artista || !descripcion || !precio || !cupos) {
@@ -24,7 +18,7 @@ function agregar() {
   }
 
   // Crear concierto con estado "activo"
-  sistema.agregarConcierto(nombre, artista, precio, descripcion, imagen, cupos, "activo", oferta);
+  sistema.agregarConcierto(nombre, artista, precio, descripcion, "default.png", cupos, "activo", oferta);
   mensaje.innerHTML = "Concierto agregado.";
 
   // Limpiar formulario
@@ -33,6 +27,5 @@ function agregar() {
   document.querySelector("#txtPrecio").value = "";
   document.querySelector("#txtCupos").value = "";
   document.querySelector("#txtDescripcion").value = "";
-  document.querySelector("#fileImagen").value = "";
   document.querySelector("#chkOferta").checked = false;
 }

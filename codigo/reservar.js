@@ -3,20 +3,23 @@ document.querySelector("#btnSolicitaReserva").addEventListener("click", reservar
 function renderReservar() {
   const select = document.querySelector("#slcConciertos");
   const inputCantidad = document.querySelector("#txtCantidad");
-  const txtMonto = document.querySelector("#montoTotal");
   const precioUnitario = document.querySelector("#precioUnitario");
   const cuposDisponibles = document.querySelector("#cuposDisponibles");
 
   // Rellenar select con conciertos activos
   select.innerHTML = "";
-  const activos = sistema.explorarConciertosDisponibles();
-  for (let i = 0; i < activos.length; i++) {
-    const c = activos[i];
-    const opt = document.createElement("option");
-    opt.value = c.id;
-    opt.textContent = c.nombre + " - " + c.artista;
-    select.appendChild(opt);
+  const conciertosActivos = sistema.explorarConciertosDisponibles();
+
+  let options = ""
+  for (let i = 0; i < conciertosActivos.length; i++) {
+    const actualConciertoActivo = conciertosActivos[i];
+    options += `
+      <option value={${actualConciertoActivo.id}}>
+        ${actualConciertoActivo.nombre + " - " + actualConciertoActivo.artista}
+      </option>
+    `
   }
+  select.innerHTML = options
 
   // Si hay un concierto preseleccionado
   if (sistema.conciertoPreseleccionado) {
