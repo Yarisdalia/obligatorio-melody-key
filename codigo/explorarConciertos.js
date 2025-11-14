@@ -15,7 +15,7 @@ function mostrarTablaExplorar() {
     if (concierto.oferta) {
       ofertaEtiqueta = '<span class="badge text-bg-success">Sí</span>';
     } else {
-      ofertaBadge = '<span class="badge text-bg-secondary">No</span>';
+      ofertaEtiqueta = '<span class="badge text-bg-secondary">No</span>';
     }
 
     let estadoEtiqueta = "";
