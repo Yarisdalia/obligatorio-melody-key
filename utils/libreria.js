@@ -151,7 +151,7 @@ function estaEnElArrayElString(arr, string) {
 // ------------------- VALIDAR SI HAY ERROR EN EL MENSAJE -------------------
 
 function siHayError(mensaje) {
-  if (mensaje.substring(0, 5) === "ERROR") {
+  if (mensaje && mensaje.substring(0, 5) === "ERROR") {
     return true;
   }
   return false;

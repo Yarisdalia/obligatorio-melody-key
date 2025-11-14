@@ -5,16 +5,14 @@ function mostraTablaGanancias() {
   const tblGanancias = document.querySelector("#tblGanancias");
 
   const datos = sistema.calcularGanancias();
-  gananciaTotal.textContent = "$ " + datos.total;
+  gananciaTotal.innerHTML = "$ " + datos.total;
 
   let contenidoTabla = "";
-  const keys = Object.keys(datos.detalle);
 
-  console.log(datos)
+  const detalles = datos.detalle;
 
-  for (let i = 0; i < keys.length; i++) {
-    const k = keys[i];
-    const d = datos.detalle[k];
+  for (let i = 0; i < detalles.length; i++) {
+    const d = detalles[i];
     contenidoTabla += `<tr>
       <td>${d.nombre}</td>
       <td class="text-center">${d.cantidad}</td>
@@ -25,8 +23,6 @@ function mostraTablaGanancias() {
   tblGanancias.innerHTML = contenidoTabla;
 }
 
-
-
 // iMPACTATA EN SISTEMA.JS : CALCULAR GANANCIAS
 /* REVISANDO SIMPLIFICAR (CODIGO BASICO), LA FUNCION MOSTRARTABLAGANANCIAS.
 
@@ -35,9 +31,9 @@ function mostraTablaGanancias() {
   const tblGanancias = document.querySelector("#tblGanancias");
 
   // Ya no recibimos datos. Los tomamos del sistema.
-  sistema.calcularGanancias();
+  const datos =sistema.calcularGanancias();
 
-  gananciaTotal.textContent = "$ " + sistema.totalGanancias;
+  gananciaTotal.innerHTML = "$ " + datos.total;
 
   let contenidoTabla = "";
   let detalle = sistema.detalleGanancias;

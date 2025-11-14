@@ -305,7 +305,7 @@ class Sistema {
 
   calcularGanancias() {
     let total = 0;
-    let detalle = {};
+    let detalle = [];
 
     for (let i = 0; i < this.reservas.length; i++) {
       let reserva = this.reservas[i];
@@ -314,20 +314,13 @@ class Sistema {
         let monto = reserva.montoConDescuento();
         total = total + monto;
 
-        let conciertoId = reserva.concierto.id;
-
         // Si no existe el concierto en el detalle, crearlo
-        if (!detalle[conciertoId]) {
-          detalle[conciertoId] = {
-            nombre: reserva.concierto.nombre,
-            cantidad: 0,
-            monto: 0,
-          };
-        }
-
-        // Sumar cantidad y monto
-        detalle[conciertoId].cantidad = detalle[conciertoId].cantidad + reserva.cantidad;
-        detalle[conciertoId].monto = detalle[conciertoId].monto + monto;
+        detalle.push({
+          id: reserva.concierto.id,
+          nombre: reserva.concierto.nombre,
+          cantidad: reserva.cantidad,
+          monto: monto,
+        });
       }
     }
 
