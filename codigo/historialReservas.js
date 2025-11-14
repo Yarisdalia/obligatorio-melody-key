@@ -13,13 +13,13 @@ function mostrarTablaHistorial() {
     const reserva = misReservas[i];
 
     // Definir badge según estado
-    let estadoBadge = "";
+    let estadoEtiqueta = "";
     if (reserva.estado === "aprobada") {
-      estadoBadge = '<span class="badge text-bg-success">Aprobada</span>';
+      estadoEtiqueta = '<span class="badge text-bg-success">Aprobada</span>';
     } else if (reserva.estado === "pendiente") {
-      estadoBadge = '<span class="badge text-bg-warning text-dark">Pendiente</span>';
+      estadoEtiqueta = '<span class="badge text-bg-warning text-dark">Pendiente</span>';
     } else {
-      estadoBadge = '<span class="badge text-bg-danger">Cancelada</span>';
+      estadoEtiqueta = '<span class="badge text-bg-danger">Cancelada</span>';
     }
 
     // Solo se puede cancelar si está pendiente
@@ -29,7 +29,7 @@ function mostrarTablaHistorial() {
       <td>${reserva.concierto.nombre}</td>
       <td class="text-center">${reserva.cantidad}</td>
       <td class="text-center">${reserva.montoConDescuento()}</td>
-      <td>${estadoBadge}</td>
+      <td>${estadoEtiqueta}</td>
       <td class="text-center">
         <button class="btn btn-sm btn-cancel btnCancelarReserva" data-reserva="${reserva.id}" ${puedeCancelar ? "" : "disabled"}>Cancelar</button>
       </td>
