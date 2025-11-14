@@ -69,13 +69,15 @@ function guardarConcierto() {
     nuevoEstado = "pausado";
   }
 
-  const oferta = ofertaInput.checked;
+  let nuevoOferta = false;
+  if (ofertaInput.checked) {
+    nuevoOferta = true;
+  } else {
+    nuevoOferta = false;
+  }
 
-  sistema.actualizarConcierto(id, {
-    cupos: nuevosCupos,
-    estado: nuevoEstado,
-    oferta: oferta,
-  });
+  //Actualizamos los datos del concierto
+  sistema.actualizarConcierto(id, nuevosCupos, nuevoEstado, nuevoOferta);
 
   mostrarTablaAdministrarConciertos();
 }

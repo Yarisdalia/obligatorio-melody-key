@@ -45,7 +45,7 @@ class Sistema {
       return "ERROR: Los campos no pueden estar vacíos";
     }
 
-    // Buscar en administradores
+    // Buscar en administradores y logueo si no hay error
     for (let i = 0; i < this.administradores.length; i++) {
       if (this.administradores[i].usuario.toLowerCase() === usuario.toLowerCase()) {
         if (this.administradores[i].contrasena === contrasena) {
@@ -57,7 +57,7 @@ class Sistema {
       }
     }
 
-    // Buscar en clientes
+    // Buscar en clientes y logueo sin no hay error
     for (let i = 0; i < this.clientes.length; i++) {
       if (this.clientes[i].usuario.toLowerCase() === usuario.toLowerCase()) {
         if (this.clientes[i].contrasena === contrasena) {
@@ -140,21 +140,26 @@ class Sistema {
 
   // Funcion para cancelar reservas pendientes
   cancelarReserva(reservaId, clienteId) {
+
     for (let i = 0; i < this.reservas.length; i++) {
       let reserva = this.reservas[i];
+      //verificamos el id de la reserva y el id del cliente
       if (reserva.id === reservaId && reserva.cliente.id === clienteId) {
+        //Cambiamo el estado a cancelada
         if (reserva.estado === "pendiente") {
           reserva.estado = "cancelada";
-          return { exito: true, mensaje: "Reserva cancelada." };
+          return "Reserva cancelada";
+          
         } else {
-          return { exito: false, mensaje: "La reserva fué aprobada, no es posible cancelar." };
+          return "La reserva fue aprobada, no es posible cancelar";
+          
         }
       }
     }
-    return { exito: false, mensaje: "Reserva no encontrada." };
+    return "Reserva no encontrada";
   }
 
-  // Devuelve el total de reservas aprobadas de un clienteId
+  // Devuelve el total de reservas aprobadas de un clienteId, para el historial de reservas
   totalAprobadasCliente(clienteId) {
     let reservasCliente = this.listarReservasCliente(clienteId);
     return totalAprobadas(reservasCliente);
@@ -212,20 +217,20 @@ class Sistema {
 
       if (reserva.id === reservaId) {
         if (reserva.estado !== "pendiente") {
-          return { exito: false, mensaje: "La reserva ya fue procesada." };
+          return "La reserva ya fue procesada";
         }
 
         if (accion === "aprobar") {
           // Validar concierto activo
           if (reserva.concierto.estado !== "activo") {
             reserva.estado = "cancelada";
-            return { exito: false, mensaje: "El concierto no está activo. Reserva cancelada." };
+            return "El concierto no está activo. Reserva cancelada";
           }
 
           // Validar cupos suficientes
           if (reserva.concierto.cupos < reserva.cantidad) {
             reserva.estado = "cancelada";
-            return { exito: false, mensaje: "No hay cupos suficientes. Reserva cancelada." };
+            return "No hay cupos suficientes. Reserva cancelada"
           }
 
           // Calcular monto con descuento (10% si cantidad >= 4)
@@ -234,7 +239,7 @@ class Sistema {
           // Validar saldo suficiente
           if (reserva.cliente.saldo < monto) {
             reserva.estado = "cancelada";
-            return { exito: false, mensaje: "Saldo insuficiente. Reserva cancelada." };
+            return "Saldo insuficiente. Reserva cancelada";
           }
 
           // Aprobar reserva
@@ -247,14 +252,15 @@ class Sistema {
             reserva.concierto.estado = "pausado";
           }
 
-          return { exito: true, mensaje: "Reserva aprobada." };
+          return "Reserva aprobada";
+
         } else if (accion === "cancelar") {
           reserva.estado = "cancelada";
-          return { exito: true, mensaje: "Reserva cancelada." };
+          return "Reserva cancelada";
         }
       }
     }
-    return { exito: false, mensaje: "Reserva no encontrada." };
+    return "Reserva no encontrada";
   }
 
   //______________________________ F08 – AGREGAR CONCIERTOS ________________________________
@@ -266,39 +272,31 @@ class Sistema {
 
   //______________________________ F09 – ADMINISTRAR CONCIERTOS ________________________________
 
-  actualizarConcierto(idConcierto, cambios) {
+  actualizarConcierto(idConcierto, nuevosCupos, nuevoEstado, nuevoOferta) {
+
     for (let i = 0; i < this.conciertos.length; i++) {
       let concierto = this.conciertos[i];
 
       if (concierto.id === idConcierto) {
         // Actualizar cupos
-        if (cambios.cupos !== undefined) {
-          concierto.cupos = cambios.cupos;
+        concierto.cupos = nuevosCupos;
+
           // Si cupos llegan a 0, pausar automáticamente
           if (concierto.cupos === 0) {
-            concierto.estado = "pausado";
-          }
-        }
-
-        // Actualizar estado
-        if (cambios.estado !== undefined) {
-          // No permitir activar si no hay cupos
-          if (cambios.estado === "activo" && concierto.cupos === 0) {
-            concierto.estado = "pausado";
+            concierto.estado = "pausado";           
           } else {
-            concierto.estado = cambios.estado;
+            concierto.estado = nuevoEstado;
           }
-        }
 
         // Actualizar oferta
-        if (cambios.oferta !== undefined) {
-          concierto.oferta = cambios.oferta;
-        }
+          concierto.oferta = nuevoOferta;
 
-        return { exito: true, mensaje: "Concierto actualizado." };
-      }
+        return "Concierto actualizado";
+
+      }//Fin if
     }
-    return { exito: false, mensaje: "Concierto no encontrado." };
+
+    return "Concierto no encontrado";
   }
 
   //______________________________ F10 – INFORME DE GANANCIAS ________________________________
