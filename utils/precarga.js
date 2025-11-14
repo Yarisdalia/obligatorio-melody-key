@@ -64,48 +64,18 @@ function precargarDatos(sistema) {
   const u10 = sistema.clientes[9];
 
   // =========================
-  // 4) Helper para registrar reserva
-  // =========================
-
-  function registrarReserva(reserva) {
-    sistema.reservas.push(reserva);
-
-    // Solo procesamos las aprobadas
-    if (reserva.estado === "aprobada") {
-      const total = reserva.montoTotal();
-
-      const tieneSaldo = reserva.cliente.saldo >= total;
-      const hayCupos = reserva.concierto.cupos >= reserva.cantidad;
-      if (tieneSaldo && hayCupos) {
-        // Descontar saldo y cupos
-        reserva.cliente.saldo = reserva.cliente.saldo - total;
-        reserva.concierto.cupos = reserva.concierto.cupos - reserva.cantidad;
-
-        // Si se quedó sin cupos, se pausa el concierto
-        if (reserva.concierto.cupos === 0) {
-          reserva.concierto.estado = "pausado";
-        }
-      } else {
-        // No alcanza saldo o cupos: la reserva vuelve a "pendiente"
-        reserva.estado = "pendiente";
-      }
-    }
-  }
-
-  // =========================
   // 5) Reservas de ejemplo
   // =========================
-
-  registrarReserva(new Reserva(obtenerIdReserva(), u1, c1, 2, "aprobada"));
-  registrarReserva(new Reserva(obtenerIdReserva(), u2, c2, 1, "pendiente"));
-  registrarReserva(new Reserva(obtenerIdReserva(), u3, c2, 3, "cancelada"));
-  registrarReserva(new Reserva(obtenerIdReserva(), u4, c3, 1, "aprobada"));
-  registrarReserva(new Reserva(obtenerIdReserva(), u5, c4, 4, "pendiente"));
-  registrarReserva(new Reserva(obtenerIdReserva(), u6, c5, 2, "aprobada"));
-  registrarReserva(new Reserva(obtenerIdReserva(), u7, c6, 1, "pendiente"));
-  registrarReserva(new Reserva(obtenerIdReserva(), u8, c7, 2, "cancelada"));
-  registrarReserva(new Reserva(obtenerIdReserva(), u9, c8, 1, "aprobada"));
-  registrarReserva(new Reserva(obtenerIdReserva(), u10, c9, 5, "pendiente"));
+  sistema.reservas.push(new Reserva(obtenerIdReserva(), u1, c1, 2, "aprobada"));
+  sistema.reservas.push(new Reserva(obtenerIdReserva(), u2, c2, 1, "pendiente"));
+  sistema.reservas.push(new Reserva(obtenerIdReserva(), u3, c2, 3, "cancelada"));
+  sistema.reservas.push(new Reserva(obtenerIdReserva(), u4, c3, 1, "aprobada"));
+  sistema.reservas.push(new Reserva(obtenerIdReserva(), u5, c2, 1, "pendiente"));
+  sistema.reservas.push(new Reserva(obtenerIdReserva(), u6, c5, 2, "aprobada"));
+  sistema.reservas.push(new Reserva(obtenerIdReserva(), u7, c6, 1, "pendiente"));
+  sistema.reservas.push(new Reserva(obtenerIdReserva(), u8, c7, 2, "cancelada"));
+  sistema.reservas.push(new Reserva(obtenerIdReserva(), u9, c8, 1, "aprobada"));
+  sistema.reservas.push(new Reserva(obtenerIdReserva(), u10, c9, 5, "pendiente"));
 
   // =========================
   // 6) Administradores
