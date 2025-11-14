@@ -303,10 +303,11 @@ class Sistema {
 
   //______________________________ F10 – INFORME DE GANANCIAS ________________________________
 
-  calcularGanancias() {
+  calcularGananciasTotal() {
     let total = 0;
-    let detalle = {};
+    const reservas = this.listarReservasAprobadas();
 
+<<<<<<< HEAD
     for (let i = 0; i < this.reservas.length; i++) {
       let reserva = this.reservas[i];
 
@@ -330,8 +331,14 @@ class Sistema {
         detalle[conciertoId].cantidad = detalle[conciertoId].cantidad + reserva.cantidad;
         detalle[conciertoId].monto = detalle[conciertoId].monto + monto;
       }
+=======
+    for (let i = 0; i < reservas.length; i++) {
+      const reserva = reservas[i];
+      const monto = reserva.montoConDescuento();
+      total = total + monto;
+>>>>>>> d4296b6e06804000b5457e06dcb975a963d6c9b5
     }
 
-    return { total: total, detalle: detalle };
+    return total;
   }
 }

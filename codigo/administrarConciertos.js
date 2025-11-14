@@ -8,6 +8,23 @@ function mostrarTablaAdministrarConciertos() {
     const conciertos = sistema.conciertos[i];
     const isActivo = conciertos.estado === "activo";
 
+    let checkedEstado = "";
+    if (isActivo) {
+      checkedEstado = "checked";
+    }
+
+    let activeEstado = "";
+    if (isActivo) {
+      activeEstado = "Activo";
+    } else {
+      activeEstado = "Pausado";
+    }
+
+    let checkedOferta = "";
+    if (conciertos.oferta) {
+      checkedOferta = "checked";
+    }
+
     contenidoTabla += `<tr id="row_${conciertos.id}">
       <td>${conciertos.id}</td>
       <td>${conciertos.nombre}</td>
@@ -15,21 +32,20 @@ function mostrarTablaAdministrarConciertos() {
       <td style="width:140px;"><input type="number" class="form-control" value="${conciertos.cupos}" min="0" data-field="cupos"></td>
       <td style="width:150px;">
         <div class="form-check form-switch">
-          <input class="form-check-input" type="checkbox" ${isActivo ? "checked" : ""} data-field="estado">
-          <label class="form-check-label">${isActivo ? "Activo" : "Pausado"}</label>
+          <input class="form-check-input" type="checkbox" ${checkedEstado} data-field="estado">
+          <label class="form-check-label">${activeEstado}</label>
         </div>
       </td>
       <td style="width:120px;">
-        <input class="form-check-input" type="checkbox" ${conciertos.oferta ? "checked" : ""} data-field="oferta">
+        <input class="form-check-input" type="checkbox" ${checkedOferta} data-field="oferta">
       </td>
       <td style="width:160px;"><button class="btn btn-sm btn-mk btnGuardarConcierto" data-guardar="${conciertos.id}">Guardar</button></td>
     </tr>`;
   }
   document.querySelector("#tblAdminConciertos").innerHTML = contenidoTabla;
-  
 
   // Agregar eventos a botones de guardar
-  let botonesGuardar = document.querySelectorAll(".btnGuardarConcierto");
+  const botonesGuardar = document.querySelectorAll(".btnGuardarConcierto");
 
   for (let i = 0; i < botonesGuardar.length; i++) {
     const boton = botonesGuardar[i];
@@ -47,10 +63,10 @@ function guardarConcierto() {
 
   const nuevosCupos = Number(cuposInput.value);
   let nuevoEstado = null;
-  if(estadoInput.checked){
-    nuevoEstado = "activo"
-  }else{
-    nuevoEstado = "pausado"
+  if (estadoInput.checked) {
+    nuevoEstado = "activo";
+  } else {
+    nuevoEstado = "pausado";
   }
 
   const oferta = ofertaInput.checked;
