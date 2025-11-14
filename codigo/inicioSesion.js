@@ -4,10 +4,10 @@ function iniciarSesion() {
   const usuario = document.querySelector("#txtLoginUsuario").value;
   const contrasena = document.querySelector("#txtLoginContrasena").value;
 
-  const resultado = sistema.iniciarSesion(usuario, contrasena);
+  const mensaje = sistema.iniciarSesion(usuario, contrasena);
 
-  if (!resultado.ok){
-    document.querySelector("#pLoginMensaje").textContent = resultado.mensaje;
+  if (siHayError(mensaje)) {
+    document.querySelector("#pLoginMensaje").textContent = mensaje;
   } else {
     actualizarNavbar();
     // Redirigir según rol

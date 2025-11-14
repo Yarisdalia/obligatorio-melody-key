@@ -42,7 +42,7 @@ class Sistema {
   iniciarSesion(usuario, contrasena) {
     // Validar campos vacíos
     if (!usuario || !contrasena) {
-      return "Los campos no pueden estar vacíos";
+      return "ERROR: Los campos no pueden estar vacíos";
     }
 
     // Buscar en administradores
@@ -50,9 +50,9 @@ class Sistema {
       if (this.administradores[i].usuario.toLowerCase() === usuario.toLowerCase()) {
         if (this.administradores[i].contrasena === contrasena) {
           this.usuarioLogueado = this.administradores[i];
-          return mensaje = "Bienvenido " + this.usuarioLogueado.nombre;
+          return;
         } else {
-          return mensaje = "Contraseña incorrecta";
+          return "ERROR: Contraseña incorrecta";
         }
       }
     }
@@ -62,15 +62,14 @@ class Sistema {
       if (this.clientes[i].usuario.toLowerCase() === usuario.toLowerCase()) {
         if (this.clientes[i].contrasena === contrasena) {
           this.usuarioLogueado = this.clientes[i];
-          return mensaje= "Bienvenido " + this.usuarioLogueado.nombre;
+          return;
         } else {
-          return mensaje = "Contraseña incorrecta";
+          return "ERROR: Contraseña incorrecta";
         }
       }
     }
 
-    return mensaje = "Usuario no encontrado";
-    
+    return "ERROR: Usuario no encontrado";
   }
 
   //_____________________________ F0? - CIERRE DE SESION ______________________________________________

@@ -2,7 +2,6 @@
 
 // ------------------- TIPO DE USUARIO --------------------
 
-
 function esAdmin(usuarioLogueado) {
   // Si no hay usuario logueado, devolvemos false directamente
   if (!usuarioLogueado || !usuarioLogueado.id) {
@@ -10,7 +9,7 @@ function esAdmin(usuarioLogueado) {
   }
 
   // Si el ID comienza con "A", entonces es administrador
-  if (usuarioLogueado.id.charAt(0) === "A"){
+  if (usuarioLogueado.id.charAt(0) === "A") {
     return true;
   }
 }
@@ -22,7 +21,7 @@ function esCliente(usuarioLogueado) {
   }
 
   // Si el ID comienza con "C", entonces es cliente
-  if (usuarioLogueado.id.charAt(0) === "C"){
+  if (usuarioLogueado.id.charAt(0) === "C") {
     return true;
   }
 }
@@ -66,7 +65,6 @@ function validarContrasena(contrasena) {
     return false;
   }
 }
-
 
 // ------------------- SIEXISTE PROPIEDAD --------------------
 function existeProp(array, propiedad, valor) {
@@ -143,10 +141,18 @@ function esOfertaActiva(concierto) {
   return false;
 }
 
-
 // -------------------  VERIFICAR SI ESTA UN STRING DENTRO DE UN ARREGLO ------
 
- function estaEnElArrayElString(arr, string){
-    const index = arr.indexOf(string)
-    return index >= 0
- }
+function estaEnElArrayElString(arr, string) {
+  const index = arr.indexOf(string);
+  return index >= 0;
+}
+
+// ------------------- VALIDAR SI HAY ERROR EN EL MENSAJE -------------------
+
+function siHayError(mensaje) {
+  if (mensaje.substring(0, 5) === "ERROR") {
+    return true;
+  }
+  return false;
+}
