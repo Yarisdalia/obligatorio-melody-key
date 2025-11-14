@@ -307,36 +307,10 @@ class Sistema {
     let total = 0;
     const reservas = this.listarReservasAprobadas();
 
-<<<<<<< HEAD
-    for (let i = 0; i < this.reservas.length; i++) {
-      let reserva = this.reservas[i];
-
-      if (reserva.estado === "aprobada") {
-        let monto = reserva.montoConDescuento();
-        total = total + monto;
-
-        let conciertoId = reserva.concierto.id;
-
-        // Si no existe el concierto en el detalle, crearlo
-        if (!detalle[conciertoId]) {
-          detalle[conciertoId] = {
-            nombre: reserva.concierto.nombre,
-            cantidad: 0,
-            monto: 0,
-          };
-        }
-        
-
-        // Sumar cantidad y monto
-        detalle[conciertoId].cantidad = detalle[conciertoId].cantidad + reserva.cantidad;
-        detalle[conciertoId].monto = detalle[conciertoId].monto + monto;
-      }
-=======
     for (let i = 0; i < reservas.length; i++) {
       const reserva = reservas[i];
       const monto = reserva.montoConDescuento();
       total = total + monto;
->>>>>>> d4296b6e06804000b5457e06dcb975a963d6c9b5
     }
 
     return total;
