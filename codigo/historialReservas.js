@@ -29,7 +29,7 @@ function mostrarTablaHistorial() {
       <td>${reserva.concierto.nombre}</td>
       <td class="text-center">${reserva.cantidad}</td>
       <td class="text-center">${reserva.montoConDescuento()}</td>
-      <td>${estadoBadge}</td>
+      <td>${estadoEtiqueta}</td>
       <td class="text-center">
         <button class="btn btn-sm btn-cancel btnCancelarReserva" data-reserva="${reserva.id}" ${puedeCancelar ? "" : "disabled"}>Cancelar</button>
       </td>
