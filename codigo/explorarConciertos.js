@@ -11,18 +11,18 @@ function mostrarTablaExplorar() {
     const concierto = conciertos[i];
 
     // Definir badges
-    let ofertaBadge = "";
+    let ofertaEtiqueta = "";
     if (concierto.oferta) {
-      ofertaBadge = '<span class="badge text-bg-success">Sí</span>';
+      ofertaEtiqueta = '<span class="badge text-bg-success">Sí</span>';
     } else {
       ofertaBadge = '<span class="badge text-bg-secondary">No</span>';
     }
 
-    let estadoBadge = "";
+    let estadoEtiqueta = "";
     if (concierto.estado === "activo") {
-      estadoBadge = '<span class="badge text-bg-success">Activo</span>';
+      estadoEtiqueta = '<span class="badge text-bg-success">Activo</span>';
     } else {
-      estadoBadge = '<span class="badge text-bg-secondary">Pausado</span>';
+      estadoEtiqueta = '<span class="badge text-bg-secondary">Pausado</span>';
     }
 
     contenidoTabla += `<tr>
@@ -30,10 +30,10 @@ function mostrarTablaExplorar() {
       <td>${concierto.artista}</td>
       <td>${concierto.descripcion}</td>
       <td>${concierto.precio}</td>
-      <td>${ofertaBadge}</td>
+      <td>${ofertaEtiqueta}</td>
       <td><img src="Img/${concierto.imagen}" alt="${concierto.artista}" width="80" class="rounded"></td>
       <td>${concierto.cupos}</td>
-      <td>${estadoBadge}</td>
+      <td>${estadoEtiqueta}</td>
       <td><button type="button" class="btn btn-sm btn-primary btnSeleccionarExplorar" data-concierto="${concierto.id}">Seleccionar Concierto</button></td>
     </tr>`;
   }

@@ -324,6 +324,7 @@ class Sistema {
             monto: 0,
           };
         }
+        
 
         // Sumar cantidad y monto
         detalle[conciertoId].cantidad = detalle[conciertoId].cantidad + reserva.cantidad;
