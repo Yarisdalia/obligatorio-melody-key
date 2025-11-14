@@ -303,27 +303,16 @@ class Sistema {
 
   //______________________________ F10 – INFORME DE GANANCIAS ________________________________
 
-  calcularGanancias() {
+  calcularGananciasTotal() {
     let total = 0;
-    let detalle = [];
+    const reservas = this.listarReservasAprobadas();
 
-    for (let i = 0; i < this.reservas.length; i++) {
-      let reserva = this.reservas[i];
-
-      if (reserva.estado === "aprobada") {
-        let monto = reserva.montoConDescuento();
-        total = total + monto;
-
-        // Si no existe el concierto en el detalle, crearlo
-        detalle.push({
-          id: reserva.concierto.id,
-          nombre: reserva.concierto.nombre,
-          cantidad: reserva.cantidad,
-          monto: monto,
-        });
-      }
+    for (let i = 0; i < reservas.length; i++) {
+      const reserva = reservas[i];
+      const monto = reserva.montoConDescuento();
+      total = total + monto;
     }
 
-    return { total: total, detalle: detalle };
+    return total;
   }
 }

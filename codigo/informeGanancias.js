@@ -4,19 +4,19 @@ function mostraTablaGanancias() {
   const gananciaTotal = document.querySelector("#gananciaTotal");
   const tblGanancias = document.querySelector("#tblGanancias");
 
-  const datos = sistema.calcularGanancias();
-  gananciaTotal.innerHTML = "$ " + datos.total;
+  const reservasAprobadas = sistema.listarReservasAprobadas();
+
+  const total = sistema.calcularGananciasTotal();
+  gananciaTotal.innerHTML = "$ " + total;
 
   let contenidoTabla = "";
 
-  const detalles = datos.detalle;
-
-  for (let i = 0; i < detalles.length; i++) {
-    const d = detalles[i];
+  for (let i = 0; i < reservasAprobadas.length; i++) {
+    const reserva = reservasAprobadas[i];
     contenidoTabla += `<tr>
-      <td>${d.nombre}</td>
-      <td class="text-center">${d.cantidad}</td>
-      <td class="text-end">$ ${d.monto}</td>
+      <td>${reserva.concierto.nombre}</td>
+      <td class="text-center">${reserva.cantidad}</td>
+      <td class="text-end">$ ${reserva.montoConDescuento()}</td>
     </tr>`;
   }
 
