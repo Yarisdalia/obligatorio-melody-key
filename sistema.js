@@ -95,41 +95,43 @@ class Sistema {
 
   //___________________________ F04 - RESERVAR ENTRADAS __________________________________________________
 
+  
   solicitarReserva(clienteId, conciertoId, cantidad) {
-    // Buscar cliente
-    let cliente = null;
-    for (let i = 0; i < this.clientes.length; i++) {
-      if (this.clientes[i].id === clienteId) {
-        cliente = this.clientes[i];
-        break;
-      }
+
+  // Buscar cliente
+  let cliente = null;
+  for (let i = 0; i < this.clientes.length; i++) {
+    if (this.clientes[i].id === clienteId) {
+      cliente = this.clientes[i];
+      break;
     }
-
-    // Buscar concierto
-    let concierto = null;
-    for (let i = 0; i < this.conciertos.length; i++) {
-      if (this.conciertos[i].id === conciertoId) {
-        concierto = this.conciertos[i];
-        break;
-      }
-    }
-
-    // Validar cantidad
-    if (!validaCantidad(cantidad)) {
-      return { exito: false, mensaje: "Cantidad inválida." };
-    }
-
-    // Validar que no tenga reserva previa (pendiente o aprobada)
-    if (!puedeReservarEnLista(clienteId, conciertoId, this.reservas)) {
-      return { exito: false, mensaje: "Ya tiene una reserva de este concierto." };
-    }
-
-    // Crear reserva pendiente
-    let nuevaReserva = new Reserva(obtenerIdReserva(), cliente, concierto, cantidad, "pendiente");
-    this.reservas.push(nuevaReserva);
-
-    return { exito: true, mensaje: "Reserva pendiente de confirmación." };
   }
+
+  // Buscar concierto
+  let concierto = null;
+  for (let i = 0; i < this.conciertos.length; i++) {
+    if (this.conciertos[i].id === conciertoId) {
+      concierto = this.conciertos[i];
+      break;
+    }
+  }
+
+  // Validar cantidad
+  if (!validaCantidad(cantidad)) {
+    return false;
+  }
+
+  // Validar que no tenga reserva previa
+  if (!puedeReservarEnLista(clienteId, conciertoId, this.reservas)) {
+    return false;
+  }
+
+  // Crear reserva
+  let nuevaReserva = new Reserva(obtenerIdReserva(), cliente, concierto, cantidad, "pendiente");
+  this.reservas.push(nuevaReserva);
+
+  return true;
+}
 
   //______________________________ F05 – HISTORIAL DE RESERVAS ______________________________________________
 
