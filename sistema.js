@@ -23,7 +23,7 @@ class Sistema {
 
     // Validar contraseña
     if (!validarContrasena(contrasena)) {
-      return "Debe ingresar una contraseña válida.";
+      return "Debe ingresar una contraseña válida: Min. 5 caracteres, 1 mayús, 1 minús, 1 número";
     }
 
     // Validar que las contraseñas coinciden

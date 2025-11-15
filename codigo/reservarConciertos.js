@@ -3,21 +3,27 @@
   document.querySelector("#btnSolicitaReserva").addEventListener("click", reservar);
   
   function reservar() {
-  const pMsg = document.querySelector("#pMensaje");
+  const mensaje = document.querySelector("#pMensaje");
   const inputCantidad = document.querySelector("#txtCantidad");
 
-  pMsg.innerHTML = "";
+  mensaje.innerHTML = "";
 
   const conciertoId = sistema.conciertoPreseleccionado;
-  const cantidad = Number(inputCantidad.value);
+  const cantidad = Number(inputCantidad.value); //Convertimos el contenido en numero
+
+  // Validar cantidad
+  if (!validaCantidad(cantidad)) {
+    mensaje.innerHTML = "El número de entradas debe ser mayor a 0";
+    return;
+  }
 
   const resultado = sistema.solicitarReserva(sistema.usuarioLogueado.id, conciertoId, cantidad);
 
   if (resultado === true) {
-    pMsg.innerHTML = "Reserva registrada correctamente.";
+    mensaje.innerHTML = "Reserva registrada correctamente";
     mostrarSeccion("historial");
   } else {
-    pMsg.innerHTML = "No se pudo registrar la reserva.";
+    mensaje.innerHTML = "No se pudo registrar la reserva";
   }
 }
  
