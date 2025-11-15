@@ -224,13 +224,15 @@ class Sistema {
           // Validar concierto activo
           if (reserva.concierto.estado !== "activo") {
             reserva.estado = "cancelada";
-            return "El concierto no está activo. Reserva cancelada";
+            reserva.motivo = "El concierto no está activo. Reserva cancelada";
+            return reserva.motivo;
           }
 
           // Validar cupos suficientes
           if (reserva.concierto.cupos < reserva.cantidad) {
             reserva.estado = "cancelada";
-            return "No hay cupos suficientes. Reserva cancelada"
+            reserva.motivo = "No hay cupos suficientes. Reserva cancelada";
+            return reserva.motivo;
           }
 
           // Calcular monto con descuento (10% si cantidad >= 4)
@@ -239,7 +241,8 @@ class Sistema {
           // Validar saldo suficiente
           if (reserva.cliente.saldo < monto) {
             reserva.estado = "cancelada";
-            return "Saldo insuficiente. Reserva cancelada";
+            reserva.motivo = "Saldo insuficiente. Reserva cancelada";
+            return reserva.motivo;
           }
 
           // Aprobar reserva
@@ -256,7 +259,7 @@ class Sistema {
 
         } else if (accion === "cancelar") {
           reserva.estado = "cancelada";
-          return "Reserva cancelada";
+          return reserva.motivo = "Cancelada por administrador"
         }
       }
     }
