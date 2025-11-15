@@ -25,11 +25,17 @@ function mostrarTablaHistorial() {
     // Solo se puede cancelar si está pendiente
     let puedeCancelar = reserva.estado === "pendiente";
 
+    let motivo = "-";
+    if (reserva.motivo) {
+      motivo = reserva.motivo;
+    }
+
     contenidoTabla += `<tr>
       <td>${reserva.concierto.nombre}</td>
       <td class="text-center">${reserva.cantidad}</td>
       <td class="text-center">${reserva.montoConDescuento()}</td>
       <td>${estadoEtiqueta}</td>
+       <td>${motivo}</td>
       <td class="text-center">
         <button class="btn btn-sm btn-cancel btnCancelarReserva" data-reserva="${reserva.id}" ${puedeCancelar ? "" : "disabled"}>Cancelar</button>
       </td>

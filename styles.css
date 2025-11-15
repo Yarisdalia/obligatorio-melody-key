@@ -65,8 +65,9 @@ body {
 #login[data-section] {
   display: block;
 }
-:target ~ #login[data-section] {
-  display: none;
+
+#pMotivoCancelacion {
+  color : white; 
 }
 
 /* Estilos específicos usados en secciones */
