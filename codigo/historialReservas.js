@@ -23,7 +23,10 @@ function mostrarTablaHistorial() {
     }
 
     // Solo se puede cancelar si está pendiente
-    let puedeCancelar = reserva.estado === "pendiente";
+    let atributoDeshabilitado = "";
+    if (reserva.estado !== "pendiente") {
+      atributoDeshabilitado = "disabled";
+    }
 
     contenidoTabla += `<tr>
       <td>${reserva.concierto.nombre}</td>
@@ -31,7 +34,11 @@ function mostrarTablaHistorial() {
       <td class="text-center">${reserva.montoConDescuento()}</td>
       <td>${estadoEtiqueta}</td>
       <td class="text-center">
-        <button class="btn btn-sm btn-cancel btnCancelarReserva" data-reserva="${reserva.id}" ${puedeCancelar ? "" : "disabled"}>Cancelar</button>
+        <button class="btn btn-sm btn-cancel btnCancelarReserva"
+                data-reserva="${reserva.id}"
+                ${atributoDeshabilitado}>
+          Cancelar
+        </button>
       </td>
     </tr>`;
   }
@@ -47,13 +54,12 @@ function mostrarTablaHistorial() {
 
   // Actualizar saldo y total
   document.querySelector("#saldoDisponibleHistorial").innerHTML = cliente.saldo;
-  console.log(cliente.saldo);
   document.querySelector("#totalAprobadas").innerHTML = sistema.totalAprobadasCliente(cliente.id);
 }
 
 function cancelarReserva() {
   const id = this.getAttribute("data-reserva");
   const cliente = sistema.usuarioLogueado;
-  const res = sistema.cancelarReserva(id, cliente.id);
+  sistema.cancelarReserva(id, cliente.id);
   mostrarTablaHistorial();
 }
