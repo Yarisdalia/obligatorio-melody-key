@@ -31,22 +31,27 @@
             <li class="nav-item" id="navHistorial">
               <a class="nav-link boton" href="#" id="btnHistorial">Historial</a>
             </li>
-            <li class="nav-item dropdown" id="navAdmin">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Admin</a>
-              <ul class="dropdown-menu dropdown-menu-end">
-                <li>
-                  <a class="dropdown-item boton" href="#" id="btnAgregar">Agregar Concierto</a>
-                </li>
-                <li>
-                  <a class="dropdown-item boton" href="#" id="btnAdmin">Administrar Conciertos</a>
-                </li>
-                <li>
-                  <a class="dropdown-item boton" href="#" id="btnProcesar">Procesar Reservas</a>
-                </li>
-                <li>
-                  <a class="dropdown-item boton" href="#" id="btnGanancias">Informe de Ganancias</a>
-                </li>
-              </ul>
+
+            <li class="nav-item" id="navAgregar">
+              <a class="nav-link boton" href="#" id="btnAgregar">Agregar</a>
+            </li>
+            <li class="nav-item" id="navAdministrar">
+              <a class="nav-link boton" href="#" id="btnAdmin">Administrar</a>
+            </li>
+            <li class="nav-item" id="navProcesar">
+              <a class="nav-link boton" href="#" id="btnProcesar">Procesar</a>
+            </li>
+            <li class="nav-item" id="navGanancias">
+              <a class="nav-link boton" href="#" id="btnGanancias">Ganancias</a>
+            </li>
+
+            <li class="nav-item d-flex align-items-center ms-2">
+              <span id="navUsuario" class="small text-white-50"></span>
+            </li>
+            <li class="nav-item ms-2">
+              <button type="button" id="btnCerrarSesion" class="btn btn-sm btn-light" style="display: none">Cerrar sesión</button>
+            </li>
+          </ul>
             </li>
             <li class="nav-item d-flex align-items-center ms-2">
               <span id="navUsuario" class="small text-white-50"></span>
@@ -225,7 +230,7 @@
             <div class="row g-3 align-items-center">
               <div class="col-12 col-md-4">
                 <label for="txtCantidad" class="form-label">Cantidad</label>
-                <input type="number" id="txtCantidad" value="2" min="1" class="form-control" />
+                <input type="number" id="txtCantidad" value="1" class="form-control" />
               </div>
             </div>
             <div class="mt-4 d-flex flex-column flex-sm-row gap-3 align-items-sm-center justify-content-between text-contrast">
@@ -253,6 +258,7 @@
                     <th class="text-center">Cantidad</th>
                     <th class="text-center">Monto</th>
                     <th>Estado</th>
+                    <th>Comentarios</th>
                     <th class="text-center"></th>
                   </tr>
                 </thead>
@@ -338,6 +344,18 @@
                     <input class="form-check-input" type="checkbox" id="chkOferta" />
                     <label class="form-check-label" for="chkOferta">En oferta</label>
                   </div>
+                <div class="col-12">
+                  <div class="form-check">
+                    <label for="slcImagen">Imagen del concierto:</label>
+                    <select id="slcImagen">
+                      <option value="default.png">Seleccionar imagen...</option>
+                      <option value="concierto.jpeg">Concierto</option>
+                      <option value="festival.jpg">Festival</option>
+                      <option value="show.jpg">Show</option>
+                      <option value="musical.jpg">Musical</option>
+                      <option value="sinfonico.jpg">Sinfónico</option>
+                    </select>
+                  </div>
                 </div>
               </div>
               <div class="mt-4">
@@ -357,6 +375,7 @@
         <div class="card shadow-lg">
           <div class="card-body">
             <div class="table-responsive">
+              <p id="msgAdminConciertos"></p>
               <table class="table align-middle">
                 <thead>
                   <tr>
@@ -394,7 +413,6 @@
               </table>
             </div>
             <div class="mt-2">
-              <small id="msgAdminConciertos" class="text-muted"></small>
             </div>
           </div>
         </div>
@@ -488,6 +506,7 @@
               </div>
             </div>
           </div>
+          <p id="pMotivoCancelacion"></p>
         </div>
       </div>
     </section>
