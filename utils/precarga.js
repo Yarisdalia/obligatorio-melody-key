@@ -1,8 +1,8 @@
 // Precarga de datos para el sistema (conciertos, clientes, reservas y administradores)
 function precargarDatos(sistema) {
-  // =========================
-  // 1) Conciertos
-  // =========================
+  
+  // ------------- Conciertos -----------------
+  
 
   // Conciertos: id, nombre, artista, precio, descripcion, imagen, cupos, estado, oferta
   sistema.conciertos.push(
@@ -18,9 +18,9 @@ function precargarDatos(sistema) {
     new Concierto(obtenerIdConcierto(), "Evento Especial Montevideo", "Artista Popular", 4000, "Concierto especial con cupos agotados", "evento_especial.jpg", 0, "pausado", false),
   );
 
-  // =========================
-  // 2) Clientes
-  // =========================
+ 
+  // ----------------- Clientes
+ 
 
   // Clientes: id, nombre, apellido, usuario, contraseña, saldo
   sistema.clientes.push(
@@ -36,9 +36,9 @@ function precargarDatos(sistema) {
     new Cliente(obtenerIdCliente(), "Joaquin", "Paz", "joap", "Joaquin1", 11000),
   );
 
-  // =========================
-  // 3) Atajos para conciertos y clientes
-  // =========================
+  
+  // -----------Atajos para conciertos y clientes
+  
 
   // Conciertos
   const c1 = sistema.conciertos[0];
@@ -63,9 +63,9 @@ function precargarDatos(sistema) {
   const u9 = sistema.clientes[8];
   const u10 = sistema.clientes[9];
 
-  // =========================
-  // 5) Reservas de ejemplo
-  // =========================
+  
+  // ----------------- Reservas de ejemplo
+  
   sistema.reservas.push(new Reserva(obtenerIdReserva(), u1, c1, 2, "aprobada"));
   sistema.reservas.push(new Reserva(obtenerIdReserva(), u2, c2, 1, "pendiente"));
   sistema.reservas.push(new Reserva(obtenerIdReserva(), u3, c2, 3, "cancelada"));
@@ -77,9 +77,9 @@ function precargarDatos(sistema) {
   sistema.reservas.push(new Reserva(obtenerIdReserva(), u9, c8, 1, "aprobada"));
   sistema.reservas.push(new Reserva(obtenerIdReserva(), u10, c9, 5, "pendiente"));
 
-  // =========================
-  // 6) Administradores
-  // =========================
+  
+  // ------------------ Administradores
+ 
 
   // Administradores: id, nombre, usuario, contraseña
   sistema.administradores.push(
