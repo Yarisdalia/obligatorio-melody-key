@@ -23,7 +23,7 @@ class Sistema {
 
     // Validar contraseña
     if (!validarContrasena(contrasena)) {
-      return "Debe ingresar una contraseña válida.";
+      return "Debe ingresar una contraseña válida: Min. 5 caracteres, 1 mayús, 1 minús, 1 número";
     }
 
     // Validar que las contraseñas coinciden
@@ -95,41 +95,43 @@ class Sistema {
 
   //___________________________ F04 - RESERVAR ENTRADAS __________________________________________________
 
+  
   solicitarReserva(clienteId, conciertoId, cantidad) {
-    // Buscar cliente
-    let cliente = null;
-    for (let i = 0; i < this.clientes.length; i++) {
-      if (this.clientes[i].id === clienteId) {
-        cliente = this.clientes[i];
-        break;
-      }
+
+  // Buscar cliente
+  let cliente = null;
+  for (let i = 0; i < this.clientes.length; i++) {
+    if (this.clientes[i].id === clienteId) {
+      cliente = this.clientes[i];
+      break;
     }
-
-    // Buscar concierto
-    let concierto = null;
-    for (let i = 0; i < this.conciertos.length; i++) {
-      if (this.conciertos[i].id === conciertoId) {
-        concierto = this.conciertos[i];
-        break;
-      }
-    }
-
-    // Validar cantidad
-    if (!validaCantidad(cantidad)) {
-      return { exito: false, mensaje: "Cantidad inválida." };
-    }
-
-    // Validar que no tenga reserva previa (pendiente o aprobada)
-    if (!puedeReservarEnLista(clienteId, conciertoId, this.reservas)) {
-      return { exito: false, mensaje: "Ya tiene una reserva de este concierto." };
-    }
-
-    // Crear reserva pendiente
-    let nuevaReserva = new Reserva(obtenerIdReserva(), cliente, concierto, cantidad, "pendiente");
-    this.reservas.push(nuevaReserva);
-
-    return { exito: true, mensaje: "Reserva pendiente de confirmación." };
   }
+
+  // Buscar concierto
+  let concierto = null;
+  for (let i = 0; i < this.conciertos.length; i++) {
+    if (this.conciertos[i].id === conciertoId) {
+      concierto = this.conciertos[i];
+      break;
+    }
+  }
+
+  // Validar cantidad
+  if (!validaCantidad(cantidad)) {
+    return false;
+  }
+
+  // Validar que no tenga reserva previa
+  if (!puedeReservarEnLista(clienteId, conciertoId, this.reservas)) {
+    return false;
+  }
+
+  // Crear reserva
+  let nuevaReserva = new Reserva(obtenerIdReserva(), cliente, concierto, cantidad, "pendiente");
+  this.reservas.push(nuevaReserva);
+
+  return true;
+}
 
   //______________________________ F05 – HISTORIAL DE RESERVAS ______________________________________________
 
@@ -224,13 +226,15 @@ class Sistema {
           // Validar concierto activo
           if (reserva.concierto.estado !== "activo") {
             reserva.estado = "cancelada";
-            return "El concierto no está activo. Reserva cancelada";
+            reserva.motivo = "El concierto no está activo. Reserva cancelada";
+            return reserva.motivo;
           }
 
           // Validar cupos suficientes
           if (reserva.concierto.cupos < reserva.cantidad) {
             reserva.estado = "cancelada";
-            return "No hay cupos suficientes. Reserva cancelada"
+            reserva.motivo = "No hay cupos suficientes. Reserva cancelada";
+            return reserva.motivo;
           }
 
           // Calcular monto con descuento (10% si cantidad >= 4)
@@ -239,7 +243,8 @@ class Sistema {
           // Validar saldo suficiente
           if (reserva.cliente.saldo < monto) {
             reserva.estado = "cancelada";
-            return "Saldo insuficiente. Reserva cancelada";
+            reserva.motivo = "Saldo insuficiente. Reserva cancelada";
+            return reserva.motivo;
           }
 
           // Aprobar reserva
@@ -256,7 +261,7 @@ class Sistema {
 
         } else if (accion === "cancelar") {
           reserva.estado = "cancelada";
-          return "Reserva cancelada";
+          return reserva.motivo = "Cancelada por administrador"
         }
       }
     }
