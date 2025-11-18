@@ -22,18 +22,29 @@ function mostrarTablaHistorial() {
       estadoEtiqueta = '<span class="badge text-bg-danger">Cancelada</span>';
     }
 
-    // Solo se puede cancelar si está pendiente
-    let puedeCancelar = reserva.estado === "pendiente";
+    
+// Solo se puede cancelar si está pendiente
+let puedeCancelar = reserva.estado === "pendiente";
 
-    contenidoTabla += `<tr>
-      <td>${reserva.concierto.nombre}</td>
-      <td class="text-center">${reserva.cantidad}</td>
-      <td class="text-center">${reserva.montoConDescuento()}</td>
-      <td>${estadoEtiqueta}</td>
-      <td class="text-center">
-        <button class="btn btn-sm btn-cancel btnCancelarReserva" data-reserva="${reserva.id}" ${puedeCancelar ? "" : "disabled"}>Cancelar</button>
-      </td>
-    </tr>`;
+// Atributo "disabled" en español, claro y directo
+let atributoDeshabilitado = "";
+if (!puedeCancelar) {
+  atributoDeshabilitado = "disabled";
+}
+
+contenidoTabla += `<tr>
+  <td>${reserva.concierto.nombre}</td>
+  <td class="text-center">${reserva.cantidad}</td>
+  <td class="text-center">${reserva.montoConDescuento()}</td>
+  <td>${estadoEtiqueta}</td>
+  <td class="text-center">
+    <button class="btn btn-sm btn-cancel btnCancelarReserva" 
+            data-reserva="${reserva.id}" 
+            ${atributoDeshabilitado}>
+      Cancelar
+    </button>
+  </td>
+</tr>`;
   }
 
   tbody.innerHTML = contenidoTabla;
