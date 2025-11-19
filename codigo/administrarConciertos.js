@@ -76,13 +76,8 @@ function guardarConcierto() {
     nuevoOferta = false;
   }
 
- //Actualizamos los datos del concierto
- /*  sistema.actualizarConcierto(id, nuevosCupos, nuevoEstado, nuevoOferta); */
-
-  //Guardar el mensaje retornado por el sistema
-  const mensaje = sistema.actualizarConcierto(id, nuevosCupos, nuevoEstado, nuevoOferta);
-  //Mostrar el mensaje en el HTML
-  document.querySelector("#msgAdminConciertos").innerHTML = mensaje;
+  //Actualizamos los datos del concierto
+  sistema.actualizarConcierto(id, nuevosCupos, nuevoEstado, nuevoOferta);
 
   mostrarTablaAdministrarConciertos();
 }

@@ -98,7 +98,7 @@ function puedeReservarEnLista(clienteId, conciertoId, reservas) {
   for (let i = 0; i < reservas.length; i++) {
     let reservaActual = reservas[i];
     if (reservaActual.cliente.id === clienteId && reservaActual.concierto.id === conciertoId) {
-      // Si tiene reserva pendiente o aprobada: No puede volver a reservar
+      // Solo bloquear si tiene reserva pendiente o aprobada
       if (reservaActual.estado === "pendiente" || reservaActual.estado === "aprobada") {
         return false;
       }

@@ -57,15 +57,12 @@ function mostarTablaDeGestionarReservas() {
 
 function aprobarReserva() {
   const id = this.getAttribute("data-aprobar");
-  const mensaje = sistema.procesarReserva(id, "aprobar"); // capturo el mensaje devuelto
-  document.querySelector("#pMotivoCancelacion").innerHTML = mensaje; // lo muestro
+  sistema.procesarReserva(id, "aprobar");
   mostarTablaDeGestionarReservas();
 }
 
 function cancelarReservaAdmin() {
   const id = this.getAttribute("data-cancelar");
-  const mensaje = sistema.procesarReserva(id, "cancelar"); // capturo el mensaje devuelto
-  document.querySelector("#pMotivoCancelacion").innerHTML = mensaje; // lo muestro
+  sistema.procesarReserva(id, "cancelar");
   mostarTablaDeGestionarReservas();
 }
-

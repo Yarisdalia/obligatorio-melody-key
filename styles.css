@@ -65,13 +65,8 @@ body {
 #login[data-section] {
   display: block;
 }
-
-#pMotivoCancelacion {
-  color : white; 
-}
-
-#msgAdminConciertos {
-  color: white;
+:target ~ #login[data-section] {
+  display: none;
 }
 
 /* Estilos específicos usados en secciones */
