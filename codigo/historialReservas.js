@@ -23,43 +23,62 @@ function mostrarTablaHistorial() {
     }
 
     // Solo se puede cancelar si está pendiente
-    let puedeCancelar = reserva.estado === "pendiente";
+    let puedeCancelar = false;
+    if (reserva.estado === "pendiente") {
+      puedeCancelar = true;
+    }
 
     let motivo = "-";
     if (reserva.motivo) {
       motivo = reserva.motivo;
     }
 
-    contenidoTabla += `<tr>
-      <td>${reserva.concierto.nombre}</td>
-      <td class="text-center">${reserva.cantidad}</td>
-      <td class="text-center">${reserva.montoConDescuento()}</td>
-      <td>${estadoEtiqueta}</td>
-       <td>${motivo}</td>
-      <td class="text-center">
-        <button class="btn btn-sm btn-cancel btnCancelarReserva" data-reserva="${reserva.id}" ${puedeCancelar ? "" : "disabled"}>Cancelar</button>
-      </td>
-    </tr>`;
+    let botonCancelar = "";
+    if (puedeCancelar) {
+      botonCancelar = `
+    <button class="btn btn-sm btn-cancel btnCancelarReserva"
+            data-reserva="${reserva.id}">
+      Cancelar
+    </button>`;
+    } else {
+      botonCancelar = `
+    <button class="btn btn-sm btn-cancel btnCancelarReserva"
+            data-reserva="${reserva.id}" disabled>
+      Cancelar
+    </button>`;
+    }
+
+    contenidoTabla += `
+  <tr>
+    <td>${reserva.concierto.nombre}</td>
+    <td class="text-center">${reserva.cantidad}</td>
+    <td class="text-center">${reserva.montoConDescuento()}</td>
+    <td>${estadoEtiqueta}</td>
+    <td>${motivo}</td>
+    <td class="text-center">
+      ${botonCancelar}
+    </td>
+  </tr>`;
+
+    tbody.innerHTML = contenidoTabla;
+
+    // Agregar eventos a los botones
+    let botonesCancelar = document.querySelectorAll(".btnCancelarReserva");
+    for (let i = 0; i < botonesCancelar.length; i++) {
+      const boton = botonesCancelar[i];
+      boton.addEventListener("click", cancelarReserva);
+    }
+
+    // Actualizar saldo y total
+    document.querySelector("#saldoDisponibleHistorial").innerHTML = cliente.saldo;
+    console.log(cliente.saldo);
+    document.querySelector("#totalAprobadas").innerHTML = sistema.totalAprobadasCliente(cliente.id);
   }
 
-  tbody.innerHTML = contenidoTabla;
-
-  // Agregar eventos a los botones
-  let botonesCancelar = document.querySelectorAll(".btnCancelarReserva");
-  for (let i = 0; i < botonesCancelar.length; i++) {
-    const boton = botonesCancelar[i];
-    boton.addEventListener("click", cancelarReserva);
+  function cancelarReserva() {
+    const id = this.getAttribute("data-reserva");
+    const cliente = sistema.usuarioLogueado;
+    const res = sistema.cancelarReserva(id, cliente.id);
+    mostrarTablaHistorial();
   }
-
-  // Actualizar saldo y total
-  document.querySelector("#saldoDisponibleHistorial").innerHTML = cliente.saldo;
-  console.log(cliente.saldo);
-  document.querySelector("#totalAprobadas").innerHTML = sistema.totalAprobadasCliente(cliente.id);
-}
-
-function cancelarReserva() {
-  const id = this.getAttribute("data-reserva");
-  const cliente = sistema.usuarioLogueado;
-  const res = sistema.cancelarReserva(id, cliente.id);
-  mostrarTablaHistorial();
 }
