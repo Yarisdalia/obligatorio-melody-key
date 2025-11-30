@@ -7,8 +7,9 @@ function Registrar() {
   const usuario = document.querySelector("#txtUsuario").value;
   const contrasena = document.querySelector("#txtContrasena").value;
   const contrasena2 = document.querySelector("#txtContrasena2").value;
+  const cedula = document.querySelector("#txtCedula").value;
 
-  const mensaje = sistema.agregarUsuario(nombre, apellido, usuario, contrasena, contrasena2);
+  const mensaje = sistema.agregarUsuario(nombre, apellido, usuario, contrasena, contrasena2, cedula);
   document.querySelector("#pResultado").innerHTML = mensaje;
 
   //Limpiamos los inputs

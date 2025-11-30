@@ -10,10 +10,26 @@ class Sistema {
 
   //_____________________________ F01 - REGISTRO DE CLIENTE ___________________________________
 
-  agregarUsuario(nombre, apellido, usuario, contrasena, confirmarContrasena) {
+  agregarUsuario(nombre, apellido, usuario, contrasena, confirmarContrasena, cedula) {
     // Validar que todos los campos están completos
-    if (!nombre || !apellido || !usuario || !contrasena || !confirmarContrasena) {
+    if (!nombre || !apellido || !usuario || !contrasena || !confirmarContrasena || !cedula) {
       return "Todos los campos son obligatorios.";
+    }
+
+    if(cedula.length !== 6 ) {
+      return "La cedula tiene que tener 6 caracteres"
+    }
+
+    let tieneLetra = null
+    for (let i = 0; i < cedula.length; i++) {
+      const letraDelStringDeLaCedula = cedula[i];
+
+      if(isNaN(letraDelStringDeLaCedula)){
+        tieneLetra = true
+      }
+    }
+    if (tieneLetra ) {
+      return "Solo puede tener numeros"
     }
 
     // Validar que el usuario no existe
